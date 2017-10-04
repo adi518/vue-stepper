@@ -5,11 +5,11 @@
 ## Scaffold
 
 ```
-PS C:\> vue init webpack wobi-component-boilerplate
+PS C:\> vue init webpack
 
-? Project name wobi-component-boilerplate
+? Project name vue-wizard
 ? Project description A Vue.js project
-? Author adi <adi@wobi.co.il>
+? Author adi <adisahar1@hotmail.com>
 ? Vue build standalone
 ? Install vue-router? Yes
 ? Use ESLint to lint your code? Yes
