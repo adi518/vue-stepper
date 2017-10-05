@@ -46,7 +46,7 @@
     <div ref="docs" class="container demo-container demo-pad-below demo-clearfix">
       <h2>Install & and Usage</h2>
       <p>Install from GitHub via NPM</p>
-      <pre class="demo-space-below language-bash"><code >$ npm install vue-wizard --save</code></pre>
+      <pre class="demo-space-below language-bash"><code>$ npm install vue-wizard --save</code></pre>
       <p>To use the component in your templates, simply import it, and register it with your component.</p>
       <pre class="demo-space-below language-js"><code v-html="markdowns.Install"/></pre>
       <h2>Support</h2>
@@ -153,7 +153,7 @@ export default {
     color: $color-hot-pink;
     text-decoration: none;
     background-color: $color-white;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+    box-shadow: 1px 1px 1px rgba($color-black, .2);
   }
 }
 
