@@ -1,0 +1,58 @@
+.demo-clearfix {
+  // https://www.rachelandrew.co.uk/archives/2017/01/24/the-end-of-the-clearfix-hack/
+  &::after,
+  &::before {
+    height: 0;
+    display: block;
+    content: '\0020';
+    overflow: hidden;
+  }
+
+  &::after {
+    clear: both;
+  }
+}
+
+.demo-block {
+  display: block;
+}
+
+.demo-flex {
+  display: flex;
+}
+
+.demo-talign-center {
+  text-align: center;
+}
+
+.demo-talign-justify {
+  text-align: justify;
+}
+
+.demo-space-below {
+  margin-bottom: 1em;
+}
+
+pre.demo-space-below {
+  margin-bottom: 2em !important;
+}
+
+.demo-large-space-below {
+  margin-bottom: 2em;
+}
+
+.demo-cursor-pointer {
+  cursor: pointer;
+}
+
+.demo-lowercase {
+  text-transform: lowercase;
+}
+
+.demo-small {
+  font-size: .6em;
+}
+
+.demo-pad-below {
+  padding-bottom: 1em;
+}

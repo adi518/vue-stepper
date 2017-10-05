@@ -50,7 +50,10 @@ exports.cssLoaders = function (options) {
     postcss: generateLoaders(),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
+    scss: generateLoaders('sass', {
+      // https://github.com/vuejs/vue-loader/issues/328#issuecomment-270077773
+      includePaths: ['./src/sass', './node_modules'],
+    }),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
   }

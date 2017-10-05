@@ -1,0 +1,34 @@
+h1 {
+  display: flex;
+  opacity: .85;
+  font-size: 3.3em;
+  padding-right: 1em;
+  background-position: 100%;
+  background-size: 1em auto;
+  background-repeat: no-repeat;
+  background-image: url('~@/assets/images/logo.png');
+  font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+}
+
+h2 {
+  font-size: 1.3em;
+  margin: 1em 0 1em;
+  padding-bottom: .4em;
+  border-bottom: 1px solid $color-gallery;
+}
+
+sup {
+  font-size: .2em;
+  font-family: $demo-bootstrap-font-stack;
+}
+
+pre {
+  font-size: .8em !important;
+  border-radius: 4px !important;
+  border: .05em solid $color-silver !important;
+  /*
+  white-space: pre-line;
+  word-wrap: break-word;
+  word-break: break-all;
+  */
+}
