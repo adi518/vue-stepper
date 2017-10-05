@@ -33,8 +33,8 @@ export default {
         step: 1,
         steps: [
           { title: 'eeny', value: 1 },
-          { title: 'miny', value: 2 },
-          { title: 'moe' , value: 3 }
+          { title: 'miny', value: 2, disabled: true },
+          { title: 'moe' , value: 3, disabled: true }
         ]
      }
   }
