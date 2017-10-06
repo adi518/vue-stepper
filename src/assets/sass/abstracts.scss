@@ -17,6 +17,10 @@ h2 {
   border-bottom: 1px solid $color-gallery;
 }
 
+h3 {
+  font-size: 1.1em;
+}
+
 sup {
   font-size: .2em;
   font-family: $demo-bootstrap-font-stack;
@@ -26,9 +30,4 @@ pre {
   font-size: .8em !important;
   border-radius: 4px !important;
   border: .05em solid $color-silver !important;
-  /*
-  white-space: pre-line;
-  word-wrap: break-word;
-  word-break: break-all;
-  */
 }

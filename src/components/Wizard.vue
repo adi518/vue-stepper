@@ -1,17 +1,18 @@
 <template>
   <div class="v-wizard">
     <div
-      class="step"
       v-for="(step, index) in steps"
       :key="index"
-      :class="stepClasses(step)">
+      :class="['step', stepClasses(step)]">
       <!-- we cannot type check here: `value == step.value` -->
       <input class="input"
         type="radio"
+        :id="getId(index)"
+        :name="`${$options.name}-${_uid}`"
+        :value="step.value"
         :checked="isChecked(step)"
         :disabled="step.disabled"
         v-show="debug"
-        v-bind="inputProps(step, index)"
         @change="onChange" />
       <label class="label" :for="getId(index)">
         <span class="index" v-html="index + 1" />
@@ -40,33 +41,13 @@ export default {
         return []
       }
     },
-    reset: {
-      type: Boolean,
-      default: false
-    },
     debug: {
       type: Boolean,
       default: false
     }
   },
-  creatd() {
-    this.mutableReset = this.reset
-  },
-  watch: {
-    value(value, oldValue) {
-      if (oldValue) {
-        const index = this.steps.findIndex(step => step.value == oldValue) // eslint-disable-line eqeqeq
-        this.$set(this.steps[index], 'visited', true)
-      }
-    },
-    reset(value) {
-      this.mutableReset = value
-      if (this.mutableReset) {
-        this.steps.forEach(step => this.$set(step, 'visited', false))
-        this.mutableReset = false
-        this.$emit('update:reset', this.mutableReset)
-      }
-    }
+  created() {
+    this.initialValue = this.value
   },
   computed: {
     stepsCount() {
@@ -74,11 +55,27 @@ export default {
     },
     lastStepIndex() {
       return this.stepsCount - 1
+    },
+    stepIndex() {
+      return this.steps.findIndex(step => step.value == this.value) // eslint-disable-line eqeqeq
     }
   },
   methods: {
+    setStepAsVisited() {
+      const index = this.stepIndex
+      if (Number.isInteger(index)) {
+        this.$set(this.steps[index], 'visited', true)
+      }
+    },
     onChange() {
-      this.$emit('input', event.target.value)
+      this.onChangeCallback()
+    },
+    onChangeCallback(value) {
+      this.setStepAsVisited()
+      this.emitValue(value)
+    },
+    emitValue(value) {
+      this.$emit('input', value || event.target.value)
     },
     getId(index) {
       return `${this._uid}-${index}`
@@ -92,23 +89,34 @@ export default {
     isChecked(step) {
       return this.value == step.value // eslint-disable-line eqeqeq
     },
-    inputProps(step, index) {
-      return {
-        id: this.getId(index),
-        name: this._uid,
-        value: step.value,
-      }
-    },
     stepClasses(step) {
       return {
         'is-active': this.isChecked(step),
         'is-visited': step.visited
       }
+    },
+    changeStep(offset) {
+      const step = this.steps[this.stepIndex + offset]
+      if (step) {
+        this.onChangeCallback(step.value)
+      }
+    },
+    reset() {
+      const steps = [].concat(this.steps)
+      steps.forEach(step => this.$set(step, 'visited', false))
+      this.emitValue(this.initialValue)
+      this.$emit('was-reset')
+    },
+    next() {
+      this.changeStep(1)
+    },
+    previous() {
+      this.changeStep(-1)
     }
   },
   data() {
     return {
-      mutableReset: null
+      initialValue: null
     }
   }
 }

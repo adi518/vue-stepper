@@ -11,7 +11,7 @@
           A super lean, fully reactive Vue.js Wizard component with Vuex support and Zero dependencies.
         </p>
         <!-- Accolades -->
-        <v-wizard class="demo-wizard demo-large-space-below" v-bind="options" v-model="step" :reset.sync="reset" />
+        <v-wizard ref="wizard" class="demo-wizard demo-large-space-below" v-bind="options" v-model="step" />
         <div class="demo-space-below demo-talign-justify">
           <div v-if="step == 1">
             <p>
@@ -39,9 +39,9 @@
           </div>
         </div>
         <p class="demo-talign-center">
-          <a href="" class="btn demo-button" @click.prevent="changeStep(-1)">Previous</a>
-          <a href="" class="btn demo-button" @click.prevent="changeStep(1)">Next</a>
-          <a href="" class="btn demo-button" @click.prevent="doReset">Reset</a>
+          <a href="" class="btn demo-button" @click.prevent="$refs.wizard.previous()">Previous</a>
+          <a href="" class="btn demo-button" @click.prevent="$refs.wizard.next()">Next</a>
+          <a href="" class="btn demo-button" @click.prevent="$refs.wizard.reset()">Reset</a>
           <a :href="linkToGit" target="_blank" class="btn demo-button">View on GitHub</a>
         </p>
       </div>
@@ -54,17 +54,27 @@
       <pre class="demo-large-space-below language-bash"><code>$ npm install vue-wizard --save</code></pre>
       <p>To use the component in your templates, simply import it, and register it with your component.</p>
       <pre class="demo-large-space-below language-js"><code v-html="markdowns.Install"/></pre>
+      <h2>Examples</h2>
+      <h3>With Local State</h3>
+      <pre class="demo-large-space-below language-js"><code v-html="markdowns.ExampleLocalState"/></pre>
+      <h3>With Vuex</h3>
+      <pre class="demo-large-space-below language-js"><code v-html="markdowns.ExampleWithVuex"/></pre>
+      <h3>Changing Steps Programmatically</h3>
+      <pre class="demo-large-space-below language-js"><code v-html="markdowns.ExampleProgrammatic"/></pre>
       <h2>Support</h2>
       <p> Please open an
         <a :href="pkg.bugs.url" target="_blank">issue</a> for support.
       </p>
     </div>
     <git-ribbon :href="linkToGit" />
-    <v-switch class="demo-switch demo-important demo-switch-debug" size="lg" v-model="options.debug" open-name="Off" close-name="Debug" color="green" />
+    <v-switch class="demo-switch demo-important demo-switch-debug" size="lg" v-model="options.debug" @update:value="value => step = value" open-name="On" close-name="Debug" color="green" />
   </div>
 </template>
 
 <script>
+// https://v4-alpha.getbootstrap.com/
+// https://github.com/spatie/vue-tabs-component
+// https://github.com/cristijora/vue-tabs/blob/master/src/components/VueTabs.js
 // https://stackoverflow.com/questions/42645964/vue-js-anchor-to-div-within-the-same-component
 
 // Meta-data
@@ -90,29 +100,12 @@ export default {
     vSwitch,
     GitRibbon
   },
-  created() {
-    this.initial.step = this.step
-  },
   mounted() {
     Prism.highlightAll()
   },
   computed: {
-    reset: {
-      get() {
-        return this.options.reset
-      },
-      set(payload) {
-        this.options.reset = payload
-      }
-    },
     linkToGit() {
       return pkg.repository.url
-    },
-    steps() {
-      return this.options.steps
-    },
-    stepIndex() {
-      return this.steps.findIndex(step => step.value == this.step) // eslint-disable-line eqeqeq
     }
   },
   methods: {
@@ -120,16 +113,6 @@ export default {
       const element = this.$refs[refName]
       const top = element.offsetTop
       window.scrollTo(0, top)
-    },
-    doReset() {
-      this.step = this.initial.step
-      this.options.reset = true
-    },
-    changeStep(offset) {
-      const step = this.steps[this.stepIndex + offset]
-      if (step) {
-        this.step = step.value
-      }
     }
   },
   data() {
@@ -139,7 +122,6 @@ export default {
       markdowns: {
         Install
       },
-      initial: {},
       step: 1,
       options: {
         steps: [
@@ -156,7 +138,6 @@ export default {
             value: 3
           }
         ],
-        reset: false,
         debug: false
       }
     }
@@ -167,7 +148,6 @@ export default {
 <style lang="scss">
 @import '~@/assets/sass/typography.scss';
 @import '~@/assets/sass/bootstrap.scss';
-// @import '~@/assets/sass/prism.scss';
 @import '~@/assets/sass/reset.scss';
 @import '~@/assets/sass/utils.scss';
 @import '~@/assets/sass/variables';
@@ -181,7 +161,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, $color-hot-pink 0%, $color-rose 100%);
+  // background: linear-gradient(to right, $color-hot-pink 0%, $color-rose 100%);
+  // background: linear-gradient(45deg, #cb60b3 0%,#c146a1 25%,#a80077 75%,#db36a4 100%);
+  background: linear-gradient(45deg, #cb60b3 0%,#c146a1 50%,#a80077 51%,#db36a4 100%);
+  // background: linear-gradient(45deg, #b4ddb4 0%, #83c783 17%, #52b152 33%, #008a00 67%, #005700 83%, #002400 100%);
 }
 
 .demo-jumbotron {
@@ -228,6 +211,7 @@ export default {
 
   &:hover {
     color: $color-hot-pink;
+    // color: #008a00;
     text-decoration: none;
     background-color: $color-white;
     box-shadow: 1px 1px 1px rgba($color-black, .2);
