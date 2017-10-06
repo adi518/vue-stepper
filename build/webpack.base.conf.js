@@ -22,8 +22,8 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@root': resolve(''),
       '@': resolve('src'),
+      '@root': resolve(''),
     }
   },
   module: {
@@ -78,10 +78,7 @@ module.exports = {
             loader: 'html-loader'
           },
           {
-            loader: 'markdown-loader',
-            options: {
-              /* your options here */
-            }
+            loader: 'markdown-loader'
           }
         ]
       }

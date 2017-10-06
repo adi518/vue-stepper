@@ -1,8 +1,18 @@
 <template>
   <div class="v-wizard">
-    <div class="step" v-for="(step, index) in steps" :key="index" :class="stepClasses(step)">
+    <div
+      class="step"
+      v-for="(step, index) in steps"
+      :key="index"
+      :class="stepClasses(step)">
       <!-- we cannot type check here: `value == step.value` -->
-      <input class="input" type="radio" :checked="isChecked(step)" :disabled="step.disabled" v-show="debug" v-bind="inputProps(step, index)" @change="onChange" />
+      <input class="input"
+        type="radio"
+        :checked="isChecked(step)"
+        :disabled="step.disabled"
+        v-show="debug"
+        v-bind="inputProps(step, index)"
+        @change="onChange" />
       <label class="label" :for="getId(index)">
         <span class="index" v-html="index + 1" />
         <span class="title" v-html="step.title" v-if="step.title" />
@@ -30,16 +40,31 @@ export default {
         return []
       }
     },
+    reset: {
+      type: Boolean,
+      default: false
+    },
     debug: {
       type: Boolean,
       default: false
     }
   },
+  creatd() {
+    this.mutableReset = this.reset
+  },
   watch: {
     value(value, oldValue) {
       if (oldValue) {
         const index = this.steps.findIndex(step => step.value == oldValue) // eslint-disable-line eqeqeq
-        this.steps[index].visited = true
+        this.$set(this.steps[index], 'visited', true)
+      }
+    },
+    reset(value) {
+      this.mutableReset = value
+      if (this.mutableReset) {
+        this.steps.forEach(step => this.$set(step, 'visited', false))
+        this.mutableReset = false
+        this.$emit('update:reset', this.mutableReset)
       }
     }
   },
@@ -58,20 +83,14 @@ export default {
     getId(index) {
       return `${this._uid}-${index}`
     },
-    isChecked(step) {
-      return this.value == step.value // eslint-disable-line eqeqeq
-    },
     isIntermediateIndex(index) {
       return index !== this.lastStepIndex
     },
     isLastIndex(index) {
       return index === this.lastStepIndex
     },
-    stepClasses(step) {
-      return {
-        'is-active': this.isChecked(step),
-        'is-visited': step.visited
-      }
+    isChecked(step) {
+      return this.value == step.value // eslint-disable-line eqeqeq
     },
     inputProps(step, index) {
       return {
@@ -79,6 +98,17 @@ export default {
         name: this._uid,
         value: step.value,
       }
+    },
+    stepClasses(step) {
+      return {
+        'is-active': this.isChecked(step),
+        'is-visited': step.visited
+      }
+    }
+  },
+  data() {
+    return {
+      mutableReset: null
     }
   }
 }
@@ -92,6 +122,13 @@ export default {
   user-select: none;
   flex-direction: row;
   justify-content: space-between;
+  box-sizing: border-box;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
 
   .step {
     flex-grow: 1;

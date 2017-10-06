@@ -3,13 +3,15 @@
     <!-- Jumbotron -->
     <div class="demo-container demo-has-jumbotron">
       <div class="container demo-jumbotron">
-        <h1>Vue Wizard
+        <h1 class="demo-space-below-rem">
+          Vue Wizard
           <sup>{{pkg.version}}</sup>
         </h1>
         <p class="demo-talign-center demo-large-space-below">
           A super lean, fully reactive Vue.js Wizard component with Vuex support and Zero dependencies.
         </p>
-        <wizard class="demo-wizard demo-large-space-below" :steps="steps" v-model="step" />
+        <!-- Accolades -->
+        <v-wizard class="demo-wizard demo-large-space-below" v-bind="options" v-model="step" :reset.sync="reset" />
         <div class="demo-space-below demo-talign-justify">
           <div v-if="step == 1">
             <p>
@@ -36,8 +38,11 @@
             </p>
           </div>
         </div>
-        <p class="demo-talign-center demo-large-space-below">
-          <a :href="linkToGithub" target="_blank" class="btn btn-link demo-button">View on GitHub</a>
+        <p class="demo-talign-center">
+          <a href="" class="btn demo-button" @click.prevent="changeStep(-1)">Previous</a>
+          <a href="" class="btn demo-button" @click.prevent="changeStep(1)">Next</a>
+          <a href="" class="btn demo-button" @click.prevent="doReset">Reset</a>
+          <a :href="linkToGit" target="_blank" class="btn demo-button">View on GitHub</a>
         </p>
       </div>
       <a class="demo-fixed-anchor demo-cursor-pointer" @click="scrollTo('docs')" tabindex="">Install, Examples & Documentation</a>
@@ -46,16 +51,16 @@
     <div ref="docs" class="container demo-container demo-pad-below demo-clearfix">
       <h2>Install & and Usage</h2>
       <p>Install from GitHub via NPM</p>
-      <pre class="demo-space-below language-bash"><code>$ npm install vue-wizard --save</code></pre>
+      <pre class="demo-large-space-below language-bash"><code>$ npm install vue-wizard --save</code></pre>
       <p>To use the component in your templates, simply import it, and register it with your component.</p>
-      <pre class="demo-space-below language-js"><code v-html="markdowns.Install"/></pre>
+      <pre class="demo-large-space-below language-js"><code v-html="markdowns.Install"/></pre>
       <h2>Support</h2>
-      <p>
-        Please open an
-        <a href="pkg.bugs.url" target="_blank">issue</a> for support.
+      <p> Please open an
+        <a :href="pkg.bugs.url" target="_blank">issue</a> for support.
       </p>
     </div>
-    <git-ribbon :href="linkToGithub" />
+    <git-ribbon :href="linkToGit" />
+    <v-switch class="demo-switch demo-important demo-switch-debug" size="lg" v-model="options.debug" open-name="Off" close-name="Debug" color="green" />
   </div>
 </template>
 
@@ -65,19 +70,15 @@
 // Meta-data
 import pkg from '@root/package'
 
-// Global CSS
-import '@/assets/sass/typography.scss'
-import '@/assets/sass/bootstrap.scss'
-import '@/assets/sass/prism.scss'
-import '@/assets/sass/reset.scss'
-import '@/assets/sass/utils.scss'
-
 // Resources
+import Prism from 'prismjs'
+import 'prismjs/themes/prism.css'
 import octicons from 'octicons'
 
 // Components
-import Wizard from './Wizard.vue'
+import vWizard from './Wizard'
 import GitRibbon from './GitRibbon'
+import vSwitch from 'vue-switch/switch-2'
 
 // Markdowns
 import Install from '@/md/Install.md'
@@ -85,14 +86,50 @@ import Install from '@/md/Install.md'
 // Implementation
 export default {
   components: {
-    Wizard,
+    vWizard,
+    vSwitch,
     GitRibbon
+  },
+  created() {
+    this.initial.step = this.step
+  },
+  mounted() {
+    Prism.highlightAll()
+  },
+  computed: {
+    reset: {
+      get() {
+        return this.options.reset
+      },
+      set(payload) {
+        this.options.reset = payload
+      }
+    },
+    linkToGit() {
+      return pkg.repository.url
+    },
+    steps() {
+      return this.options.steps
+    },
+    stepIndex() {
+      return this.steps.findIndex(step => step.value == this.step) // eslint-disable-line eqeqeq
+    }
   },
   methods: {
     scrollTo(refName) {
       const element = this.$refs[refName]
       const top = element.offsetTop
       window.scrollTo(0, top)
+    },
+    doReset() {
+      this.step = this.initial.step
+      this.options.reset = true
+    },
+    changeStep(offset) {
+      const step = this.steps[this.stepIndex + offset]
+      if (step) {
+        this.step = step.value
+      }
     }
   },
   data() {
@@ -102,19 +139,37 @@ export default {
       markdowns: {
         Install
       },
-      linkToGithub: 'https://github.com/adi518/vue-wizard',
+      initial: {},
       step: 1,
-      steps: [
-        { title: 'eeny', value: 1 },
-        { title: 'miny', value: 2 },
-        { title: 'moe', value: 3 }
-      ]
+      options: {
+        steps: [
+          {
+            title: 'eeny',
+            value: 1
+          },
+          {
+            title: 'miny',
+            value: 2
+          },
+          {
+            title: 'moe',
+            value: 3
+          }
+        ],
+        reset: false,
+        debug: false
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
+@import '~@/assets/sass/typography.scss';
+@import '~@/assets/sass/bootstrap.scss';
+// @import '~@/assets/sass/prism.scss';
+@import '~@/assets/sass/reset.scss';
+@import '~@/assets/sass/utils.scss';
 @import '~@/assets/sass/variables';
 @import '~@/assets/sass/abstracts';
 
@@ -134,6 +189,28 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.demo-switch.demo-important.vue-switch.s-lg {
+  width: 4em;
+  height: 22px;
+  display: flex;
+  align-items: center;
+
+  &.z-on::after {
+    left: 55px;
+  }
+
+  &.demo-switch-debug {
+    top: 1em;
+    left: 1em;
+    opacity: .8;
+    position: absolute;
+
+    &.z-on {
+      opacity: 1;
+    }
+  }
 }
 
 .demo-wizard {

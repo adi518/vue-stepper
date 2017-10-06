@@ -14,3 +14,6 @@ selenium-debug.log
 *.ntvs*
 *.njsproj
 *.sln
+*.lnk
+snippet.js
+snippet.html

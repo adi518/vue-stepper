@@ -33,12 +33,16 @@
   margin-bottom: 1em;
 }
 
-pre.demo-space-below {
-  margin-bottom: 2em !important;
+.demo-space-below-rem {
+  margin-bottom: 1rem;
 }
 
 .demo-large-space-below {
   margin-bottom: 2em;
+}
+
+pre.demo-large-space-below {
+  margin-bottom: 2em !important;
 }
 
 .demo-cursor-pointer {
