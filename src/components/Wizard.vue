@@ -112,6 +112,9 @@ export default {
     },
     previous() {
       this.changeStep(-1)
+    },
+    getCurrentStepIndex() {
+      return this.stepIndex
     }
   },
   data() {

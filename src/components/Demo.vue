@@ -49,25 +49,56 @@
     </div>
     <!-- Documentation -->
     <div ref="docs" class="container demo-container demo-pad-below demo-clearfix">
-      <h2>Install & and Usage</h2>
+      <h2>Install & Usage</h2>
       <p>Install from GitHub via NPM</p>
-      <pre class="demo-large-space-below language-bash"><code>$ npm install vue-wizard --save</code></pre>
-      <p>To use the component in your templates, simply import it, and register it with your component.</p>
-      <pre class="demo-large-space-below language-js"><code v-html="markdowns.Install"/></pre>
-      <h2>Examples</h2>
-      <h3>With Local State</h3>
-      <pre class="demo-large-space-below language-js"><code v-html="markdowns.ExampleLocalState"/></pre>
-      <h3>With Vuex</h3>
-      <pre class="demo-large-space-below language-js"><code v-html="markdowns.ExampleWithVuex"/></pre>
-      <h3>Changing Steps Programmatically</h3>
-      <pre class="demo-large-space-below language-js"><code v-html="markdowns.ExampleProgrammatic"/></pre>
+      <!-- <pre class="demo-large-space-below language-bash"><code language="bash" v-html="md.Install"/></pre> -->
+      <pre class="demo-large-space-below language-bash"><code language="bash">$ npm install vue-wizard --save</code></pre>
+      <!-- <prism-code class="demo-large-space-below" language="bash" v-html="md.Install" /> -->
+      <p>
+        To use the component in your templates, simply import it, and register it with your component. To control the Wizard state, we use the
+        <code>v-model</code> directive, just like on any other input element with two-way binding. The Wizard acts as a group of radio-buttons.
+      </p>
+      <pre class="demo-large-space-below language-js"><code v-html="md.Example"/></pre>
+      <!-- Vuex -->
+      <h2>With Vuex</h2>
+      <p>A common practice for managing your Wizard state, is through the Store (Vuex).</p>
+      <pre class="demo-large-space-below language-js"><code v-html="md.ExampleWithVuexPart1"/></pre>
+      <p>Then, in your component:</p>
+      <pre class="demo-large-space-below language-js"><code v-html="md.ExampleWithVuexPart2"/></pre>
+      <!-- Programmatic -->
+      <h2>Changing Steps Programmatically</h2>
+      <p>
+        Changing steps programmatically is a popular use-case in a Wizard and also great for debugging your flow in development environment. Start off by assigning special
+        <code>Vue</code> property
+        <code>ref</code> to the
+        <code>v-wizard</code> component. Then, assign a
+        <code>Vue-Wizard</code> API method to an Event handler of your choice. The following example is similar to the Demo above, where we assign
+        <code>previous</code>,
+        <code>next</code> and
+        <code>reset</code> to the
+        <code>click</code> event of a button element.
+        <a href="https://vuejs.org/v2/api/#ref" target="_blank">Read more</a> about
+        <code>ref</code>.
+      </p>
+      <pre class="demo-large-space-below language-js"><code v-html="md.ExampleProgrammatic"/></pre>
+      <h2>Debugging</h2>
+      <p>It's often useful to inspect how the Wizard acts behind the scenes. To enable Debug mode, simply pass a
+        <code>debug</code> property to the Wizard component via
+        <code>:debug="true"</code>. You can play around with it in the Demo above by hitting the
+        <a href="" @click.prevent="scrollTo('debug-switch')">Debug Switch</a> in the top left corner.
+      </p>
+      <h2>Options</h2>
+      <p>
+        <pre class="demo-large-space-below language-js"><code v-html="md.Options"/></pre>
+      </p>
       <h2>Support</h2>
-      <p> Please open an
+      <p>
+        Please open an
         <a :href="pkg.bugs.url" target="_blank">issue</a> for support.
       </p>
     </div>
     <git-ribbon :href="linkToGit" />
-    <v-switch class="demo-switch demo-important demo-switch-debug" size="lg" v-model="options.debug" @update:value="value => step = value" open-name="On" close-name="Debug" color="green" />
+    <v-switch ref="debug-switch" class="demo-switch demo-important demo-switch-debug" size="lg" v-model="options.debug" @update:value="value => step = value" open-name="On" close-name="Debug" color="green" />
   </div>
 </template>
 
@@ -89,14 +120,21 @@ import octicons from 'octicons'
 import vWizard from './Wizard'
 import GitRibbon from './GitRibbon'
 import vSwitch from 'vue-switch/switch-2'
+import PrismCode from './PrismCode'
 
 // Markdowns
 import Install from '@/md/Install.md'
+import Example from '@/md/Example.md'
+import ExampleWithVuexPart1 from '@/md/ExampleWithVuexPart1.md'
+import ExampleWithVuexPart2 from '@/md/ExampleWithVuexPart2.md'
+import ExampleProgrammatic from '@/md/ExampleProgrammatic.md'
+import Options from '@/md/Options.md'
 
 // Implementation
 export default {
   components: {
     vWizard,
+    // PrismCode,
     vSwitch,
     GitRibbon
   },
@@ -119,8 +157,13 @@ export default {
     return {
       pkg,
       octicons,
-      markdowns: {
-        Install
+      md: {
+        Install,
+        Example,
+        ExampleWithVuexPart1,
+        ExampleWithVuexPart2,
+        ExampleProgrammatic,
+        Options
       },
       step: 1,
       options: {
@@ -161,8 +204,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, $color-hot-pink 0%, #a80077 100%);
-  // background: linear-gradient(45deg, #cb60b3 0%, #c146a1 25%, #a80077 75%, #db36a4 100%);
+  background: linear-gradient(to right, $color-hot-pink 0%, #a80077 100%); // background: linear-gradient(45deg, #cb60b3 0%, #c146a1 25%, #a80077 75%, #db36a4 100%);
   // background: linear-gradient(45deg, #cb60b3 0%, #c146a1 15%, #a80077 40%, #db36a4 100%);
   // background: linear-gradient(45deg, #cb60b3 0%, #c146a1 50%, #a80077 51%, #db36a4 100%);
   // background: linear-gradient(45deg, #cb60b3 0%, #ad1283 50%, #de47ac 100%);
