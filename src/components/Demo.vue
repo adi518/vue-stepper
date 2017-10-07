@@ -3,6 +3,7 @@
     <!-- Jumbotron -->
     <div class="demo-container demo-has-jumbotron">
       <div class="container demo-jumbotron">
+        <v-switch ref="debug-switch" class="demo-switch demo-important demo-switch-debug" size="lg" v-model="options.debug" @update:value="value => step = value" open-name="On" close-name="Debug" color="green" />
         <h1 class="demo-space-below-rem">
           Vue Wizard
           <sup>{{pkg.version}}</sup>
@@ -38,21 +39,20 @@
             </p>
           </div>
         </div>
-        <p class="demo-talign-center">
+        <p class="demo-talign-center demo-button-group">
           <a href="" class="btn demo-button" @click.prevent="$refs.wizard.previous()">Previous</a>
           <a href="" class="btn demo-button" @click.prevent="$refs.wizard.next()">Next</a>
           <a href="" class="btn demo-button" @click.prevent="$refs.wizard.reset()">Reset</a>
           <a :href="linkToGit" target="_blank" class="btn demo-button">View on GitHub</a>
         </p>
+        <a class="demo-fixed-anchor demo-cursor-pointer" @click="scrollTo('docs')" tabindex="">Install, Examples & Documentation</a>
       </div>
-      <a class="demo-fixed-anchor demo-cursor-pointer" @click="scrollTo('docs')" tabindex="">Install, Examples & Documentation</a>
     </div>
     <!-- Documentation -->
-    <div ref="docs" class="container demo-container demo-pad-below demo-clearfix">
+    <div ref="docs" class="container demo-container demo-pad-below demo-clearfix" v-b-scrollspy>
       <h2>Install & Usage</h2>
       <p>Install from GitHub via NPM</p>
-      <!-- <pre class="demo-large-space-below language-bash"><code language="bash" v-html="md.Install"/></pre> -->
-      <pre class="demo-large-space-below language-bash"><code language="bash">$ npm install vue-wizard --save</code></pre>
+      <pre class="demo-large-space-below language-bash"><code language="bash" v-html="md.Install"/></pre>
       <!-- <prism-code class="demo-large-space-below" language="bash" v-html="md.Install" /> -->
       <p>
         To use the component in your templates, simply import it, and register it with your component. To control the Wizard state, we use the
@@ -104,7 +104,6 @@
       </p>
     </div>
     <git-ribbon :href="linkToGit" />
-    <v-switch ref="debug-switch" class="demo-switch demo-important demo-switch-debug" size="lg" v-model="options.debug" @update:value="value => step = value" open-name="On" close-name="Debug" color="green" />
   </div>
 </template>
 
@@ -134,8 +133,8 @@ const Markdowns = {
   Options: require('@/md/Options.md'),
   Examples: {
     Default: {
-      Template: require('@/md/Examples/Example/Template.md'),
-      Script: require('@/md/Examples/Example/Script.md')
+      Template: require('@/md/Examples/Default/Template.md'),
+      Script: require('@/md/Examples/Default/Script.md')
     },
     Programmatic: {
       Template: require('@/md/Examples/Programmatic/Template.md')
@@ -215,11 +214,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, $color-hot-pink 0%, #a80077 100%); // background: linear-gradient(45deg, #cb60b3 0%, #c146a1 25%, #a80077 75%, #db36a4 100%);
-  // background: linear-gradient(45deg, #cb60b3 0%, #c146a1 15%, #a80077 40%, #db36a4 100%);
-  // background: linear-gradient(45deg, #cb60b3 0%, #c146a1 50%, #a80077 51%, #db36a4 100%);
-  // background: linear-gradient(45deg, #cb60b3 0%, #ad1283 50%, #de47ac 100%);
-  // background: linear-gradient(45deg, #b4ddb4 0%, #83c783 17%, #52b152 33%, #008a00 67%, #005700 83%, #002400 100%);
+  background: linear-gradient(to right, $color-hot-pink 0%, #a80077 100%);
 }
 
 .demo-jumbotron {
@@ -240,10 +235,15 @@ export default {
   }
 
   &.demo-switch-debug {
-    top: 1em;
-    left: 1em;
+    top: .5em;
+    left: .5em;
     opacity: .8;
-    position: absolute;
+    position: fixed;
+    @include media-breakpoint-down(xs) {
+      position: static;
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
 
     &.z-on {
       opacity: 1;
@@ -261,11 +261,17 @@ export default {
   color: $color-white;
   font-size: 1.2rem;
   padding: .5em 1em;
+  margin-left: .25em;
+  margin-right: .25em;
   border-radius: .3em;
   border: .1em solid $color-white;
+  @include media-breakpoint-down(xs) {
+    margin-top: 1em;
+    margin-left: .5em;
+    margin-right: .5em;
+  }
 
   &:hover {
-    // color: $color-hot-pink;
     color: #a80077;
     text-decoration: none;
     background-color: $color-white;
@@ -273,11 +279,22 @@ export default {
   }
 }
 
+.demo-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .demo-fixed-anchor {
   color: $color-white;
   bottom: .8em;
   position: absolute;
   text-decoration: none;
+  @include media-breakpoint-down(xs) {
+    position: static;
+    margin-top: 2em;
+    margin-bottom: .8em;
+  }
 
   &:hover {
     color: $color-white;
