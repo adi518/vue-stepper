@@ -161,9 +161,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  // background: linear-gradient(to right, $color-hot-pink 0%, $color-rose 100%);
-  // background: linear-gradient(45deg, #cb60b3 0%,#c146a1 25%,#a80077 75%,#db36a4 100%);
-  background: linear-gradient(45deg, #cb60b3 0%,#c146a1 50%,#a80077 51%,#db36a4 100%);
+  background: linear-gradient(to right, $color-hot-pink 0%, #a80077 100%);
+  // background: linear-gradient(45deg, #cb60b3 0%, #c146a1 25%, #a80077 75%, #db36a4 100%);
+  // background: linear-gradient(45deg, #cb60b3 0%, #c146a1 15%, #a80077 40%, #db36a4 100%);
+  // background: linear-gradient(45deg, #cb60b3 0%, #c146a1 50%, #a80077 51%, #db36a4 100%);
+  // background: linear-gradient(45deg, #cb60b3 0%, #ad1283 50%, #de47ac 100%);
   // background: linear-gradient(45deg, #b4ddb4 0%, #83c783 17%, #52b152 33%, #008a00 67%, #005700 83%, #002400 100%);
 }
 
@@ -210,8 +212,8 @@ export default {
   border: .1em solid $color-white;
 
   &:hover {
-    color: $color-hot-pink;
-    // color: #008a00;
+    // color: $color-hot-pink;
+    color: #a80077;
     text-decoration: none;
     background-color: $color-white;
     box-shadow: 1px 1px 1px rgba($color-black, .2);
