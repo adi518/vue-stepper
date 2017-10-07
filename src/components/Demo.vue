@@ -58,13 +58,19 @@
         To use the component in your templates, simply import it, and register it with your component. To control the Wizard state, we use the
         <code>v-model</code> directive, just like on any other input element with two-way binding. The Wizard acts as a group of radio-buttons.
       </p>
-      <pre class="demo-large-space-below language-js"><code v-html="md.Example"/></pre>
+      <h3>Template</h3>
+      <pre class="demo-large-space-below language-html"><code v-html="md.Examples.Default.Template"/></pre>
+      <h3>Script</h3>
+      <pre class="demo-large-space-below language-js"><code v-html="md.Examples.Default.Script"/></pre>
       <!-- Vuex -->
       <h2>With Vuex</h2>
       <p>A common practice for managing your Wizard state, is through the Store (Vuex).</p>
-      <pre class="demo-large-space-below language-js"><code v-html="md.ExampleWithVuexPart1"/></pre>
+      <pre class="demo-large-space-below language-js"><code v-html="md.Examples.Vuex.Store"/></pre>
       <p>Then, in your component:</p>
-      <pre class="demo-large-space-below language-js"><code v-html="md.ExampleWithVuexPart2"/></pre>
+      <h3>Template</h3>
+      <pre class="demo-large-space-below language-html"><code v-html="md.Examples.Vuex.Template"/></pre>
+      <h3>Script</h3>
+      <pre class="demo-large-space-below language-js"><code v-html="md.Examples.Vuex.Script"/></pre>
       <!-- Programmatic -->
       <h2>Changing Steps Programmatically</h2>
       <p>
@@ -80,7 +86,7 @@
         <a href="https://vuejs.org/v2/api/#ref" target="_blank">Read more</a> about
         <code>ref</code>.
       </p>
-      <pre class="demo-large-space-below language-js"><code v-html="md.ExampleProgrammatic"/></pre>
+      <pre class="demo-large-space-below language-js"><code v-html="md.Examples.Programmatic.Template"/></pre>
       <h2>Debugging</h2>
       <p>It's often useful to inspect how the Wizard acts behind the scenes. To enable Debug mode, simply pass a
         <code>debug</code> property to the Wizard component via
@@ -123,12 +129,24 @@ import vSwitch from 'vue-switch/switch-2'
 import PrismCode from './PrismCode'
 
 // Markdowns
-import Install from '@/md/Install.md'
-import Example from '@/md/Example.md'
-import ExampleWithVuexPart1 from '@/md/ExampleWithVuexPart1.md'
-import ExampleWithVuexPart2 from '@/md/ExampleWithVuexPart2.md'
-import ExampleProgrammatic from '@/md/ExampleProgrammatic.md'
-import Options from '@/md/Options.md'
+const Markdowns = {
+  Install: require('@/md/Install.md'),
+  Options: require('@/md/Options.md'),
+  Examples: {
+    Default: {
+      Template: require('@/md/Examples/Example/Template.md'),
+      Script: require('@/md/Examples/Example/Script.md')
+    },
+    Programmatic: {
+      Template: require('@/md/Examples/Programmatic/Template.md')
+    },
+    Vuex: {
+      Store: require('@/md/Examples/Vuex/Store.md'),
+      Template: require('@/md/Examples/Vuex/Template.md'),
+      Script: require('@/md/Examples/Vuex/Script.md'),
+    }
+  }
+}
 
 // Implementation
 export default {
@@ -157,14 +175,7 @@ export default {
     return {
       pkg,
       octicons,
-      md: {
-        Install,
-        Example,
-        ExampleWithVuexPart1,
-        ExampleWithVuexPart2,
-        ExampleProgrammatic,
-        Options
-      },
+      md: Markdowns,
       step: 1,
       options: {
         steps: [
