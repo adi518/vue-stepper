@@ -19,7 +19,6 @@ export default {
 }
 </script>
 
-
 <style lang="scss" scoped>
 // https://github.com/tholman/github-corners
 .github-corner:hover .octo-arm {
