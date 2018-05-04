@@ -1,15 +1,15 @@
 {
-  "name": "vue-wizard",
+  "name": "vue-stepper-component",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "Adi Sahar <adisahar1@hotmail.com>",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/adi518/vue-wizard.git"
+    "url": "https://github.com/adi518/vue-stepper.git"
   },
   "bugs": {
-    "url": "https://github.com/adi518/vue-wizard/issues"
+    "url": "https://github.com/adi518/vue-stepper/issues"
   },
   "scripts": {
     "dev": "node build/dev-server.js",

@@ -1,3 +1,3 @@
 ```bash
-$ npm install vue-wizard --save
+$ npm install vue-stepper-component --save
 ```

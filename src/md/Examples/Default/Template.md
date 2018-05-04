@@ -1,7 +1,7 @@
 ```html
 <template>
   <div id="app">
-    <v-wizard :steps="steps" v-model="step" />
+    <v-stepper :steps="steps" v-model="step" />
     <div v-if="step == 1">
       <p>
         <b>Eeny Content</b>

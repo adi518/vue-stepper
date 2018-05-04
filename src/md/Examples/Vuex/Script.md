@@ -1,10 +1,10 @@
 ```js
 <script>
-import vWizard from 'vue-wizard'
+import VStepper from 'vue-stepper-component'
 
 export default {
   components: {
-    vWizard
+    VStepper
   },
   computed: {
     ...mapGetters({

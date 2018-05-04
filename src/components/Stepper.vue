@@ -1,5 +1,5 @@
 <template>
-  <div class="v-wizard">
+  <div class="v-stepper">
     <div
       v-for="(step, index) in steps"
       :key="index"
@@ -29,7 +29,7 @@
 
 // Implementation
 export default {
-  name: 'VWizard',
+  name: 'VStepper',
   props: {
     value: {
       type: [String, Number],
@@ -128,7 +128,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/sass/colors';
 
-.v-wizard {
+.v-stepper {
   display: flex;
   user-select: none;
   flex-direction: row;

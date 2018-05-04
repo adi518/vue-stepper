@@ -5,14 +5,14 @@
       <div class="container demo-jumbotron">
         <v-switch ref="debug-switch" class="demo-switch demo-important demo-switch-debug" size="lg" v-model="options.debug" @update:value="value => step = value" open-name="On" close-name="Debug" color="green" />
         <h1 class="demo-space-below-rem">
-          Vue Wizard
+          Vue Stepper
           <sup>{{pkg.version}}</sup>
         </h1>
         <p class="demo-talign-center demo-large-space-below">
-          A super lean, fully reactive Vue.js Wizard component with Vuex support and Zero dependencies.
+          A super lean, fully reactive Vue.js Stepper component with Vuex support and Zero dependencies.
         </p>
         <!-- Accolades -->
-        <v-wizard ref="wizard" class="demo-wizard demo-large-space-below" v-bind="options" v-model="step" />
+        <v-stepper ref="stepper" class="demo-stepper demo-large-space-below" v-bind="options" v-model="step" />
         <div class="demo-space-below demo-talign-justify">
           <div v-if="step == 1">
             <p>
@@ -40,9 +40,9 @@
           </div>
         </div>
         <p class="demo-talign-center demo-button-group">
-          <a href="" class="btn demo-button" @click.prevent="$refs.wizard.previous()">Previous</a>
-          <a href="" class="btn demo-button" @click.prevent="$refs.wizard.next()">Next</a>
-          <a href="" class="btn demo-button" @click.prevent="$refs.wizard.reset()">Reset</a>
+          <a href="" class="btn demo-button" @click.prevent="$refs.stepper.previous()">Previous</a>
+          <a href="" class="btn demo-button" @click.prevent="$refs.stepper.next()">Next</a>
+          <a href="" class="btn demo-button" @click.prevent="$refs.stepper.reset()">Reset</a>
           <a :href="linkToGit" target="_blank" class="btn demo-button">View on GitHub</a>
         </p>
         <a class="demo-fixed-anchor demo-cursor-pointer" @click="scrollTo('docs')" tabindex="">Install, Examples & Documentation</a>
@@ -55,8 +55,8 @@
       <pre class="demo-large-space-below language-bash"><code language="bash" v-html="md.Install"/></pre>
       <!-- <prism-code class="demo-large-space-below" language="bash" v-html="md.Install" /> -->
       <p>
-        To use the component in your templates, simply import it, and register it with your component. To control the Wizard state, we use the
-        <code>v-model</code> directive, just like on any other input element with two-way binding. The Wizard acts as a group of radio-buttons.
+        To use the component in your templates, simply import it, and register it with your component. To control the Stepper state, we use the
+        <code>v-model</code> directive, just like on any other input element with two-way binding. The Stepper acts as a group of radio-buttons.
       </p>
       <h3>Template</h3>
       <pre class="demo-large-space-below language-html"><code v-html="md.Examples.Default.Template"/></pre>
@@ -64,7 +64,7 @@
       <pre class="demo-large-space-below language-js"><code v-html="md.Examples.Default.Script"/></pre>
       <!-- Vuex -->
       <h2>With Vuex</h2>
-      <p>A common practice for managing your Wizard state, is through the Store (Vuex).</p>
+      <p>A common practice for managing your Stepper state, is through the Store (Vuex).</p>
       <pre class="demo-large-space-below language-js"><code v-html="md.Examples.Vuex.Store"/></pre>
       <p>Then, in your component:</p>
       <h3>Template</h3>
@@ -74,11 +74,11 @@
       <!-- Programmatic -->
       <h2>Changing Steps Programmatically</h2>
       <p>
-        Changing steps programmatically is a popular use-case in a Wizard and also great for debugging your flow in development environment. Start off by assigning special
+        Changing steps programmatically is a popular use-case in a Stepper and also great for debugging your flow in development environment. Start off by assigning special
         <code>Vue</code> property
         <code>ref</code> to the
-        <code>v-wizard</code> component. Then, assign a
-        <code>Vue-Wizard</code> API method to an Event handler of your choice. The following example is similar to the Demo above, where we assign
+        <code>v-stepper</code> component. Then, assign a
+        <code>Vue-Stepper</code> API method to an Event handler of your choice. The following example is similar to the Demo above, where we assign
         <code>previous</code>,
         <code>next</code> and
         <code>reset</code> to the
@@ -88,8 +88,8 @@
       </p>
       <pre class="demo-large-space-below language-js"><code v-html="md.Examples.Programmatic.Template"/></pre>
       <h2>Debugging</h2>
-      <p>It's often useful to inspect how the Wizard acts behind the scenes. To enable Debug mode, simply pass a
-        <code>debug</code> property to the Wizard component via
+      <p>It's often useful to inspect how the Stepper acts behind the scenes. To enable Debug mode, simply pass a
+        <code>debug</code> property to the Stepper component via
         <code>:debug="true"</code>. You can play around with it in the Demo above by hitting the
         <a href="" @click.prevent="scrollTo('debug-switch')">Debug Switch</a> in the top left corner.
       </p>
@@ -122,7 +122,7 @@ import 'prismjs/themes/prism.css'
 import octicons from 'octicons'
 
 // Components
-import vWizard from './Wizard'
+import VStepper from './Stepper'
 import GitRibbon from './GitRibbon'
 import vSwitch from 'vue-switch/switch-2'
 import PrismCode from './PrismCode'
@@ -150,7 +150,7 @@ const Markdowns = {
 // Implementation
 export default {
   components: {
-    vWizard,
+    VStepper,
     // PrismCode,
     vSwitch,
     GitRibbon
@@ -214,7 +214,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, $color-hot-pink 0%, #a80077 100%);
+  // background: linear-gradient(to right, $color-hot-pink 0%, #a80077 100%);
+  // background: linear-gradient(to bottom, #b4e391 0%,#61c419 50%,#b4e391 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: linear-gradient(to bottom, #b4ddb4 0%,#83c783 17%,#52b152 33%,#008a00 67%,#005700 83%,#002400 100%); 
 }
 
 .demo-jumbotron {
@@ -251,7 +253,7 @@ export default {
   }
 }
 
-.demo-wizard {
+.demo-stepper {
   width: 100%;
   display: flex;
   justify-content: center;

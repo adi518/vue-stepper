@@ -23,7 +23,7 @@ props: {
   },
 
   /**
-   * Sets up the Wizard in debug mode, which reveals the actual
+   * Sets up the Stepper in debug mode, which reveals the actual
    * Radio-button behind each step.
    * @type {Boolean}
    */

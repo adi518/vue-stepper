@@ -1,4 +1,4 @@
-# vue-wizard
+# vue-stepper-component
 
 > A Vue.js project
 
@@ -7,7 +7,7 @@
 ```
 PS C:\> vue init webpack
 
-? Project name vue-wizard
+? Project name vue-stepper-component
 ? Project description A Vue.js project
 ? Author adi <adisahar1@hotmail.com>
 ? Vue build standalone

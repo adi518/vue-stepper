@@ -1,11 +1,11 @@
 ```html
 <template>
   <div id="app">
-    <v-wizard ref="wizard" :steps="steps" v-model="step" />
+    <v-stepper ref="stepper" :steps="steps" v-model="step" />
     <!-- Steps View Logic -->
-    <button type="button" @click="$refs.wizard.previous">
-    <button type="button" @click="$refs.wizard.next">
-    <button type="button" @click="$refs.wizard.reset">
+    <button type="button" @click="$refs.stepper.previous">
+    <button type="button" @click="$refs.stepper.next">
+    <button type="button" @click="$refs.stepper.reset">
   </div>
 </template>
 ```
