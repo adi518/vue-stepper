@@ -1,33 +1,33 @@
 h1 {
   display: flex;
   opacity: .85;
-  font-size: 3.3em;
-  padding-right: 1em;
+  font-size: 3.3rem;
+  padding-right: 1rem;
   background-position: 100%;
-  background-size: 1em auto;
+  background-size: 1rem auto;
   background-repeat: no-repeat;
   background-image: url('~@/assets/images/logo.png');
   font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
 }
 
 h2 {
-  font-size: 1.3em;
-  margin: 1em 0 1em;
-  padding-bottom: .4em;
+  font-size: 1.3rem;
+  margin: 1em 0 1rem;
+  padding-bottom: .4rem;
   border-bottom: 1px solid $color-gallery;
 }
 
 h3 {
-  font-size: 1.1em;
+  font-size: 1.1rem;
 }
 
 sup {
-  font-size: .2em;
+  font-size: 0.7rem;
   font-family: $demo-bootstrap-font-stack;
 }
 
 pre {
-  font-size: .8em !important;
+  font-size: .8rem !important;
   border-radius: 4px !important;
-  border: .05em solid $color-silver !important;
+  border: .05rem solid $color-silver !important;
 }

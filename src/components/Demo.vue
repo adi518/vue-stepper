@@ -4,12 +4,12 @@
     <div class="demo-container demo-has-jumbotron">
       <div class="container demo-jumbotron">
         <v-switch ref="debug-switch" class="demo-switch demo-important demo-switch-debug" size="lg" v-model="options.debug" @update:value="value => step = value" open-name="On" close-name="Debug" color="green" />
-        <h1 class="demo-space-below-rem">
+        <h1 class="demo-heading demo-space-below-rem">
           Vue Stepper
           <sup>{{pkg.version}}</sup>
         </h1>
         <p class="demo-talign-center demo-large-space-below">
-          A super lean, fully reactive Vue.js Stepper component with Vuex support and Zero dependencies.
+          A lean, fully reactive Vue.js Stepper component with Vuex support and Zero dependencies.
         </p>
         <!-- Accolades -->
         <v-stepper ref="stepper" class="demo-stepper demo-large-space-below" v-bind="options" v-model="step" />
@@ -43,13 +43,13 @@
           <a href="" class="btn demo-button" @click.prevent="$refs.stepper.previous()">Previous</a>
           <a href="" class="btn demo-button" @click.prevent="$refs.stepper.next()">Next</a>
           <a href="" class="btn demo-button" @click.prevent="$refs.stepper.reset()">Reset</a>
-          <a :href="linkToGit" target="_blank" class="btn demo-button">View on GitHub</a>
+          <a :href="linkToGit" target="_blank" class="btn demo-button">GitHub</a>
         </p>
         <a class="demo-fixed-anchor demo-cursor-pointer" @click="scrollTo('docs')" tabindex="">Install, Examples & Documentation</a>
       </div>
     </div>
     <!-- Documentation -->
-    <div ref="docs" class="container demo-container demo-pad-below demo-clearfix" v-b-scrollspy>
+    <div ref="docs" class="container demo-container demo-pad-below demo-clearfix">
       <h2>Install & Usage</h2>
       <p>Install from GitHub via NPM</p>
       <pre class="demo-large-space-below language-bash"><code language="bash" v-html="md.Install"/></pre>
@@ -124,8 +124,8 @@ import octicons from 'octicons'
 // Components
 import VStepper from './Stepper'
 import GitRibbon from './GitRibbon'
-import vSwitch from 'vue-switch/switch-2'
 import PrismCode from './PrismCode'
+import VSwitch from 'vue-switch/switch-2'
 
 // Markdowns
 const Markdowns = {
@@ -142,7 +142,7 @@ const Markdowns = {
     Vuex: {
       Store: require('@/md/Examples/Vuex/Store.md'),
       Template: require('@/md/Examples/Vuex/Template.md'),
-      Script: require('@/md/Examples/Vuex/Script.md'),
+      Script: require('@/md/Examples/Vuex/Script.md')
     }
   }
 }
@@ -152,7 +152,7 @@ export default {
   components: {
     VStepper,
     // PrismCode,
-    vSwitch,
+    VSwitch,
     GitRibbon
   },
   mounted() {
@@ -206,6 +206,10 @@ export default {
 @import '~@/assets/sass/variables';
 @import '~@/assets/sass/abstracts';
 
+.demo {
+  min-width: 320px;
+}
+
 .demo-container {
   min-height: 100vh;
 }
@@ -213,10 +217,10 @@ export default {
 .demo-has-jumbotron {
   display: flex;
   align-items: center;
-  justify-content: center;
   // background: linear-gradient(to right, $color-hot-pink 0%, #a80077 100%);
   // background: linear-gradient(to bottom, #b4e391 0%,#61c419 50%,#b4e391 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  background: linear-gradient(to bottom, #b4ddb4 0%,#83c783 17%,#52b152 33%,#008a00 67%,#005700 83%,#002400 100%); 
+  // background: linear-gradient(to bottom, #b4ddb4 0%,#83c783 17%,#52b152 33%,#008a00 67%,#005700 83%,#002400 100%);
+  background: linear-gradient(to bottom, #e570e7 0%, #c85ec7 47%, #a849a3 100%);
 }
 
 .demo-jumbotron {
@@ -226,8 +230,14 @@ export default {
   flex-direction: column;
 }
 
+.demo-heading {
+  @include media-breakpoint-down(xs) {
+    margin-top: 3rem;
+  }
+}
+
 .demo-switch.demo-important.vue-switch.s-lg {
-  width: 4em;
+  width: 4rem;
   height: 22px;
   display: flex;
   align-items: center;
@@ -237,14 +247,14 @@ export default {
   }
 
   &.demo-switch-debug {
-    top: .5em;
-    left: .5em;
-    opacity: .8;
+    top: 0.5rem;
+    left: 0.5rem;
+    opacity: 0.8;
     position: fixed;
     @include media-breakpoint-down(xs) {
-      position: static;
-      margin-top: 1em;
-      margin-bottom: 1em;
+      // position: static;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
     }
 
     &.z-on {
@@ -257,27 +267,42 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
+
+  .step {
+    &:last-child {
+      label {
+        @include media-breakpoint-down(xs) {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    label {
+      @include media-breakpoint-down(xs) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
 }
 
 .demo-button {
   color: $color-white;
-  font-size: 1.2rem;
-  padding: .5em 1em;
-  margin-left: .25em;
-  margin-right: .25em;
-  border-radius: .3em;
-  border: .1em solid $color-white;
+  padding: 0.5rem 1rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  border-radius: 0.3rem;
+  border: 0.1em solid $color-white;
   @include media-breakpoint-down(xs) {
-    margin-top: 1em;
-    margin-left: .5em;
-    margin-right: .5em;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
   }
 
   &:hover {
     color: #a80077;
     text-decoration: none;
     background-color: $color-white;
-    box-shadow: 1px 1px 1px rgba($color-black, .2);
+    box-shadow: 1px 1px 1px rgba($color-black, 0.2);
   }
 }
 
@@ -289,13 +314,13 @@ export default {
 
 .demo-fixed-anchor {
   color: $color-white;
-  bottom: .8em;
+  bottom: 0.8rem;
   position: absolute;
   text-decoration: none;
   @include media-breakpoint-down(xs) {
     position: static;
-    margin-top: 2em;
-    margin-bottom: .8em;
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
   }
 
   &:hover {

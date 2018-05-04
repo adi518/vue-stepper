@@ -132,76 +132,80 @@ export default {
   display: flex;
   user-select: none;
   flex-direction: row;
-  justify-content: space-between;
   box-sizing: border-box;
+  justify-content: space-between;
+
+  @media only screen and (max-width: 640px) {
+    flex-direction: column;
+  }
 
   *,
   *::before,
   *::after {
     box-sizing: inherit;
   }
+}
 
-  .step {
-    flex-grow: 1;
+.step {
+  flex-grow: 1;
 
-    &.is-active,
-    &.is-visited {
-      .label {
-        cursor: pointer;
-      }
-
-      .index {
-        color: $color-iron;
-      }
+  &.is-active,
+  &.is-visited {
+    .label {
+      cursor: pointer;
     }
 
-    &.is-active {
-      .label {
-        .index {
-          opacity: 1;
-          background-color: $color-white;
-        }
-      }
+    .index {
+      color: $color-iron;
     }
+  }
 
-    &.is-visited {
+  &.is-active {
+    .label {
       .index {
-        opacity: .75;
+        opacity: 1;
         background-color: $color-white;
       }
     }
   }
 
-  .label {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  &.is-visited {
+    .index {
+      opacity: 0.75;
+      background-color: $color-white;
+    }
   }
+}
 
-  .index {
-    width: 2em;
-    height: 2em;
-    font-weight: 300;
-    font-size: 1.5em;
-    margin-right: 10px;
-    border-radius: 50%;
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    border: 1px solid $color-wild-sand;
-  }
+.label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
-  .title {
-    color: $color-white;
-  }
+.index {
+  width: 3rem;
+  height: 3rem;
+  font-weight: 300;
+  font-size: 1.5rem;
+  margin-right: 10px;
+  border-radius: 50%;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 1px solid $color-wild-sand;
+}
 
-  .line {
-    width: 100%;
-    margin-left: 1em;
-    border-bottom: 1px solid $color-white;
-    box-shadow: 1px 1px 1px rgba(0,0,0, .2);
-  }
+.title {
+  color: $color-white;
+}
+
+.line {
+  width: 100%;
+  margin-left: 1rem;
+  border-bottom: 1px solid $color-white;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 </style>
