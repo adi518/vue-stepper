@@ -6,10 +6,10 @@
       :key="$index"
       :debug="debug"
       :index="$index"
-      :active="step.index === toIndex(value)"
       :visited="step.visited"
       :disabled="step.disabled"
-      with-divider
+      :with-divider="withDivider"
+      :active="step.index === toIndex(value)"
       @change="onChange"
     >
       <template slot="index" slot-scope="api">
@@ -62,6 +62,10 @@ export default {
       validator(value) {
         return ['localStorage', 'sessionStorage'].includes(value)
       }
+    },
+    withDivider: {
+      type: Boolean,
+      default: true
     },
     debug: {
       type: Boolean,
@@ -121,6 +125,9 @@ export default {
     doesStepExist(index) {
       return !!this.map[index]
     },
+    isIntermediateIndex(index) {
+      return index > 0 && index < this.lastIndex
+    },
     onChange(index, options = {}) {
       const isNext = index === this.index + 1
       const isPrevious = index === this.index - 1
@@ -143,9 +150,6 @@ export default {
         this.setStep(oldIndex, 'visited', true)
         this.$emit('input', this.toValue(index))
       }
-    },
-    isIntermediateIndex(index) {
-      return index < this.lastIndex
     },
     getMap() {
       return Array.from(Array(this.steps), (step, index) => {

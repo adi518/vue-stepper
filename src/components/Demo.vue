@@ -32,7 +32,7 @@
         />
         <h1 class="demo-heading demo-space-below-rem">
           Vue Stepper
-          <sup>{{pkg.version}}</sup>
+          <sup>{{assets.pkg.version}}</sup>
         </h1>
         <p class="demo-talign-center demo-large-space-below">
           A lean Vue.js Stepper component with Vuex support and Zero dependencies.
@@ -41,17 +41,17 @@
         <v-stepper
           ref="stepper"
           class="demo-stepper demo-large-space-below"
-          :steps="steps"
+          :steps="data.steps"
           :linear="flags.linear"
           persist
-          v-model="step"
+          v-model="data.step"
         >
           <template slot="step-1"> Eeny </template>
           <template slot="step-2"> Miny </template>
           <template slot="step-3"> Moe </template>
         </v-stepper>
         <div class="demo-space-below demo-talign-justify">
-          <div v-if="step === 1">
+          <div v-if="data.step === 1">
             <p>
               <b>Eeny Content</b>
             </p>
@@ -59,7 +59,7 @@
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod elementum ante ac volutpat. Suspendisse euismod est enim, sit amet vehicula neque feugiat id. Nunc imperdiet convallis placerat. Sed accumsan mauris et magna facilisis gravida. Suspendisse et justo volutpat, congue libero id, vehicula sem. Maecenas nec ex imperdiet, bibendum justo vel, feugiat velit. Vivamus eu maximus mi. Fusce ac metus magna. Integer eu nunc ac quam efficitur sagittis. Nunc scelerisque, lorem ut elementum imperdiet, nisl tellus dapibus eros, eget sagittis dolor massa ut turpis.
             </p>
           </div>
-          <div v-if="step === 2">
+          <div v-if="data.step === 2">
             <p>
               <b>Miny Content</b>
             </p>
@@ -67,7 +67,7 @@
               Nunc a nunc at sapien posuere consequat. Vestibulum sed maximus felis. Nulla a diam sit amet nulla malesuada commodo. Fusce ullamcorper tortor sed ipsum ornare suscipit eget at nulla. Donec facilisis elit purus, eu tempus nunc feugiat sollicitudin. Mauris ipsum ligula, faucibus sed libero vel, dignissim posuere mauris. Quisque ipsum tellus, sodales ac ante sed, consequat efficitur metus. Pellentesque euismod viverra orci, vel elementum urna aliquam in. In in accumsan dui, vel interdum dui. Duis cursus lectus leo, in feugiat tortor posuere sed.
             </p>
           </div>
-          <div v-if="step === 3">
+          <div v-if="data.step === 3">
             <p>
               <b>Moe Content</b>
             </p>
@@ -89,25 +89,25 @@
     <div ref="docs" class="container demo-container demo-pad-below demo-clearfix">
       <h2>Install & Usage</h2>
       <p>Install from GitHub via NPM</p>
-      <pre class="demo-large-space-below language-bash"><code language="bash" v-html="md.Install"/></pre>
-      <!-- <prism-code class="demo-large-space-below" language="bash" v-html="md.Install" /> -->
+      <pre class="demo-large-space-below language-bash"><code language="bash" v-html="assets.markdowns.install"/></pre>
+      <!-- <prism-code class="demo-large-space-below" language="bash" v-html="assets.markdowns.install" /> -->
       <p>
         To use the component in your templates, simply import it, and register it with your component. To control the Stepper state, we use the
         <code>v-model</code> directive, just like on any other input element with two-way binding. The Stepper acts as a group of radio-buttons.
       </p>
       <h3>Template</h3>
-      <pre class="demo-large-space-below language-html"><code v-html="md.Examples.Default.Template"/></pre>
+      <pre class="demo-large-space-below language-html"><code v-html="assets.markdowns.examples.default.Template"/></pre>
       <h3>Script</h3>
-      <pre class="demo-large-space-below language-js"><code v-html="md.Examples.Default.Script"/></pre>
+      <pre class="demo-large-space-below language-js"><code v-html="assets.markdowns.examples.default.Script"/></pre>
       <!-- Vuex -->
       <h2>With Vuex</h2>
       <p>A common practice for managing your Stepper state, is through the Store (Vuex).</p>
-      <pre class="demo-large-space-below language-js"><code v-html="md.Examples.Vuex.Store"/></pre>
+      <pre class="demo-large-space-below language-js"><code v-html="assets.markdowns.examples.vuex.store"/></pre>
       <p>Then, in your component:</p>
       <h3>Template</h3>
-      <pre class="demo-large-space-below language-html"><code v-html="md.Examples.Vuex.Template"/></pre>
+      <pre class="demo-large-space-below language-html"><code v-html="assets.markdowns.examples.vuex.template"/></pre>
       <h3>Script</h3>
-      <pre class="demo-large-space-below language-js"><code v-html="md.Examples.Vuex.Script"/></pre>
+      <pre class="demo-large-space-below language-js"><code v-html="assets.markdowns.examples.vuex.script"/></pre>
       <!-- Programmatic -->
       <h2>Changing Steps Programmatically</h2>
       <p>
@@ -123,7 +123,7 @@
         <a href="https://vuejs.org/v2/api/#ref" target="_blank">Read more</a> about
         <code>ref</code>.
       </p>
-      <pre class="demo-large-space-below language-js"><code v-html="md.Examples.Programmatic.Template"/></pre>
+      <pre class="demo-large-space-below language-js"><code v-html="assets.markdowns.examples.programmatic.template"/></pre>
       <h2>Debugging</h2>
       <p>It's often useful to inspect how the Stepper acts behind the scenes. To enable Debug mode, simply pass a
         <code>debug</code> property to the Stepper component via
@@ -132,12 +132,12 @@
       </p>
       <h2>Options</h2>
       <p>
-        <pre class="demo-large-space-below language-js"><code v-html="md.Options"/></pre>
+        <pre class="demo-large-space-below language-js"><code v-html="assets.markdowns.options"/></pre>
       </p>
       <h2>Support</h2>
       <p>
         Please open an
-        <a :href="pkg.bugs.url" target="_blank">issue</a> for support.
+        <a :href="assets.pkg.bugs.url" target="_blank">issue</a> for support.
       </p>
     </div>
     <git-ribbon :href="linkToGit" />
@@ -155,8 +155,8 @@ import pkg from '@root/package'
 
 // Resources
 import Prism from 'prismjs'
-import 'prismjs/themes/prism.css'
 import octicons from 'octicons'
+import 'prismjs/themes/prism.css'
 
 // Components
 import VStepper from './Stepper'
@@ -164,26 +164,6 @@ import VStepperOld from './Stepper.old'
 import GitRibbon from './GitRibbon'
 import PrismCode from './PrismCode'
 import VSwitch from 'vue-switch/switch-2'
-
-// Markdowns
-const Markdowns = {
-  Install: require('@/md/Install.md'),
-  Options: require('@/md/Options.md'),
-  Examples: {
-    Default: {
-      Template: require('@/md/Examples/Default/Template.md'),
-      Script: require('@/md/Examples/Default/Script.md')
-    },
-    Programmatic: {
-      Template: require('@/md/Examples/Programmatic/Template.md')
-    },
-    Vuex: {
-      Store: require('@/md/Examples/Vuex/Store.md'),
-      Template: require('@/md/Examples/Vuex/Template.md'),
-      Script: require('@/md/Examples/Vuex/Script.md')
-    }
-  }
-}
 
 // Implementation
 export default {
@@ -193,31 +173,34 @@ export default {
     // PrismCode,
     VSwitch,
     GitRibbon
-  },  
+  },
   data() {
     return {
-      pkg,
-      octicons,
-      md: Markdowns,
-      step: undefined,
-      oldStep: 1,
-      steps: 3,
-      options: {
-        steps: [
-          {
-            title: 'eeny',
-            value: 1
-          },
-          {
-            title: 'miny',
-            value: 2
-          },
-          {
-            title: 'moe',
-            value: 3
+      assets: {
+        pkg,
+        octicons,
+        markdowns: {
+          install: require('@/markdowns/install.md'),
+          options: require('@/markdowns/options.md'),
+          examples: {
+            default: {
+              script: require('@/markdowns/examples/default/script.md'),
+              template: require('@/markdowns/examples/default/template.md')
+            },
+            programmatic: {
+              template: require('@/markdowns/examples/Programmatic/template.md')
+            },
+            vuex: {
+              store: require('@/markdowns/examples/vuex/store.md'),
+              script: require('@/markdowns/examples/vuex/script.md'),
+              template: require('@/markdowns/examples/vuex/template.md')
+            }
           }
-        ],
-        debug: false
+        }
+      },
+      data: {
+        step: undefined,
+        steps: 3
       },
       flags: {
         debug: false,
@@ -231,7 +214,7 @@ export default {
   },
   computed: {
     linkToGit() {
-      return pkg.repository.url
+      return this.assets.pkg.repository.url
     }
   },
   methods: {
@@ -267,7 +250,7 @@ export default {
   // background: linear-gradient(to bottom, #b4e391 0%,#61c419 50%,#b4e391 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   // background: linear-gradient(to bottom, #b4ddb4 0%,#83c783 17%,#52b152 33%,#008a00 67%,#005700 83%,#002400 100%);
   // background: linear-gradient(to bottom, #e570e7 0%, #c85ec7 47%, #a849a3 100%);
-  background: linear-gradient(to bottom, #00b7ea 0%,#009ec3 100%);
+  background: linear-gradient(to bottom, #00b7ea 0%, #009ec3 100%);
 }
 
 .demo-jumbotron {
