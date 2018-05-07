@@ -138,12 +138,12 @@ export default {
           this.setStep(index, 'visited', false)
           this.setStep(index, 'disabled', false)
           this.setStep(oldIndex, 'active', false)
+          this.setStep(oldIndex, 'visited', true)
           this.map.forEach(step => {
             if (step.index > index) {
               this.setStep(step.index, 'disabled', true)
             }
           })
-          this.setStep(oldIndex, 'visited', true)
           this.$emit('input', this.toValue(index))
         }
       } else {
