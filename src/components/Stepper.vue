@@ -128,7 +128,7 @@ export default {
     isIntermediateIndex(index) {
       return index > 0 && index < this.lastIndex
     },
-    onChange(index, options = {}) {
+    onChange(index) {
       const isNext = index === this.index + 1
       const isPrevious = index === this.index - 1
       const oldIndex = this.toIndex(this.value)
@@ -171,7 +171,7 @@ export default {
     offset(offset) {
       const index = this.index + offset
       if (this.doesStepExist(index)) {
-        this.onChange(index, { emitAsIs: true })
+        this.onChange(index)
       }
     },
     next() {
