@@ -199,7 +199,7 @@ export default {
       }
     },
     data: {
-      step: undefined,
+      step: 1,
       steps: 3
     },
     flags: {
