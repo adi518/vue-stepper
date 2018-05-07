@@ -21,7 +21,7 @@
           close-name="Linear"
           color="green"
         /> -->
-        <v-switch
+        <!-- <v-switch
           class="demo-switch demo-important demo-switch-persist"
           size="lg"
           v-model="flags.persist"
@@ -29,7 +29,7 @@
           open-name="Persist"
           close-name="Static"
           color="green"
-        />
+        /> -->
         <h1 class="demo-heading demo-space-below-rem">
           Vue Stepper
           <sup>{{assets.pkg.version}}</sup>
@@ -43,6 +43,7 @@
           class="demo-stepper demo-large-space-below"
           :steps="data.steps"
           v-model="data.step"
+          :debug="flags.debug"
           :linear="flags.linear"
           :persist="flags.persist"
         >
