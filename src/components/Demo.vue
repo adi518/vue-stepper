@@ -97,9 +97,9 @@
         <code>v-model</code> directive, just like on any other input element with two-way binding. The Stepper acts as a group of radio-buttons.
       </p>
       <h3>Template</h3>
-      <pre class="demo-large-space-below language-html"><code v-html="assets.markdowns.examples.default.Template"/></pre>
+      <pre class="demo-large-space-below language-html"><code v-html="assets.markdowns.examples.default.template"/></pre>
       <h3>Script</h3>
-      <pre class="demo-large-space-below language-js"><code v-html="assets.markdowns.examples.default.Script"/></pre>
+      <pre class="demo-large-space-below language-js"><code v-html="assets.markdowns.examples.default.script"/></pre>
       <!-- Vuex -->
       <h2>With Vuex</h2>
       <p>A common practice for managing your Stepper state, is through the Store (Vuex).</p>
