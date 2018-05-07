@@ -114,15 +114,12 @@
       <p>
         Changing steps programmatically is a popular use-case in a Stepper and also great for debugging your flow in development environment. Start off by assigning special
         <code>Vue</code> property
-        <code>ref</code> to the
-        <code>v-stepper</code> component. Then, assign a
-        <code>Vue-Stepper</code> API method to an Event handler of your choice. The following example is similar to the Demo above, where we assign
+        <code><a href="https://vuejs.org/v2/api/#ref" target="_blank">ref</a></code> to the
+        <code>v-stepper</code> component. Then, assign an API method to an Event handler of your choice. The following example is similar to the Demo above, where we assign
         <code>previous</code>,
         <code>next</code> and
         <code>reset</code> to the
         <code>click</code> event of a button element.
-        <a href="https://vuejs.org/v2/api/#ref" target="_blank">Read more</a> about
-        <code>ref</code>.
       </p>
       <pre class="demo-large-space-below language-js"><code v-html="assets.markdowns.examples.programmatic.template"/></pre>
       <h2>Debugging</h2>
@@ -236,10 +233,10 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@/assets/sass/typography.scss';
-@import '~@/assets/sass/bootstrap.scss';
-@import '~@/assets/sass/reset.scss';
-@import '~@/assets/sass/utils.scss';
+@import '~@/assets/sass/bootstrap';
+@import '~@/assets/sass/typography';
+@import '~@/assets/sass/reset';
+@import '~@/assets/sass/utils';
 @import '~@/assets/sass/variables';
 @import '~@/assets/sass/tags';
 
