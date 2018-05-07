@@ -35,14 +35,14 @@ import VStep from './Step'
 // Implementation
 export default {
   name: 'VStepper',
+  inheritAttrs: false,
   components: {
     VStep
   },
-  inheritAttrs: false,
   props: {
     value: {
       type: Number,
-      default: undefined
+      default: 1
     },
     steps: {
       type: Number,
