@@ -38,6 +38,7 @@ export default {
   components: {
     VStep
   },
+  inheritAttrs: false,
   props: {
     value: {
       type: Number,

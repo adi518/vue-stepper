@@ -28,6 +28,7 @@
 // Implementation
 export default {
   name: 'VStep',
+  inheritAttrs: false,
   props: {
     index: {
       type: Number,
@@ -94,6 +95,7 @@ export default {
 
 .v-step {
   flex: 1;
+  box-sizing: border-box;
 
   *,
   *::before,
