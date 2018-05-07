@@ -3,18 +3,55 @@
     <!-- Jumbotron -->
     <div class="demo-container demo-has-jumbotron">
       <div class="container demo-jumbotron">
-        <v-switch ref="debug-switch" class="demo-switch demo-important demo-switch-debug" size="lg" v-model="options.debug" @update:value="value => step = value" open-name="On" close-name="Debug" color="green" />
+        <v-switch
+          class="demo-switch demo-important demo-switch-debug"
+          size="lg"
+          v-model="flags.debug"
+          @update:value="value => flags.debug = value"
+          open-name="On"
+          close-name="Debug"
+          color="green"
+        />
+        <v-switch
+          class="demo-switch demo-important demo-switch-linear"
+          size="lg"
+          v-model="flags.random"
+          @update:value="value => flags.random = value"
+          open-name="Random"
+          close-name="Linear"
+          color="green"
+        />
+        <v-switch
+          class="demo-switch demo-important demo-switch-persist"
+          size="lg"
+          v-model="flags.persist"
+          @update:value="value => flags.persist = value"
+          open-name="Persist"
+          close-name="Static"
+          color="green"
+        />
         <h1 class="demo-heading demo-space-below-rem">
           Vue Stepper
           <sup>{{pkg.version}}</sup>
         </h1>
         <p class="demo-talign-center demo-large-space-below">
-          A lean, fully reactive Vue.js Stepper component with Vuex support and Zero dependencies.
+          A lean Vue.js Stepper component with Vuex support and Zero dependencies.
         </p>
         <!-- Accolades -->
-        <v-stepper ref="stepper" class="demo-stepper demo-large-space-below" v-bind="options" v-model="step" />
+        <v-stepper
+          ref="stepper"
+          class="demo-stepper demo-large-space-below"
+          :steps="steps"
+          :linear="flags.linear"
+          persist
+          v-model="step"
+        >
+          <template slot="step-1"> Eeny </template>
+          <template slot="step-2"> Miny </template>
+          <template slot="step-3"> Moe </template>
+        </v-stepper>
         <div class="demo-space-below demo-talign-justify">
-          <div v-if="step == 1">
+          <div v-if="step === 1">
             <p>
               <b>Eeny Content</b>
             </p>
@@ -22,7 +59,7 @@
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod elementum ante ac volutpat. Suspendisse euismod est enim, sit amet vehicula neque feugiat id. Nunc imperdiet convallis placerat. Sed accumsan mauris et magna facilisis gravida. Suspendisse et justo volutpat, congue libero id, vehicula sem. Maecenas nec ex imperdiet, bibendum justo vel, feugiat velit. Vivamus eu maximus mi. Fusce ac metus magna. Integer eu nunc ac quam efficitur sagittis. Nunc scelerisque, lorem ut elementum imperdiet, nisl tellus dapibus eros, eget sagittis dolor massa ut turpis.
             </p>
           </div>
-          <div v-if="step == 2">
+          <div v-if="step === 2">
             <p>
               <b>Miny Content</b>
             </p>
@@ -30,7 +67,7 @@
               Nunc a nunc at sapien posuere consequat. Vestibulum sed maximus felis. Nulla a diam sit amet nulla malesuada commodo. Fusce ullamcorper tortor sed ipsum ornare suscipit eget at nulla. Donec facilisis elit purus, eu tempus nunc feugiat sollicitudin. Mauris ipsum ligula, faucibus sed libero vel, dignissim posuere mauris. Quisque ipsum tellus, sodales ac ante sed, consequat efficitur metus. Pellentesque euismod viverra orci, vel elementum urna aliquam in. In in accumsan dui, vel interdum dui. Duis cursus lectus leo, in feugiat tortor posuere sed.
             </p>
           </div>
-          <div v-if="step == 3">
+          <div v-if="step === 3">
             <p>
               <b>Moe Content</b>
             </p>
@@ -123,6 +160,7 @@ import octicons from 'octicons'
 
 // Components
 import VStepper from './Stepper'
+import VStepperOld from './Stepper.old'
 import GitRibbon from './GitRibbon'
 import PrismCode from './PrismCode'
 import VSwitch from 'vue-switch/switch-2'
@@ -151,31 +189,19 @@ const Markdowns = {
 export default {
   components: {
     VStepper,
+    VStepperOld,
     // PrismCode,
     VSwitch,
     GitRibbon
-  },
-  mounted() {
-    Prism.highlightAll()
-  },
-  computed: {
-    linkToGit() {
-      return pkg.repository.url
-    }
-  },
-  methods: {
-    scrollTo(refName) {
-      const element = this.$refs[refName]
-      const top = element.offsetTop
-      window.scrollTo(0, top)
-    }
-  },
+  },  
   data() {
     return {
       pkg,
       octicons,
       md: Markdowns,
-      step: 1,
+      step: undefined,
+      oldStep: 1,
+      steps: 3,
       options: {
         steps: [
           {
@@ -192,7 +218,27 @@ export default {
           }
         ],
         debug: false
+      },
+      flags: {
+        debug: false,
+        random: false,
+        persist: false
       }
+    }
+  },
+  mounted() {
+    Prism.highlightAll()
+  },
+  computed: {
+    linkToGit() {
+      return pkg.repository.url
+    }
+  },
+  methods: {
+    scrollTo(refName) {
+      const element = this.$refs[refName]
+      const top = element.offsetTop
+      window.scrollTo(0, top)
     }
   }
 }
@@ -204,7 +250,7 @@ export default {
 @import '~@/assets/sass/reset.scss';
 @import '~@/assets/sass/utils.scss';
 @import '~@/assets/sass/variables';
-@import '~@/assets/sass/abstracts';
+@import '~@/assets/sass/tags';
 
 .demo {
   min-width: 320px;
@@ -220,7 +266,8 @@ export default {
   // background: linear-gradient(to right, $color-hot-pink 0%, #a80077 100%);
   // background: linear-gradient(to bottom, #b4e391 0%,#61c419 50%,#b4e391 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   // background: linear-gradient(to bottom, #b4ddb4 0%,#83c783 17%,#52b152 33%,#008a00 67%,#005700 83%,#002400 100%);
-  background: linear-gradient(to bottom, #e570e7 0%, #c85ec7 47%, #a849a3 100%);
+  // background: linear-gradient(to bottom, #e570e7 0%, #c85ec7 47%, #a849a3 100%);
+  background: linear-gradient(to bottom, #00b7ea 0%,#009ec3 100%);
 }
 
 .demo-jumbotron {
@@ -249,6 +296,38 @@ export default {
   &.demo-switch-debug {
     top: 0.5rem;
     left: 0.5rem;
+    opacity: 0.8;
+    position: fixed;
+    @include media-breakpoint-down(xs) {
+      // position: static;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    &.z-on {
+      opacity: 1;
+    }
+  }
+
+  &.demo-switch-linear {
+    top: 0.5rem;
+    left: 5rem;
+    opacity: 0.8;
+    position: fixed;
+    @include media-breakpoint-down(xs) {
+      // position: static;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    &.z-on {
+      opacity: 1;
+    }
+  }
+
+  &.demo-switch-persist {
+    top: 0.5rem;
+    left: 9.5rem;
     opacity: 0.8;
     position: fixed;
     @include media-breakpoint-down(xs) {
