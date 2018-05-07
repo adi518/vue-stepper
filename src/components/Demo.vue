@@ -188,7 +188,7 @@ export default {
             template: require('@/markdowns/examples/default/template.md')
           },
           programmatic: {
-            template: require('@/markdowns/examples/Programmatic/template.md')
+            template: require('@/markdowns/examples/programmatic/template.md')
           },
           vuex: {
             store: require('@/markdowns/examples/vuex/store.md'),
