@@ -12,7 +12,7 @@
           close-name="Debug"
           color="green"
         />
-        <v-switch
+        <!-- <v-switch
           class="demo-switch demo-important demo-switch-linear"
           size="lg"
           v-model="flags.random"
@@ -20,7 +20,7 @@
           open-name="Random"
           close-name="Linear"
           color="green"
-        />
+        /> -->
         <v-switch
           class="demo-switch demo-important demo-switch-persist"
           size="lg"
@@ -42,9 +42,9 @@
           ref="stepper"
           class="demo-stepper demo-large-space-below"
           :steps="data.steps"
-          :linear="flags.linear"
-          persist
           v-model="data.step"
+          :linear="flags.linear"
+          :persist="flags.persist"
         >
           <template slot="step-1"> Eeny </template>
           <template slot="step-2"> Miny </template>
@@ -174,41 +174,39 @@ export default {
     VSwitch,
     GitRibbon
   },
-  data() {
-    return {
-      assets: {
-        pkg,
-        octicons,
-        markdowns: {
-          install: require('@/markdowns/install.md'),
-          options: require('@/markdowns/options.md'),
-          examples: {
-            default: {
-              script: require('@/markdowns/examples/default/script.md'),
-              template: require('@/markdowns/examples/default/template.md')
-            },
-            programmatic: {
-              template: require('@/markdowns/examples/Programmatic/template.md')
-            },
-            vuex: {
-              store: require('@/markdowns/examples/vuex/store.md'),
-              script: require('@/markdowns/examples/vuex/script.md'),
-              template: require('@/markdowns/examples/vuex/template.md')
-            }
+  data: () => ({
+    assets: {
+      pkg,
+      octicons,
+      markdowns: {
+        install: require('@/markdowns/install.md'),
+        options: require('@/markdowns/options.md'),
+        examples: {
+          default: {
+            script: require('@/markdowns/examples/default/script.md'),
+            template: require('@/markdowns/examples/default/template.md')
+          },
+          programmatic: {
+            template: require('@/markdowns/examples/Programmatic/template.md')
+          },
+          vuex: {
+            store: require('@/markdowns/examples/vuex/store.md'),
+            script: require('@/markdowns/examples/vuex/script.md'),
+            template: require('@/markdowns/examples/vuex/template.md')
           }
         }
-      },
-      data: {
-        step: undefined,
-        steps: 3
-      },
-      flags: {
-        debug: false,
-        random: false,
-        persist: false
       }
+    },
+    data: {
+      step: undefined,
+      steps: 3
+    },
+    flags: {
+      debug: false,
+      random: false,
+      persist: false
     }
-  },
+  }),
   mounted() {
     Prism.highlightAll()
   },
