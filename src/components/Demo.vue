@@ -218,10 +218,19 @@ export default {
     }
   },
   methods: {
-    scrollTo(refName) {
-      const element = this.$refs[refName]
-      const top = element.offsetTop
-      window.scrollTo(0, top)
+    scrollTo(ref) {
+      const element = this.getElementByRef(ref)
+      window.scrollTo(0, element.offsetTop)
+    },
+    getElementByRef(ref) {
+      let element = this.$refs[ref]
+      if (element instanceof Element) {
+        return element
+      }
+      element = this.$refs[ref].el
+      if (element instanceof Element) {
+        return element
+      }
     }
   }
 }
