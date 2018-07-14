@@ -1,6 +1,5 @@
 ```js
-<script>
-import VStepper from 'vue-stepper-component'
+import { VStepper } from 'vue-stepper-component'
 
 export default {
   components: {
@@ -8,8 +7,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      route: types.GET_ROUTE,
-      steps: types.GET_STEPS
+      route: types.ROUTE
     }),
     step: {
       get() {
@@ -21,5 +19,4 @@ export default {
     }
   }
 }
-</script>
 ```

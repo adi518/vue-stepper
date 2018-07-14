@@ -13,6 +13,7 @@ export default {
 <style lang="scss" scoped>
 .v-stepper-root {
   display: flex;
+  width: inherit;
   user-select: none;
   flex-direction: row;
   box-sizing: border-box;

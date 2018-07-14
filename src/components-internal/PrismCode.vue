@@ -10,7 +10,7 @@ require('prismjs/components/prism-javascript.js')
 require('prismjs/plugins/line-numbers/prism-line-numbers.js')
 
 export default {
-  name: 'prism-code',
+  name: 'VPrismCode',
   props: {
     language: {
       required: true,

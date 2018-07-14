@@ -1,25 +1,9 @@
 ```html
-<template>
-  <div id="app">
-    <v-stepper :steps="steps" v-model="step" />
-    <div v-if="step === 1">
-      <p>
-        <b>Eeny Content</b>
-      </p>
-      <p>...</p>
-    </div>
-    <div v-if="step === 2">
-      <p>
-        <b>Miny Content</b>
-      </p>
-      <p>...</p>
-    </div>
-    <div v-if="step === 3">
-      <p>
-        <b>Moe Content</b>
-      </p>
-      <p>...</p>
-    </div>
-  </div>
-</template>
+<v-stepper :steps="steps" v-model="step"></v-stepper>
+
+<template v-if="step === 1"><!-- Step 1 Content --></template>
+<template v-if="step === 2"><!-- Step 2 Content --></template>
+<template v-if="step === 3"><!-- Step 3 Content --></template>
+
+<!-- etc' -->
 ```

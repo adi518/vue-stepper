@@ -3,13 +3,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// import VuePrism from 'vue-prism'
-
-// Initialize Plugins
-// Vue.use(VuePrism)
-
-// Plugin Resources
-// import 'prismjs/themes/prism.css'
 
 Vue.config.productionTip = false
 

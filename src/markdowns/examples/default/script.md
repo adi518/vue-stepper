@@ -1,12 +1,10 @@
 ```js
-<script>
-import VStepper from 'vue-stepper-component'
+import { VStepper } from 'vue-stepper-component'
 
 export default {
   components: {
     VStepper
   },
-  data:() => ({ step: undefined, steps: 3 })
+  data: () => ({ steps: 3, step: undefined })
 }
-</script>
 ```

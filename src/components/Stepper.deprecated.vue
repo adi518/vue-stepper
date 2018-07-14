@@ -125,7 +125,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/sass/colors';
+@import '~@/assets/sass/variables';
 
 .v-stepper {
   display: flex;
@@ -155,7 +155,7 @@ export default {
     }
 
     .index {
-      color: $color-iron;
+      color: $docs-color-iron;
     }
   }
 
@@ -163,7 +163,7 @@ export default {
     .label {
       .index {
         opacity: 1;
-        background-color: $color-white;
+        background-color: $docs-color-white;
       }
     }
   }
@@ -171,7 +171,7 @@ export default {
   &.is-visited {
     .index {
       opacity: 0.75;
-      background-color: $color-white;
+      background-color: $docs-color-white;
     }
   }
 }
@@ -194,17 +194,17 @@ export default {
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  border: 1px solid $color-wild-sand;
+  border: 1px solid $docs-color-wild-sand;
 }
 
 .title {
-  color: $color-white;
+  color: $docs-color-white;
 }
 
 .line {
   width: 100%;
   margin-left: 1rem;
-  border-bottom: 1px solid $color-white;
+  border-bottom: 1px solid $docs-color-white;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 </style>

@@ -1,11 +1,7 @@
 ```html
-<template>
-  <div id="app">
-    <v-stepper ref="stepper" :steps="steps" v-model="step" />
-    <!-- Steps View Logic -->
-    <button type="button" @click="$refs.stepper.previous()">
-    <button type="button" @click="$refs.stepper.next()">
-    <button type="button" @click="$refs.stepper.reset()">
-  </div>
-</template>
+<v-stepper ref="stepper" :steps="steps" v-model="step"></v-stepper>
+
+<button type="button" @click="$refs.stepper.previous()">  Previous  </button>
+<button type="button" @click="$refs.stepper.next()">      Next      </button>
+<button type="button" @click="$refs.stepper.reset()">     Reset     </button>
 ```

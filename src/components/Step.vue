@@ -91,11 +91,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/sass/colors';
+@import '~@/assets/sass/variables';
 
 .v-step {
   flex: 1;
+  opacity: 0.55;
   box-sizing: border-box;
+  transition: opacity 0.7s;
+
+  &:hover:not(.is-disabled) {
+    opacity: 0.85;
+  }
+
+  // FIXME: Find another way to compose this!
+  @media screen and (max-width: 640px) {
+    &:not(:first-child) {
+      margin-top: 1rem;
+    }
+  }
 
   *,
   *::before,
@@ -110,23 +123,23 @@ export default {
     }
 
     .index {
-      color: $color-iron;
+      color: #999999;
     }
   }
 
   &.is-active {
+    opacity: 1;
+
     .label {
       .index {
-        opacity: 1;
-        background-color: $color-white;
+        background-color: $docs-color-white;
       }
     }
   }
 
   &.is-visited {
     .index {
-      opacity: 0.75;
-      background-color: $color-white;
+      background-color: $docs-color-white;
     }
   }
 }
@@ -140,26 +153,27 @@ export default {
 .index {
   width: 3rem;
   height: 3rem;
-  font-weight: 300;
+  display: flex;
+  flex-shrink: 0;
   font-size: 1.5rem;
   margin-right: 10px;
   border-radius: 50%;
-  display: flex;
-  flex-shrink: 0;
+  color: $docs-color-white;
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  border: 1px solid $color-wild-sand;
+  border: 1px solid $docs-color-wild-sand;
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
 }
 
 .title {
-  color: $color-white;
+  color: $docs-color-white;
 }
 
 .divider {
   width: 100%;
   margin-left: 1rem;
-  border-bottom: 1px solid $color-white;
+  border-bottom: 1px solid $docs-color-white;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 </style>
