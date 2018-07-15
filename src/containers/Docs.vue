@@ -442,10 +442,8 @@ p {
   min-width: 6rem;
   font-weight: 300;
   font-size: 1.1rem;
-  padding: 0.5rem 1rem;
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
-  border-radius: 0.3rem;
+  margin-left: 0.35rem;
+  margin-right: 0.35rem;
   color: $docs-color-white;
   border: 1px solid rgba($docs-color-white, 0.5);
 
@@ -456,7 +454,6 @@ p {
   }
 
   &:hover {
-    color: #999999;
     background-color: $docs-color-white;
     box-shadow: 0 0.25rem 0.5rem rgba($docs-color-black, 0.2);
   }
@@ -469,10 +466,13 @@ p {
 }
 
 .docs-fixed-anchor {
+  left: 0;
+  width: 100%;
   bottom: 0.8rem;
+  font-weight: 300;
   font-size: 1.2rem;
   position: absolute;
-  text-decoration: none;
+  text-align: center;
   color: $docs-color-white;
 
   &:hover {
