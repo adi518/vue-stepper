@@ -112,7 +112,7 @@
         <h4>Script</h4>
         <div class="docs-markdown" v-html="markdowns.examples.vuex.script"></div>
         <!-- Programmatic -->
-        <h2>Changing Steps Programmatically</h2>
+        <h3>Changing Steps Programmatically</h3>
         <p>
           Changing steps programmatically is a popular use-case in a Stepper and also great for debugging your flow in development environment. Start off by assigning special
           <code>Vue</code> property
@@ -213,21 +213,36 @@ export default {
     Prism.highlightAll()
   },
   methods: {
-    scrollTo(ref, options = {}) {
-      this.getElementByRef(ref).scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        ...options
-      })
-    },
     getElementByRef(ref) {
       let element = this.$refs[ref]
+
+      // Is from element?
       if (element instanceof Element) {
         return element
       }
-      element = this.$refs[ref].el
-      if (element instanceof Element) {
-        return element
+
+      // Is from component?
+      if (this.$refs[ref]) {
+        element = this.$refs[ref].el
+        if (element instanceof Element) {
+          return element
+        }
+      }
+
+      // Ref doesn't exist
+      console.error(`[getElementByRef warn]: No such ref as "${ref}".`)
+
+      return null
+    },
+    scrollTo(ref, options = {}) {
+      const element = this.getElementByRef(ref)
+
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          ...options
+        })
       }
     }
   }
@@ -462,7 +477,7 @@ p {
   margin-left: 0.35rem;
   margin-right: 0.35rem;
   color: $docs-color-white;
-  transition: box-shadow .2s;
+  transition: box-shadow 0.2s;
   border: 1px solid rgba($docs-color-white, 0.5);
 
   @include media-breakpoint-down(xs) {
