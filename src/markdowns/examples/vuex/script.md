@@ -7,14 +7,15 @@ export default {
   },
   computed: {
     ...mapGetters({
-      route: types.ROUTE
+      steps: types.STEPS,
+      step: types.STEP
     }),
     step: {
       get() {
-        return this.route
+        return this.step
       },
-      set(route) {
-        this.$commit('COMMIT_STEP', route)
+      set(step) {
+        this.$commit('COMMIT_STEP', step)
       }
     }
   }

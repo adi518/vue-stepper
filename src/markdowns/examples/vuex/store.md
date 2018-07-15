@@ -1,15 +1,8 @@
 ```js
-// Store.js
+// store.js
 
 // State
-const state = {
-  steps: [
-    { title: 'eeny', value: 1 },
-    { title: 'miny', value: 2, disabled: true },
-    { title: 'moe' , value: 3, disabled: true }
-  ],
-  route: null
-}
+const state = { steps: 3, step: undefined }
 
 // Getters...
 // Mutations...

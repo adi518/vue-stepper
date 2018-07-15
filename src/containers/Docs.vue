@@ -88,10 +88,10 @@
         <div class="docs-github-star">
           <a
             class="github-button"
-            :href="assets.$package.repository.url"
+            :href="flags.development ? null : assets.$package.repository.url"
             data-icon="octicon-star"
             data-show-count="true"
-            aria-label="Star ntkme/github-buttons on GitHub">
+            aria-label="Star adi518/vue-stepper-component on GitHub">
             Star
           </a>
         </div>
@@ -142,6 +142,10 @@
         </p>
         <div class="docs-markdown" v-html="markdowns.examples.programmatic.template"></div>
 
+        <!-- API PROPS -->
+        <h3>API Props</h3>
+        <div class="docs-markdown" v-html="markdowns.options"></div>
+
         <!-- DEBUGGING -->
         <h3>Debugging</h3>
         <p>It's often useful to inspect how the Stepper acts behind the scenes. To enable Debug mode, simply pass a
@@ -149,10 +153,6 @@
           <code>:debug="true"</code>. You can play around with it in the Demo above by hitting the
           <a @click.prevent="scrollTo('debug-switch')" tabindex="">Debug Switch</a> in the top left corner.
         </p>
-
-        <!-- API PROPS -->
-        <h3>API Props</h3>
-        <div class="docs-markdown" v-html="markdowns.options"></div>
 
         <!-- SUPPORT -->
         <h3>Support</h3>
@@ -188,13 +188,11 @@ import Prism from 'prismjs'
 import VSwitch from 'vue-switch/switch-2'
 import VStepper from '@/components/Stepper'
 import VGitRibbon from '@/components-internal/GitRibbon'
-import VPrismCode from '@/components-internal/PrismCode'
 
 export default {
   name: 'VDocs',
   components: {
     VStepper,
-    // PrismCode,
     VSwitch,
     VGitRibbon
   },
@@ -235,7 +233,16 @@ export default {
     window.setTimeout(Prism.highlightAll)
   },
   methods: {
-    getElementByRef(ref) {
+    getElementByRef(ref, refs) {
+      refs = refs || this.$refs
+
+      const noRefs = !!refs
+
+      if (noRefs) {
+        console.error(`[getElementByRef warn]: No refs found.`)
+        return
+      }
+
       let element = this.$refs[ref]
 
       // Is from element?
@@ -324,6 +331,14 @@ samp {
   :not(pre) > code[class*='language-'],
   pre[class*='language-'] {
     background: rgba(#f5f2f0, 0.9);
+  }
+
+  .token.operator,
+  .token.entity,
+  .token.url,
+  .language-css .token.string,
+  .style .token.string {
+    background: none;
   }
 }
 /* Prism end */
