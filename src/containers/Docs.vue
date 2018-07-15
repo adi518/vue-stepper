@@ -1,6 +1,7 @@
 <template>
   <div class="docs">
-    <!-- Jumbotron -->
+
+    <!-- DOCUMENTATION:JUMBOTRON -->
     <div class="docs-container docs-has-jumbotron">
       <div class="container docs-jumbotron">
         <!-- <v-switch
@@ -36,8 +37,9 @@
         </h1>
         <p class="text-center mb-5">
           A fully customizable, lean Vue.js<br>Stepper component with Vuex support and Zero dependencies.
-        </p>
-        <!-- Accolades -->
+        </p>        
+        
+        <!-- DEMO -->
         <v-stepper
           ref="stepper"
           class="docs-stepper mb-3"
@@ -51,48 +53,61 @@
           <template slot="step-2"> Miny </template>
           <template slot="step-3"> Moe </template>
         </v-stepper>
+
         <template v-if="model.step === 1">
           <h6>Eeny Content</h6>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod elementum ante ac volutpat. Suspendisse euismod est enim, sit amet vehicula neque feugiat id. Nunc imperdiet convallis placerat. Sed accumsan mauris et magna facilisis gravida. Suspendisse et justo volutpat, congue libero id, vehicula sem. Maecenas nec ex imperdiet, bibendum justo vel, feugiat velit. Vivamus eu maximus mi. Fusce ac metus magna. Integer eu nunc ac quam efficitur sagittis.
           </p>
         </template>
+
         <template v-if="model.step === 2">
           <h6>Miny Content</h6>
           <p>
             Nunc a nunc at sapien posuere consequat. Vestibulum sed maximus felis. Nulla a diam sit amet nulla malesuada commodo. Fusce ullamcorper tortor sed ipsum ornare suscipit eget at nulla. Donec facilisis elit purus, eu tempus nunc feugiat sollicitudin. Mauris ipsum ligula, faucibus sed libero vel, dignissim posuere mauris. Quisque ipsum tellus, sodales ac ante sed, consequat efficitur metus. Pellentesque euismod viverra orci, vel elementum urna aliquam in. In in accumsan dui, vel interdum dui.
           </p>
         </template>
+
         <template v-if="model.step === 3">
           <h6>Moe Content</h6>
           <p>
             Aenean vel arcu mollis, feugiat ipsum vitae, sollicitudin nibh. Integer fermentum, dui ut laoreet faucibus, nibh elit ultricies ipsum, sit amet placerat libero nisl id enim. Quisque quis arcu nisi. Etiam interdum luctus neque, non tincidunt metus mollis vel. In nec tellus non nisl commodo aliquet a a ligula. Donec semper massa nisl, a tristique lectus ultrices ut. Donec ac ultricies lectus, a semper nibh. Integer tempor, purus ac convallis semper, purus sapien dignissim turpis, non sagittis urna quam nec est.
           </p>
         </template>
+        
         <div class="docs-button-group mt-3">
           <a href="" class="btn docs-button" @click.prevent="$refs.stepper.previous()">Previous</a>
           <a href="" class="btn docs-button" @click.prevent="$refs.stepper.next()">Next</a>
           <a href="" class="btn docs-button" @click.prevent="$refs.stepper.reset()">Reset</a>
-          <!-- <a :href="assets.$package.repository.url" target="_blank" class="btn docs-button">GitHub</a> -->
-        </div>
-        <!-- <p class="mt-20">
+        </div>        
+
+        <!-- FIXED ANCHOR -->
+        <a class="docs-fixed-anchor docs-c-pointer" @click="scrollTo('docs')" tabindex="">Install, Examples & Documentation</a>
+
+        <!-- GITHUB STAR -->
+        <div class="docs-github-star">
           <a
-            class="docs-github-button github-button"
-            :href="flags.development ? '' : assets.$package.repository.url"
+            class="github-button"
+            :href="assets.$package.repository.url"
             data-icon="octicon-star"
             data-show-count="true"
             aria-label="Star ntkme/github-buttons on GitHub">
             Star
           </a>
-        </p> -->
-        <a class="docs-fixed-anchor docs-c-pointer" @click="scrollTo('docs')" tabindex="">Install, Examples & Documentation</a>
+        </div>
+
       </div>
     </div>
-    <!-- Documentation -->
+
+    <!-- DOCUMENTATION:SECOND-PAGE -->
     <div ref="docs" class="docs-container docs-container--second-page">
       <div class="container docs-clearfix">
+
+        <!-- INSTALL -->
         <h3 class="mt-3">Install</h3>
         <div class="docs-markdown" v-html="markdowns.install"></div>
+
+        <!-- USAGE -->
         <h3>Usage</h3>
         <p>
           To use the component in your templates, simply import and register with your component. To control the Stepper state, we use the
@@ -102,7 +117,8 @@
         <div class="docs-markdown" v-html="markdowns.examples.default.template"></div>
         <h4>Script</h4>
         <div class="docs-markdown" v-html="markdowns.examples.default.script"></div>
-        <!-- Vuex -->
+
+        <!-- VUEX -->
         <h3>With Vuex</h3>
         <p>A common practice for managing your Stepper state, is through a Store.</p>
         <div class="docs-markdown" v-html="markdowns.examples.vuex.store"></div>
@@ -111,7 +127,8 @@
         <div class="docs-markdown" v-html="markdowns.examples.vuex.template"></div>
         <h4>Script</h4>
         <div class="docs-markdown" v-html="markdowns.examples.vuex.script"></div>
-        <!-- Programmatic -->
+        
+        <!-- PROGRAMMATIC -->
         <h3>Changing Steps Programmatically</h3>
         <p>
           Start off by assigning special
@@ -124,14 +141,20 @@
           <code>click</code> event of a button element.
         </p>
         <div class="docs-markdown" v-html="markdowns.examples.programmatic.template"></div>
+
+        <!-- DEBUGGING -->
         <h3>Debugging</h3>
         <p>It's often useful to inspect how the Stepper acts behind the scenes. To enable Debug mode, simply pass a
           <code>debug</code> property to the Stepper component via
           <code>:debug="true"</code>. You can play around with it in the Demo above by hitting the
-          <a href="" @click.prevent="scrollTo('debug-switch')">Debug Switch</a> in the top left corner.
+          <a @click.prevent="scrollTo('debug-switch')" tabindex="">Debug Switch</a> in the top left corner.
         </p>
-        <h3>Options</h3>
+
+        <!-- API PROPS -->
+        <h3>API Props</h3>
         <div class="docs-markdown" v-html="markdowns.options"></div>
+
+        <!-- SUPPORT -->
         <h3>Support</h3>
         <p>
           Please open an
@@ -148,8 +171,7 @@
     </footer>
 
     <!-- FIXED -->
-    <v-git-ribbon :href="assets.$package.repository.url"></v-git-ribbon>
-    <!-- <div class="docs-version">{{assets.$package.version}}</div> -->
+    <v-git-ribbon :href="assets.$package.repository.url" fill-color="#dddddd"></v-git-ribbon>
   </div>
 </template>
 
@@ -267,7 +289,6 @@ $spacers: map-merge((20: ($spacer * 2)), $spacers);
 
 $body-color: $docs-color-white;
 $link-color: rgba($docs-color-white, 0.5);
-// $link-color: rgba($docs-color-black, 0.9);
 
 // Required
 @import '~bootstrap/scss/functions';
@@ -298,6 +319,11 @@ samp {
   pre[class*='language-'] {
     margin-top: 0;
     margin-bottom: 0;
+  }
+
+  :not(pre) > code[class*='language-'],
+  pre[class*='language-'] {
+    background: rgba(#f5f2f0, 0.9);
   }
 }
 /* Prism end */
@@ -342,6 +368,7 @@ p {
 
 .docs-container {
   min-height: 100vh;
+  position: relative;
 }
 
 .docs-container--second-page {
@@ -542,6 +569,12 @@ p {
   a {
     color: rgba($docs-color-white, 0.9);
   }
+}
+
+.docs-github-star {
+  top: 1rem;
+  left: 1rem;
+  position: absolute;
 }
 
 .docs-clearfix {

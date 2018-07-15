@@ -6,7 +6,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/adi518/vue-stepper.git"
+    "url": "https://github.com/adi518/vue-stepper"
   },
   "bugs": {
     "url": "https://github.com/adi518/vue-stepper/issues"
