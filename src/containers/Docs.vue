@@ -35,7 +35,7 @@
           Vue-Stepper
           <sup class="docs-version">{{assets.$package.version}}</sup>
         </h1>
-        <p class="text-center mb-5">
+        <p class="docs-tagline mb-5">
           A fully customizable, lean Vue.js<br>Stepper component with Vuex support and Zero dependencies.
         </p>        
         
@@ -413,7 +413,16 @@ p {
 
   @include media-breakpoint-down(xs) {
     font-size: 2rem;
-    margin-top: 3rem;
+    margin-top: 5rem;
+    margin-left: 0;
+  }
+}
+
+.docs-tagline {
+  text-align: center;
+
+  @include media-breakpoint-down(xs) {
+    text-align: inherit;
   }
 }
 
