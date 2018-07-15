@@ -36,7 +36,7 @@
           <sup class="docs-version">{{assets.$package.version}}</sup>
         </h1>
         <p class="docs-tagline mb-5">
-          A fully customizable, lean Vue.js<br>Stepper component with Vuex support and Zero dependencies.
+          A lean, fully customizable Vue.js<br>Stepper component with Vuex support and Zero dependencies.
         </p>        
         
         <!-- DEMO -->
