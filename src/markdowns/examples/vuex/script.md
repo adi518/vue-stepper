@@ -1,9 +1,20 @@
 ```js
+import path from 'path'
+import router from './router'
+
 import { VStepper } from 'vue-stepper-component'
 
 export default {
   components: {
     VStepper
+  },
+  watch: {
+    $route: { 
+      handler(route) {
+        this.changeRoute(route)
+      },
+      immediate: true
+    }
   },
   computed: {
     ...mapGetters({
@@ -14,9 +25,16 @@ export default {
       get() {
         return this.step
       },
-      set(step) {
-        this.$commit('COMMIT_STEP', step)
+      set(step: route) {
+        this.changeRoute({ name: route })
       }
+    }
+  },
+  methods: {
+    changeRoute(route) {
+      const basename = route.name || path.basename(route.fullPath)
+
+      router.push(basename)
     }
   }
 }

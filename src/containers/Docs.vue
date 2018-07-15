@@ -236,14 +236,14 @@ export default {
     getElementByRef(ref, refs) {
       refs = refs || this.$refs
 
-      const noRefs = !!refs
+      const noRefs = !refs
 
       if (noRefs) {
         console.error(`[getElementByRef warn]: No refs found.`)
         return
       }
 
-      let element = this.$refs[ref]
+      let element = refs[ref]
 
       // Is from element?
       if (element instanceof Element) {
@@ -251,8 +251,8 @@ export default {
       }
 
       // Is from component?
-      if (this.$refs[ref]) {
-        element = this.$refs[ref].el
+      if (refs[ref]) {
+        element = refs[ref].el
         if (element instanceof Element) {
           return element
         }
