@@ -89,61 +89,67 @@
       </div>
     </div>
     <!-- Documentation -->
-    <div ref="docs" class="container docs-container docs-clearfix">
-      <h3 class="mt-3">Install</h3>
-      <div class="docs-markdown" v-html="markdowns.install"></div>
-      <h3>Usage</h3>
-      <p>
-        To use the component in your templates, simply import and register with your component. To control the Stepper state, we use the
-        <code>v-model</code> directive, just like on any other input element with two-way binding. The Stepper acts as a group of radio-buttons.
-      </p>
-      <h4>Template</h4>
-      <div class="docs-markdown" v-html="markdowns.examples.default.template"></div>
-      <h4>Script</h4>
-      <div class="docs-markdown" v-html="markdowns.examples.default.script"></div>
-      <!-- Vuex -->
-      <h3>With Vuex</h3>
-      <p>A common practice for managing your Stepper state, is through the Store (Vuex).</p>
-      <div class="docs-markdown" v-html="markdowns.examples.vuex.store"></div>
-      <p>Then, in your component:</p>
-      <h4>Template</h4>
-      <div class="docs-markdown" v-html="markdowns.examples.vuex.template"></div>
-      <h4>Script</h4>
-      <div class="docs-markdown" v-html="markdowns.examples.vuex.script"></div>
-      <!-- Programmatic -->
-      <h2>Changing Steps Programmatically</h2>
-      <p>
-        Changing steps programmatically is a popular use-case in a Stepper and also great for debugging your flow in development environment. Start off by assigning special
-        <code>Vue</code> property
-        <code><a href="https://vuejs.org/v2/api/#ref" target="_blank">ref</a></code> to the
-        <code>v-stepper</code> component. Then, assign an API method to an Event handler of your choice. The following example is similar to the Demo above, where we assign
-        <code>previous</code>,
-        <code>next</code> and
-        <code>reset</code> to the
-        <code>click</code> event of a button element.
-      </p>
-      <div class="docs-markdown" v-html="markdowns.examples.programmatic.template"></div>
-      <h3>Debugging</h3>
-      <p>It's often useful to inspect how the Stepper acts behind the scenes. To enable Debug mode, simply pass a
-        <code>debug</code> property to the Stepper component via
-        <code>:debug="true"</code>. You can play around with it in the Demo above by hitting the
-        <a href="" @click.prevent="scrollTo('debug-switch')">Debug Switch</a> in the top left corner.
-      </p>
-      <h3>Options</h3>
-      <div class="docs-markdown" v-html="markdowns.options"></div>
-      <h3>Support</h3>
-      <p>
-        Please open an
-        <a :href="assets.$package.bugs.url" target="_blank">issue</a> for support.
-      </p>
+    <div ref="docs" class="docs-container docs-container--second-page">
+      <div class="container docs-clearfix">
+        <h3 class="mt-3">Install</h3>
+        <div class="docs-markdown" v-html="markdowns.install"></div>
+        <h3>Usage</h3>
+        <p>
+          To use the component in your templates, simply import and register with your component. To control the Stepper state, we use the
+          <code>v-model</code> directive, just like on any other input element with two-way binding. The Stepper acts as a group of radio-buttons.
+        </p>
+        <h4>Template</h4>
+        <div class="docs-markdown" v-html="markdowns.examples.default.template"></div>
+        <h4>Script</h4>
+        <div class="docs-markdown" v-html="markdowns.examples.default.script"></div>
+        <!-- Vuex -->
+        <h3>With Vuex</h3>
+        <p>A common practice for managing your Stepper state, is through a Store.</p>
+        <div class="docs-markdown" v-html="markdowns.examples.vuex.store"></div>
+        <p>Then, in your component:</p>
+        <h4>Template</h4>
+        <div class="docs-markdown" v-html="markdowns.examples.vuex.template"></div>
+        <h4>Script</h4>
+        <div class="docs-markdown" v-html="markdowns.examples.vuex.script"></div>
+        <!-- Programmatic -->
+        <h2>Changing Steps Programmatically</h2>
+        <p>
+          Changing steps programmatically is a popular use-case in a Stepper and also great for debugging your flow in development environment. Start off by assigning special
+          <code>Vue</code> property
+          <code><a href="https://vuejs.org/v2/api/#ref" target="_blank">ref</a></code> to the
+          <code>v-stepper</code> component. Then, assign an API method to an Event handler of your choice. The following example is similar to the Demo above, where we assign
+          <code>previous</code>,
+          <code>next</code> and
+          <code>reset</code> to the
+          <code>click</code> event of a button element.
+        </p>
+        <div class="docs-markdown" v-html="markdowns.examples.programmatic.template"></div>
+        <h3>Debugging</h3>
+        <p>It's often useful to inspect how the Stepper acts behind the scenes. To enable Debug mode, simply pass a
+          <code>debug</code> property to the Stepper component via
+          <code>:debug="true"</code>. You can play around with it in the Demo above by hitting the
+          <a href="" @click.prevent="scrollTo('debug-switch')">Debug Switch</a> in the top left corner.
+        </p>
+        <h3>Options</h3>
+        <div class="docs-markdown" v-html="markdowns.options"></div>
+        <h3>Support</h3>
+        <p>
+          Please open an
+          <a :href="assets.$package.bugs.url" target="_blank">issue</a> for support.
+        </p>
+      </div>
     </div>
-    <v-git-ribbon :href="assets.$package.repository.url"></v-git-ribbon>
-    <!-- <div class="docs-version">{{assets.$package.version}}</div> -->
+
+    <!-- FOOTER -->    
     <footer class="docs-footer docs-clearfix">
       <p class="docs-credit mt-2 mb-2">
         Made with ❤️ by <a class="docs-anchor--author" href="https://github.com/adi518" target="_blank">Adi Sahar</a>
       </p>
     </footer>
+
+    <!-- FIXED -->
+    <v-git-ribbon :href="assets.$package.repository.url"></v-git-ribbon>
+    <!-- <div class="docs-version">{{assets.$package.version}}</div> -->
   </div>
 </template>
 
@@ -244,7 +250,9 @@ $spacer: 1rem;
 $spacers: ();
 $spacers: map-merge((20: ($spacer * 2)), $spacers);
 
-$link-color: rgba($docs-color-black, 0.9);
+$body-color: $docs-color-white;
+$link-color: rgba($docs-color-white, 0.5);
+// $link-color: rgba($docs-color-black, 0.9);
 
 // Required
 @import '~bootstrap/scss/functions';
@@ -319,6 +327,15 @@ p {
 
 .docs-container {
   min-height: 100vh;
+}
+
+.docs-container--second-page {
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    ),
+    linear-gradient(135deg, #7966f3 20%, transparent 50%),
+    linear-gradient(235deg, #13535f 45%, #1a7f8b 45%);
 }
 
 .docs-has-jumbotron {
@@ -445,6 +462,7 @@ p {
   margin-left: 0.35rem;
   margin-right: 0.35rem;
   color: $docs-color-white;
+  transition: box-shadow .2s;
   border: 1px solid rgba($docs-color-white, 0.5);
 
   @include media-breakpoint-down(xs) {
@@ -454,7 +472,7 @@ p {
   }
 
   &:hover {
-    background-color: $docs-color-white;
+    color: $docs-color-white;
     box-shadow: 0 0.25rem 0.5rem rgba($docs-color-black, 0.2);
   }
 }
