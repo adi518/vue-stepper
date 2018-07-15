@@ -2,7 +2,7 @@
   <div class="docs">
 
     <!-- DOCUMENTATION:JUMBOTRON -->
-    <div class="docs-container docs-has-jumbotron">
+    <div class="docs-container docs-container--has-jumbotron">
       <div class="container docs-jumbotron">
         <!-- <v-switch
           class="docs-switch docs-important docs-switch-debug"
@@ -380,7 +380,7 @@ p {
     linear-gradient(235deg, #13535f 45%, #1a7f8b 45%);
 }
 
-.docs-has-jumbotron {
+.docs-container--has-jumbotron {
   display: flex;
   align-items: center;
   background: linear-gradient(
