@@ -35,7 +35,7 @@
           <sup class="docs-version">{{assets.$package.version}}</sup>
         </h1>
         <p class="text-center mb-5">
-          A fully customizable, lean Vue.js Stepper component<br>with Vuex support and Zero dependencies.
+          A fully customizable, lean Vue.js<br>Stepper component with Vuex support and Zero dependencies.
         </p>
         <!-- Accolades -->
         <v-stepper
@@ -114,7 +114,7 @@
         <!-- Programmatic -->
         <h3>Changing Steps Programmatically</h3>
         <p>
-          Changing steps programmatically is a popular use-case in a Stepper and also great for debugging your flow in development environment. Start off by assigning special
+          Start off by assigning special
           <code>Vue</code> property
           <code><a href="https://vuejs.org/v2/api/#ref" target="_blank">ref</a></code> to the
           <code>v-stepper</code> component. Then, assign an API method to an Event handler of your choice. The following example is similar to the Demo above, where we assign
