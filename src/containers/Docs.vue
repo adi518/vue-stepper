@@ -210,7 +210,7 @@ export default {
     }
   }),
   mounted() {
-    Prism.highlightAll()
+    window.setTimeout(Prism.highlightAll)
   },
   methods: {
     getElementByRef(ref) {
