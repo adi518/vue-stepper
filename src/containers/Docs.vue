@@ -51,26 +51,24 @@
           <template slot="step-2"> Miny </template>
           <template slot="step-3"> Moe </template>
         </v-stepper>
-        <div>
-          <template v-if="model.step === 1">
-            <h6>Eeny Content</h6>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod elementum ante ac volutpat. Suspendisse euismod est enim, sit amet vehicula neque feugiat id. Nunc imperdiet convallis placerat. Sed accumsan mauris et magna facilisis gravida. Suspendisse et justo volutpat, congue libero id, vehicula sem. Maecenas nec ex imperdiet, bibendum justo vel, feugiat velit. Vivamus eu maximus mi. Fusce ac metus magna. Integer eu nunc ac quam efficitur sagittis.
-            </p>
-          </template>
-          <template v-if="model.step === 2">
-            <h6>Miny Content</h6>
-            <p>
-              Nunc a nunc at sapien posuere consequat. Vestibulum sed maximus felis. Nulla a diam sit amet nulla malesuada commodo. Fusce ullamcorper tortor sed ipsum ornare suscipit eget at nulla. Donec facilisis elit purus, eu tempus nunc feugiat sollicitudin. Mauris ipsum ligula, faucibus sed libero vel, dignissim posuere mauris. Quisque ipsum tellus, sodales ac ante sed, consequat efficitur metus. Pellentesque euismod viverra orci, vel elementum urna aliquam in. In in accumsan dui, vel interdum dui.
-            </p>
-          </template>
-          <template v-if="model.step === 3">
-            <h6>Moe Content</h6>
-            <p>
-              Aenean vel arcu mollis, feugiat ipsum vitae, sollicitudin nibh. Integer fermentum, dui ut laoreet faucibus, nibh elit ultricies ipsum, sit amet placerat libero nisl id enim. Quisque quis arcu nisi. Etiam interdum luctus neque, non tincidunt metus mollis vel. In nec tellus non nisl commodo aliquet a a ligula. Donec semper massa nisl, a tristique lectus ultrices ut. Donec ac ultricies lectus, a semper nibh. Integer tempor, purus ac convallis semper, purus sapien dignissim turpis, non sagittis urna quam nec est.
-            </p>
-          </template>
-        </div>
+        <template v-if="model.step === 1">
+          <h6>Eeny Content</h6>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod elementum ante ac volutpat. Suspendisse euismod est enim, sit amet vehicula neque feugiat id. Nunc imperdiet convallis placerat. Sed accumsan mauris et magna facilisis gravida. Suspendisse et justo volutpat, congue libero id, vehicula sem. Maecenas nec ex imperdiet, bibendum justo vel, feugiat velit. Vivamus eu maximus mi. Fusce ac metus magna. Integer eu nunc ac quam efficitur sagittis.
+          </p>
+        </template>
+        <template v-if="model.step === 2">
+          <h6>Miny Content</h6>
+          <p>
+            Nunc a nunc at sapien posuere consequat. Vestibulum sed maximus felis. Nulla a diam sit amet nulla malesuada commodo. Fusce ullamcorper tortor sed ipsum ornare suscipit eget at nulla. Donec facilisis elit purus, eu tempus nunc feugiat sollicitudin. Mauris ipsum ligula, faucibus sed libero vel, dignissim posuere mauris. Quisque ipsum tellus, sodales ac ante sed, consequat efficitur metus. Pellentesque euismod viverra orci, vel elementum urna aliquam in. In in accumsan dui, vel interdum dui.
+          </p>
+        </template>
+        <template v-if="model.step === 3">
+          <h6>Moe Content</h6>
+          <p>
+            Aenean vel arcu mollis, feugiat ipsum vitae, sollicitudin nibh. Integer fermentum, dui ut laoreet faucibus, nibh elit ultricies ipsum, sit amet placerat libero nisl id enim. Quisque quis arcu nisi. Etiam interdum luctus neque, non tincidunt metus mollis vel. In nec tellus non nisl commodo aliquet a a ligula. Donec semper massa nisl, a tristique lectus ultrices ut. Donec ac ultricies lectus, a semper nibh. Integer tempor, purus ac convallis semper, purus sapien dignissim turpis, non sagittis urna quam nec est.
+          </p>
+        </template>
         <div class="docs-button-group mt-3">
           <a href="" class="btn docs-button" @click.prevent="$refs.stepper.previous()">Previous</a>
           <a href="" class="btn docs-button" @click.prevent="$refs.stepper.next()">Next</a>
@@ -86,9 +84,6 @@
             aria-label="Star ntkme/github-buttons on GitHub">
             Star
           </a>
-        </p> -->
-        <!-- <p class="docs-credit mt-3">
-          Made with ❤️ by <a class="docs-anchor--author" href="https://github.com/adi518" target="_blank">Adi Sahar</a>
         </p> -->
         <a class="docs-fixed-anchor docs-c-pointer" @click="scrollTo('docs')" tabindex="">Install, Examples & Documentation</a>
       </div>
@@ -329,33 +324,6 @@ p {
 .docs-has-jumbotron {
   display: flex;
   align-items: center;
-  // background: linear-gradient(to right, $docs-color-hot-pink 0%, #a80077 100%);
-  // background: linear-gradient(to bottom, #b4e391 0%,#61c419 50%,#b4e391 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  // background: linear-gradient(to bottom, #b4ddb4 0%,#83c783 17%,#52b152 33%,#008a00 67%,#005700 83%,#002400 100%);
-  // background: linear-gradient(to bottom, #e570e7 0%, #c85ec7 47%, #a849a3 100%);
-  // background: linear-gradient(to bottom, #00b7ea 0%, #009ec3 100%);
-  // background: linear-gradient(135deg, rgba(102,81,204,1) 0%,rgba(66,184,131,1) 100%);
-  // background: linear-gradient(
-  //   135deg,
-  //   rgba(121, 102, 243, 1) 0%,
-  //   rgba(66, 184, 131, 1) 100%
-  // );
-  // background: linear-gradient(
-  //   135deg,
-  //   rgba(121, 102, 243, 1) 25%,
-  //   rgba(0, 100, 100, 1) 75%,
-  //   rgba(66, 184, 131, 1) 100%
-  // );
-  // background: linear-gradient(145deg, #7966f3 50%, #006464 100%);
-  // background: linear-gradient(
-  //   135deg,
-  //   rgba(121, 102, 243, 1) 50%,
-  //   rgba(0, 50, 50, 1) 50%,
-  //   rgba(0, 100, 100, 1) 52%
-  // );
-  // background: linear-gradient(135deg, #1a7f8b 50%, #13535f 50%);
-  // 5037F2
-  // linear-gradient(135deg, #5037f2 20%, transparent 50%),
   background: linear-gradient(
       rgba(255, 255, 255, 0.05) 0%,
       rgba(255, 255, 255, 0.05) 100%
@@ -365,15 +333,16 @@ p {
 }
 
 .docs-jumbotron {
-  color: $docs-color-white;
   display: flex;
-  align-items: center;
   flex-direction: column;
+  color: $docs-color-white;
 }
 
 .docs-heading {
   display: flex;
   opacity: 0.9;
+  margin-left: auto;
+  margin-right: auto;
   font-size: 2.7rem;
   padding-right: 1rem;
   text-transform: lowercase;
@@ -450,8 +419,7 @@ p {
 
 .docs-stepper {
   width: 100%;
-  display: flex;
-  justify-content: center;
+  font-size: 1.1rem;
 
   .step {
     &:last-child {
