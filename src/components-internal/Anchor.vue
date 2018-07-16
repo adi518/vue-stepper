@@ -1,9 +1,9 @@
 <template>
   <a class="v-a"
     :href="href"
-    :target="target"
+    :target="computedTarget"
     :tabindex="tabindex"
-    @click.prevent="handleClick"
+    @click="handleClick"
   >
     <slot></slot>
   </a>
@@ -13,6 +13,10 @@
 export default {
   name: 'VA',
   props: {
+    name: {
+      type: String,
+      default: ''
+    },
     href: {
       type: String,
       default: ''
@@ -32,10 +36,30 @@ export default {
     target: {
       type: String,
       default: '_blank'
+    },
+    prevent: {
+      type: Boolean,
+      default: false
+    },
+    static: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    computedTarget() {
+      if (this.static) {
+        return null
+      }
+      return this.target
     }
   },
   methods: {
-    handleClick() {
+    handleClick(event) {
+      if (this.prevent || this.scrollTo || this.static) {
+        event.preventDefault()
+      }
+
       if (this.scrollTo) {
         this.$scrollTo(this.scrollTo)
       }

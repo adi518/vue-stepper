@@ -40,7 +40,7 @@
         <p class="docs-tagline mb-5">
           Fully customizable
           Stepper component <br v-show="model.breakpoint.noMatch"> with Vuex
-          support and zero dependencies.
+          support and Zero dependencies.
         </p>        
         
         <!-- DEMO -->
@@ -112,14 +112,14 @@
       <div class="container docs-clearfix">
 
         <!-- INSTALL -->
-        <h3 class="mt-3">
-          <v-a href="/#Install">Install</v-a>
+        <h3 class="mt-3" ref="install">
+          <v-a :refs="$refs" scroll-to="install">Install</v-a>
         </h3>
         <div class="docs-markdown" v-html="markdowns.install"></div>
 
         <!-- USAGE -->
-        <h3>
-          <v-a href="/#Usage">Usage</v-a>
+        <h3 ref="usage">
+          <v-a :refs="$refs" scroll-to="usage">Usage</v-a>
         </h3>
         <p>
           To use the component in your templates, simply import and register with your component.
@@ -132,8 +132,8 @@
         <div class="docs-markdown" v-html="markdowns.examples.default.script"></div>
 
         <!-- VUEX -->
-        <h3>
-          <v-a href="/#Vuex">Vuex</v-a>
+        <h3 ref="vuex">
+          <v-a :refs="$refs" scroll-to="vuex">Vuex</v-a>
         </h3>
         <p>A common practice for managing your Stepper state, is through a Store.</p>
         <div class="docs-markdown" v-html="markdowns.examples.vuex.store"></div>
@@ -144,8 +144,8 @@
         <div class="docs-markdown" v-html="markdowns.examples.vuex.script"></div>
         
         <!-- PROGRAMMATIC -->
-        <h3>
-          <v-a href="/#Programmatic">Programmatic</v-a>
+        <h3 ref="programmatic">
+          <v-a :refs="$refs" scroll-to="programmatic">Programmatic</v-a>
         </h3>
         <p>
           Start off by assigning special
@@ -159,13 +159,15 @@
         <div class="docs-markdown" v-html="markdowns.examples.programmatic.template"></div>
 
         <!-- API PROPS -->
-        <h3>
-          <v-a href="/#API-Props">API Props</v-a>          
+        <h3 ref="api-props">
+          <v-a :refs="$refs" scroll-to="api-props">API Props</v-a>          
         </h3>
         <div class="docs-markdown" v-html="markdowns.props"></div>
 
         <!-- SUPPORT -->
-        <h3><v-a href="/#Support">Support</v-a></h3>
+        <h3 ref="support">
+          <v-a :refs="$refs" scroll-to="support">Support</v-a>
+        </h3>
         <p>
           Please open an
           <v-a :href="assets.$package.bugs.url">issue</v-a> for support.
@@ -473,6 +475,10 @@ h6 {
       color: silver;
       margin-left: -1em;
       position: absolute;
+
+      @include media-breakpoint-down(xs) {
+        display: none;
+      }
     }
   }
 }
