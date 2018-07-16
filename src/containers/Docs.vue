@@ -35,8 +35,7 @@
           color="green"
         /> -->
         <h1 class="docs-heading mb-3">
-          Vue-Stepper
-          <sup class="docs-version">{{assets.$package.version}}</sup>
+          Vue-Stepper <sup class="docs-version">{{assets.$package.version}}</sup>
         </h1>
         <p class="docs-tagline mb-5">
           Fully customizable
@@ -113,33 +112,41 @@
       <div class="container docs-clearfix">
 
         <!-- INSTALL -->
-        <h3 class="mt-3">Install</h3>
+        <h3 class="mt-3">
+          <v-a href="/#Install">Install</v-a>
+        </h3>
         <div class="docs-markdown" v-html="markdowns.install"></div>
 
         <!-- USAGE -->
-        <h3>Usage</h3>
+        <h3>
+          <v-a href="/#Usage">Usage</v-a>
+        </h3>
         <p>
           To use the component in your templates, simply import and register with your component.
           To control the Stepper state, we use the <code>v-model</code> directive, just like on any
           other input element with two-way binding. The Stepper acts as a group of radio-buttons.
         </p>
-        <h4>Template</h4>
+        <h5>Template</h5>
         <div class="docs-markdown" v-html="markdowns.examples.default.template"></div>
-        <h4>Script</h4>
+        <h5>Script</h5>
         <div class="docs-markdown" v-html="markdowns.examples.default.script"></div>
 
         <!-- VUEX -->
-        <h3>Vuex</h3>
+        <h3>
+          <v-a href="/#Vuex">Vuex</v-a>
+        </h3>
         <p>A common practice for managing your Stepper state, is through a Store.</p>
         <div class="docs-markdown" v-html="markdowns.examples.vuex.store"></div>
         <p>Then, in your component:</p>
-        <h4>Template</h4>
+        <h5>Template</h5>
         <div class="docs-markdown" v-html="markdowns.examples.vuex.template"></div>
-        <h4>Script</h4>
+        <h5>Script</h5>
         <div class="docs-markdown" v-html="markdowns.examples.vuex.script"></div>
         
         <!-- PROGRAMMATIC -->
-        <h3>Programmatic</h3>
+        <h3>
+          <v-a href="/#Programmatic">Programmatic</v-a>
+        </h3>
         <p>
           Start off by assigning special
           <code>Vue</code> property
@@ -152,11 +159,13 @@
         <div class="docs-markdown" v-html="markdowns.examples.programmatic.template"></div>
 
         <!-- API PROPS -->
-        <h3>API Props</h3>
+        <h3>
+          <v-a href="/#API-Props">API Props</v-a>          
+        </h3>
         <div class="docs-markdown" v-html="markdowns.props"></div>
 
         <!-- SUPPORT -->
-        <h3>Support</h3>
+        <h3><v-a href="/#Support">Support</v-a></h3>
         <p>
           Please open an
           <v-a :href="assets.$package.bugs.url">issue</v-a> for support.
@@ -186,7 +195,6 @@
 </template>
 
 <script>
-// https://v4-alpha.getbootstrap.com/
 // https://github.com/spatie/vue-tabs-component
 // https://github.com/cristijora/vue-tabs/blob/master/src/components/VueTabs.js
 // https://stackoverflow.com/questions/42645964/vue-js-anchor-to-div-within-the-same-component
@@ -289,7 +297,7 @@ export default {
       `
 
       if (this.model.breakpoint.noMatch) {
-        return truncate(lorem, { length: 200 })
+        return truncate(lorem, { length: 190 })
       }
 
       return lorem
@@ -440,6 +448,33 @@ a {
 p {
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  > a {
+    color: $docs-color-white;
+
+    &:hover {
+      text-decoration: none;
+      color: $docs-color-white;
+
+      &::before {
+        color: #12525e;
+      }
+    }
+
+    &::before {
+      content: '§';
+      color: silver;
+      margin-left: -1em;
+      position: absolute;
+    }
+  }
 }
 
 .docs {
