@@ -591,6 +591,7 @@ h6 {
   &:hover {
     color: $docs-color-white;
     box-shadow: 0 0.25rem 0.5rem rgba($docs-color-black, 0.2);
+    background-image: linear-gradient(-135deg, rgba($docs-color-white, 0.5), transparent 100%);
   }
 }
 
