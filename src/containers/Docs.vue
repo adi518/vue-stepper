@@ -63,7 +63,7 @@
           class="docs-fixed-anchor docs-c-pointer"
           scroll-to="docs"
           :refs="$refs">
-          Install, Examples & Documentation
+          Install, Examples &amp; Documentation
         </v-a>
 
         <!-- GITHUB STAR -->
