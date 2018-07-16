@@ -442,6 +442,10 @@ h6 {
     }
   }
 }
+
+code {
+  color: lighten($app-color-eden, 10%);
+}
 /* Tags end */
 
 /* Headings */
