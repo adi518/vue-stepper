@@ -48,8 +48,8 @@ export default {
   },
   computed: {
     computedTarget() {
-      if (this.static) {
-        return null
+      if (this.scrollTo) {
+        return undefined
       }
       return this.target
     }

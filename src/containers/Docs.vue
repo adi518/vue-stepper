@@ -164,11 +164,18 @@
         </p>
 
         <!-- LICENSE -->
-        <h2 class="mt-5">License</h2>
-        <p class="docs-p">
+        <h3 class="mt-5" ref="license">          
+          <v-a :scroll-to="$refs.license">License</v-a>
+        </h3>
+        <p>
           Copyright (c) 2018
-          <a href="https://github.com/adi518" target="_blank">{{pkg.author}}</a>
-          by <a href="https://opensource.org/licenses/MIT" target="_blank">{{pkg.license}}</a>
+          <v-a href="https://github.com/adi518">
+            {{ pkg.author }}
+          </v-a>
+          by
+          <v-a href="https://opensource.org/licenses/MIT">
+            {{ pkg.license }}
+          </v-a>
         </p>
 
       </div>
@@ -178,9 +185,7 @@
     <footer class="docs-footer docs-clearfix">
       <p class="docs-credit mt-2 mb-2">
         Made with ❤️ by
-        <v-a
-          class="docs-anchor--author"
-          href="https://github.com/adi518">
+        <v-a href="https://github.com/adi518">
           Adi Sahar
         </v-a>
       </p>
