@@ -30,7 +30,7 @@ export default {
       default: () => ({})
     },
     scrollTo: {
-      type: String,
+      type: [String, Element],
       default: ''
     },
     target: {
@@ -97,7 +97,13 @@ export default {
       return null
     },
     $scrollTo(ref, options = {}) {
-      const element = this.getElementByRef(ref, this.refs)
+      let element
+      
+      if (ref instanceof Element) {
+        element = ref
+      } else {
+        element = this.getElementByRef(ref, this.refs)
+      }
 
       if (element) {
         element.scrollIntoView({

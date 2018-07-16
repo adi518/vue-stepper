@@ -9,7 +9,7 @@
       <div class="container docs-jumbotron">
 
         <h1 class="docs-h1 mb-3">
-          Vue-Stepper <sup class="docs-version">{{assets.$package.version}}</sup>
+          Vue-Stepper <sup class="docs-version">{{ pkg.version }}</sup>
         </h1>
         <p class="docs-tagline mb-5">
           Fully customizable
@@ -21,8 +21,8 @@
         <v-stepper
           ref="stepper"
           class="docs-stepper mb-3"
-          :steps="model.steps"
           v-model="model.step"
+          :steps="model.steps"
           :debug="flags.debug"
           :linear="flags.linear"
           :persist="flags.persist"
@@ -61,8 +61,7 @@
         <!-- ABSOLUTE ANCHOR -->
         <v-a
           class="docs-fixed-anchor docs-c-pointer"
-          scroll-to="docs"
-          :refs="$refs">
+          :scroll-to="$refs.docs">
           Install, Examples &amp; Documentation
         </v-a>
 
@@ -70,7 +69,7 @@
         <div class="docs-github-star">
           <a
             class="github-button"
-            :href="flags.development ? null : assets.$package.repository.url"
+            :href="flags.development ? null : pkg.repository.url"
             data-icon="octicon-star"
             data-show-count="true"
             aria-label="Star adi518/vue-stepper-component on GitHub">
@@ -87,13 +86,13 @@
 
         <!-- INSTALL -->
         <h3 class="mt-3" ref="install">
-          <v-a :refs="$refs" scroll-to="install">Install</v-a>
+          <v-a :scroll-to="$refs.install">Install</v-a>
         </h3>
         <div class="docs-markdown" v-html="markdowns.install"></div>
 
         <!-- USAGE -->
         <h3 ref="usage">
-          <v-a :refs="$refs" scroll-to="usage">Usage</v-a>
+          <v-a :scroll-to="$refs.usage">Usage</v-a>
         </h3>
         <p>
           To use the component in your templates, simply import and register with your component.
@@ -113,7 +112,7 @@
 
         <!-- VUEX -->
         <h3 ref="vuex">
-          <v-a :refs="$refs" scroll-to="vuex">Vuex</v-a>
+          <v-a :scroll-to="$refs.vuex">Vuex</v-a>
         </h3>
         <p>A common practice for managing your Stepper state, is through a Store.</p>
         <div
@@ -134,7 +133,7 @@
         
         <!-- PROGRAMMATIC -->
         <h3 ref="programmatic">
-          <v-a :refs="$refs" scroll-to="programmatic">Programmatic</v-a>
+          <v-a :scroll-to="$refs.programmatic">Programmatic</v-a>
         </h3>
         <p>
           Start off by assigning special
@@ -149,17 +148,17 @@
 
         <!-- API PROPS -->
         <h3 ref="api-props">
-          <v-a :refs="$refs" scroll-to="api-props">API Props</v-a>          
+          <v-a :scroll-to="$refs['api-props']">API Props</v-a>          
         </h3>
         <div class="docs-markdown" v-html="markdowns.props"></div>
 
         <!-- SUPPORT -->
         <h3 ref="support">
-          <v-a :refs="$refs" scroll-to="support">Support</v-a>
+          <v-a :scroll-to="$refs.support">Support</v-a>
         </h3>
         <p>
           Please open an
-          <v-a :href="assets.$package.bugs.url">issue</v-a> for support.
+          <v-a :href="pkg.bugs.url">issue</v-a> for support.
         </p>
       </div>
     </div>
@@ -178,7 +177,7 @@
 
     <!-- FIXED -->
     <v-git-ribbon
-      :href="assets.$package.repository.url"
+      :href="pkg.repository.url"
       octo-color="#18202a"
       fill-color="#eeeeee"
     ></v-git-ribbon>
@@ -186,18 +185,20 @@
 </template>
 
 <script>
-// https://github.com/spatie/vue-tabs-component
-// https://github.com/cristijora/vue-tabs/blob/master/src/components/VueTabs.js
-// https://stackoverflow.com/questions/42645964/vue-js-anchor-to-div-within-the-same-component
-
-import $package from '@root/package'
+import pkg from '@root/package'
 
 import Prism from 'prismjs'
 import truncate from 'lodash.truncate'
 import { VhChromeFix } from '@/assets/js/VhChromeFix'
 
 import VSwitch from 'vue-switch/switch-2'
-import { VShowAt, VHideAt, VBreakpoint, Model as BreakpointModel } from 'vue-breakpoint-component'
+
+import {
+  VShowAt,
+  VHideAt,
+  VBreakpoint,
+  Model as BreakpointModel
+} from 'vue-breakpoint-component'
 
 import VStepper from '@/components/Stepper'
 import VA from '@/components-internal/Anchor'
@@ -215,12 +216,10 @@ export default {
     VBreakpoint
   },
   data: () => ({
-    assets: {
-      $package
-    },
+    pkg,
     markdowns: {
-      install: require('@/markdowns/install.md'),
       props: require('@/markdowns/props.md'),
+      install: require('@/markdowns/install.md'),
       examples: {
         default: {
           script: require('@/markdowns/examples/default/script.md'),
@@ -242,17 +241,18 @@ export default {
       steps: 3,
       step: undefined,
       breakpoint: new BreakpointModel()
-    },
+    },    
     flags: {
       debug: false,
       random: false,
       persist: false,
       development: process.env.NODE_ENV === 'development'
-    }    
+    }
   }),
   created() {
     this.vhChromeFix = undefined
   },
+
   mounted() {
     window.setTimeout(Prism.highlightAll)
     
@@ -271,11 +271,9 @@ export default {
       congue libero id, vehicula sem. Maecenas nec ex imperdiet, bibendum justo vel,
       feugiat velit. Vivamus eu maximus mi. Fusce ac metus magna.
       `
-
       if (this.model.breakpoint.noMatch) {
         return truncate(lorem, { length: 200 })
       }
-
       return lorem
     },
     minyLorem() {
@@ -288,11 +286,9 @@ export default {
       Quisque ipsum tellus, sodales ac ante sed, consequat efficitur metus.
       Pellentesque euismod viverra orci, vel elementum urna aliquam in.
       `
-
       if (this.model.breakpoint.noMatch) {
         return truncate(lorem, { length: 190 })
       }
-
       return lorem
     },
     moeLorem() {
@@ -304,11 +300,9 @@ export default {
       a tristique lectus ultrices ut. Donec ac ultricies lectus, a semper nibh. Integer tempor,
       purus ac convallis semper, purus sapien dignissim turpis.
       `
-
       if (this.model.breakpoint.noMatch) {
         return truncate(lorem, { length: 210 })
       }
-
       return lorem
     }
   }
