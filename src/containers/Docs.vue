@@ -252,7 +252,6 @@ export default {
   created() {
     this.vhChromeFix = undefined
   },
-
   mounted() {
     window.setTimeout(Prism.highlightAll)
     
