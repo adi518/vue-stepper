@@ -1,8 +1,11 @@
 <template>
   <div class="docs">
 
+    <!-- BREAKPOINT STATE -->
+    <v-breakpoint v-model="model.breakpoint"></v-breakpoint>
+
     <!-- DOCUMENTATION:JUMBOTRON -->
-    <div class="docs-container docs-container--has-jumbotron">
+    <div class="docs-container docs-container--has-jumbotron docs-100vh js-vh-fix">
       <div class="container docs-jumbotron">
         <!-- <v-switch
           class="docs-switch docs-important docs-switch-debug"
@@ -36,8 +39,9 @@
           <sup class="docs-version">{{assets.$package.version}}</sup>
         </h1>
         <p class="docs-tagline mb-5">
-          A lean, fully customizable Vue.js<br>Stepper component with Vuex support
-          and Zero dependencies.
+          Fully customizable
+          Stepper component <br v-show="model.breakpoint.noMatch"> with Vuex
+          support and zero dependencies.
         </p>        
         
         <!-- DEMO -->
@@ -56,48 +60,30 @@
         </v-stepper>
 
         <template v-if="model.step === 1">
-          <h6>Eeny Content</h6>
           <p class="docs-lorem">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            In euismod elementum ante ac volutpat. Suspendisse euismod est enim,
-            sit amet vehicula neque feugiat id. Nunc imperdiet convallis placerat.
-            Sed accumsan mauris et magna facilisis gravida. Suspendisse et justo volutpat,
-            congue libero id, vehicula sem. Maecenas nec ex imperdiet, bibendum justo vel,
-            feugiat velit. Vivamus eu maximus mi. Fusce ac metus magna.
+            {{ einyLorem }}
           </p>
         </template>
 
         <template v-if="model.step === 2">
-          <h6>Miny Content</h6>
           <p class="docs-lorem">
-            Nunc a nunc at sapien posuere consequat. Vestibulum sed maximus felis.
-            Nulla a diam sit amet nulla malesuada commodo.
-            Fusce ullamcorper tortor sed ipsum ornare suscipit eget at nulla.
-            Donec facilisis elit purus, eu tempus nunc feugiat sollicitudin.
-            Mauris ipsum ligula, faucibus sed libero vel, dignissim posuere mauris.
-            Quisque ipsum tellus, sodales ac ante sed, consequat efficitur metus.
-            Pellentesque euismod viverra orci, vel elementum urna aliquam in.
+            {{ minyLorem }}
           </p>
         </template>
 
         <template v-if="model.step === 3">
-          <h6>Moe Content</h6>
           <p class="docs-lorem">
-            Aenean vel arcu mollis, feugiat ipsum vitae, sollicitudin nibh. Integer fermentum,
-            dui ut laoreet faucibus, nibh elit ultricies ipsum, sit amet placerat libero nisl id enim.
-            Quisque quis arcu nisi. Etiam interdum luctus neque, non tincidunt metus mollis vel.
-            In nec tellus non nisl commodo aliquet a a ligula. Donec semper massa nisl,
-            a tristique lectus ultrices ut. Donec ac ultricies lectus, a semper nibh. Integer tempor,
-            purus ac convallis semper, purus sapien dignissim turpis.
+            {{ moeLorem }}
           </p>
         </template>
         
-        <div class="docs-button-group mt-3">
-          <button class="btn docs-button" @click="$refs.stepper.previous()">Previous</button>
-          <button class="btn docs-button" @click="$refs.stepper.next()">Next</button>
-          <button class="btn docs-button" @click="$refs.stepper.reset()">Reset</button>
-          <button class="btn docs-button">Random</button>
-        </div>        
+        <v-hide-at no-match>
+          <div class="docs-button-group mt-3">
+           <button class="btn docs-button" @click="$refs.stepper.previous()">Previous</button>
+           <button class="btn docs-button" @click="$refs.stepper.next()">Next</button>
+           <button class="btn docs-button" @click="$refs.stepper.reset()">Reset</button>
+          </div>  
+        </v-hide-at>            
 
         <!-- FIXED ANCHOR -->
         <v-a
@@ -123,7 +109,7 @@
     </div>
 
     <!-- DOCUMENTATION:SECOND-PAGE -->
-    <div ref="docs" class="docs-container docs-container--second-page">
+    <div ref="docs" class="docs-container docs-container--second-page docs-min-100vh">
       <div class="container docs-clearfix">
 
         <!-- INSTALL -->
@@ -143,7 +129,7 @@
         <div class="docs-markdown" v-html="markdowns.examples.default.script"></div>
 
         <!-- VUEX -->
-        <h3>With Store (Vuex)</h3>
+        <h3>Vuex</h3>
         <p>A common practice for managing your Stepper state, is through a Store.</p>
         <div class="docs-markdown" v-html="markdowns.examples.vuex.store"></div>
         <p>Then, in your component:</p>
@@ -153,7 +139,7 @@
         <div class="docs-markdown" v-html="markdowns.examples.vuex.script"></div>
         
         <!-- PROGRAMMATIC -->
-        <h3>Changing Steps Programmatically</h3>
+        <h3>Programmatic</h3>
         <p>
           Start off by assigning special
           <code>Vue</code> property
@@ -167,15 +153,7 @@
 
         <!-- API PROPS -->
         <h3>API Props</h3>
-        <div class="docs-markdown" v-html="markdowns.options"></div>
-
-        <!-- DEBUGGING -->
-        <h3>Debugging</h3>
-        <p>It's often useful to inspect how the Stepper acts behind the scenes.
-          To enable Debug mode, simply pass a <code>debug</code> property to the Stepper component
-          via <code>:debug="true"</code>. You can play around with it in the Demo above by hitting
-          the <v-a scrollTo="debug-switch">Debug Switch</v-a> in the top left corner.
-        </p>
+        <div class="docs-markdown" v-html="markdowns.props"></div>
 
         <!-- SUPPORT -->
         <h3>Support</h3>
@@ -216,8 +194,12 @@
 import $package from '@root/package'
 
 import Prism from 'prismjs'
+import truncate from 'lodash.truncate'
+import { VhChromeFix } from '@/assets/js/VhChromeFix'
 
 import VSwitch from 'vue-switch/switch-2'
+import { VShowAt, VHideAt, VBreakpoint, Model as BreakpointModel } from 'vue-breakpoint-component'
+
 import VStepper from '@/components/Stepper'
 import VA from '@/components-internal/Anchor'
 import VGitRibbon from '@/components-internal/GitRibbon'
@@ -226,9 +208,12 @@ export default {
   name: 'VDocs',
   components: {
     VA,
+    VShowAt,
+    VHideAt,
     VSwitch,
     VStepper,
-    VGitRibbon
+    VGitRibbon,
+    VBreakpoint
   },
   data: () => ({
     assets: {
@@ -236,7 +221,7 @@ export default {
     },
     markdowns: {
       install: require('@/markdowns/install.md'),
-      options: require('@/markdowns/options.md'),
+      props: require('@/markdowns/props.md'),
       examples: {
         default: {
           script: require('@/markdowns/examples/default/script.md'),
@@ -253,18 +238,78 @@ export default {
       }
     },
     model: {
+      steps: 3,
       step: undefined,
-      steps: 3
+      breakpoint: new BreakpointModel()
     },
     flags: {
       debug: false,
       random: false,
       persist: false,
       development: process.env.NODE_ENV === 'development'
-    }
+    }    
   }),
+  created() {
+    this.vhChromeFix = undefined
+  },
   mounted() {
     window.setTimeout(Prism.highlightAll)
+    
+    this.vhChromeFix = new VhChromeFix([{ selector: '.js-vh-fix', vh: 100 }])
+  },
+  destroyed() {
+    this.vhChromeFix.destroy()
+  },
+  computed: {
+    einyLorem() {
+      const lorem = `
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      In euismod elementum ante ac volutpat. Suspendisse euismod est enim,
+      sit amet vehicula neque feugiat id. Nunc imperdiet convallis placerat.
+      Sed accumsan mauris et magna facilisis gravida. Suspendisse et justo volutpat,
+      congue libero id, vehicula sem. Maecenas nec ex imperdiet, bibendum justo vel,
+      feugiat velit. Vivamus eu maximus mi. Fusce ac metus magna.
+      `
+
+      if (this.model.breakpoint.noMatch) {
+        return truncate(lorem, { length: 200 })
+      }
+
+      return lorem
+    },
+    minyLorem() {
+      const lorem = `
+      Nunc a nunc at sapien posuere consequat. Vestibulum sed maximus felis.
+      Nulla a diam sit amet nulla malesuada commodo.
+      Fusce ullamcorper tortor sed ipsum ornare suscipit eget at nulla.
+      Donec facilisis elit purus, eu tempus nunc feugiat sollicitudin.
+      Mauris ipsum ligula, faucibus sed libero vel, dignissim posuere mauris.
+      Quisque ipsum tellus, sodales ac ante sed, consequat efficitur metus.
+      Pellentesque euismod viverra orci, vel elementum urna aliquam in.
+      `
+
+      if (this.model.breakpoint.noMatch) {
+        return truncate(lorem, { length: 200 })
+      }
+
+      return lorem
+    },
+    moeLorem() {
+      const lorem = `
+      Aenean vel arcu mollis, feugiat ipsum vitae, sollicitudin nibh. Integer fermentum,
+      dui ut laoreet faucibus, nibh elit ultricies ipsum, sit amet placerat libero nisl id enim.
+      Quisque quis arcu nisi. Etiam interdum luctus neque, non tincidunt metus mollis vel.
+      In nec tellus non nisl commodo aliquet a a ligula. Donec semper massa nisl,
+      a tristique lectus ultrices ut. Donec ac ultricies lectus, a semper nibh. Integer tempor,
+      purus ac convallis semper, purus sapien dignissim turpis.
+      `
+
+      if (this.model.breakpoint.noMatch) {
+        return truncate(lorem, { length: 200 })
+      }
+
+      return lorem
+    }
   },
   methods: {
     getElementByRef(ref, refs) {
@@ -377,6 +422,12 @@ samp {
 }
 /* Prism end */
 
+html {
+  @include media-breakpoint-down(xs) {
+    font-size: 90%;
+  }
+}
+
 body {
   font-weight: 300;
   font-family: 'Lato', sans-serif;
@@ -405,7 +456,6 @@ p {
 }
 
 .docs-container {
-  min-height: 100vh;
   position: relative;
 }
 
@@ -447,11 +497,6 @@ p {
   background-repeat: no-repeat;
   background-image: url('~@/assets/images/logo.png');
   text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
-
-  @include media-breakpoint-down(xs) {
-    font-size: 2rem;
-    margin-top: 5rem;
-  }
 }
 
 .docs-tagline {
@@ -472,16 +517,15 @@ p {
     top: 0.5rem;
     left: 0.5rem;
     opacity: 0.8;
-    position: fixed;
-
-    @include media-breakpoint-down(xs) {
-      // position: static;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
+    position: fixed;    
 
     &.z-on {
       opacity: 1;
+    }
+
+    @include media-breakpoint-down(xs) {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
     }
   }
 
@@ -491,14 +535,13 @@ p {
     opacity: 0.8;
     position: fixed;
 
-    @include media-breakpoint-down(xs) {
-      // position: static;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-
     &.z-on {
       opacity: 1;
+    }
+
+    @include media-breakpoint-down(xs) {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
     }
   }
 
@@ -507,15 +550,14 @@ p {
     left: 9.5rem;
     opacity: 0.8;
     position: fixed;
-
-    @include media-breakpoint-down(xs) {
-      // position: static;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-
+    
     &.z-on {
       opacity: 1;
+    }
+
+    @include media-breakpoint-down(xs) {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
     }
   }
 }
@@ -545,10 +587,7 @@ p {
   border: 1px solid rgba($docs-color-white, 0.5);
 
   @include media-breakpoint-down(xs) {
-    font-size: 1rem;
-    margin-top: 1rem;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    margin-top: 0.5rem;
   }
 
   &:hover {
@@ -576,26 +615,10 @@ p {
   &:hover {
     color: $docs-color-white;
   }
-
-  @include media-breakpoint-down(xs) {
-    position: static;
-    margin-top: 2rem;
-    margin-bottom: 0.8rem;
-  }
-}
-
-.docs-c-pointer {
-  cursor: pointer;
 }
 
 .docs-markdown {
   margin-bottom: 2rem;
-}
-
-.docs-lorem {
-  @include media-breakpoint-down(xs) {
-    font-size: 0.9rem;
-  }
 }
 
 .docs-footer {
@@ -610,18 +633,23 @@ p {
     #18202a 75%
   );
 }
+
 .docs-credit {
   text-align: center;
   color: $docs-color-white;
+
   a {
     color: rgba($docs-color-white, 0.9);
   }
 }
+
 .docs-github-star {
   top: 1rem;
   left: 1rem;
   position: absolute;
 }
+
+/* Utils */
 .docs-clearfix {
   // https://www.rachelandrew.co.uk/archives/2017/01/24/the-end-of-the-clearfix-hack/
   &::after,
@@ -631,8 +659,22 @@ p {
     content: '\0020';
     overflow: hidden;
   }
+
   &::after {
     clear: both;
   }
 }
+
+.docs-c-pointer {
+  cursor: pointer;
+}
+
+.docs-100vh {
+  height: 100vh;
+}
+
+.docs-min-100vh {
+  min-height: 100vh;
+}
+/* Utils end */
 </style>

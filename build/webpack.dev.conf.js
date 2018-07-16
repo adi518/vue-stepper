@@ -28,7 +28,8 @@ module.exports = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      inject: true
+      inject: true,
+      favicon: 'static/favicon.ico', // https://github.com/coryhouse/react-slingshot/issues/128
     }),
     new FriendlyErrorsPlugin()
   ]
