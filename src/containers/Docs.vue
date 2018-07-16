@@ -4,8 +4,10 @@
     <!-- BREAKPOINT STATE -->
     <v-breakpoint v-model="model.breakpoint"></v-breakpoint>
 
-    <!-- JUMBOTRON -->
+    <!-- FIRST PAGE -->
     <div class="docs-container docs-container--has-jumbotron docs-100vh js-vh-fix">
+      
+      <!-- JUMBOTRON -->
       <div class="container docs-jumbotron">
 
         <h1 class="docs-h1 mb-3">
@@ -160,6 +162,15 @@
           Please open an
           <v-a :href="pkg.bugs.url">issue</v-a> for support.
         </p>
+
+        <!-- LICENSE -->
+        <h2 class="mt-5">License</h2>
+        <p class="docs-p">
+          Copyright (c) 2018
+          <a href="https://github.com/adi518" target="_blank">{{pkg.author}}</a>
+          by <a href="https://opensource.org/licenses/MIT" target="_blank">{{pkg.license}}</a>
+        </p>
+
       </div>
     </div>
 
@@ -175,7 +186,7 @@
       </p>
     </footer>
 
-    <!-- FIXED -->
+    <!-- GIT RIBBON -->
     <v-git-ribbon
       :href="pkg.repository.url"
       octo-color="#18202a"
@@ -216,7 +227,9 @@ export default {
     VBreakpoint
   },
   data: () => ({
+
     pkg,
+
     markdowns: {
       props: require('@/markdowns/props.md'),
       install: require('@/markdowns/install.md'),
@@ -237,11 +250,13 @@ export default {
         }
       }
     },
+
     model: {
       steps: 3,
       step: undefined,
       breakpoint: new BreakpointModel()
     },    
+
     flags: {
       debug: false,
       random: false,
@@ -283,7 +298,7 @@ export default {
       Donec facilisis elit purus, eu tempus nunc feugiat sollicitudin.
       Mauris ipsum ligula, faucibus sed libero vel, dignissim posuere mauris.
       Quisque ipsum tellus, sodales ac ante sed, consequat efficitur metus.
-      Pellentesque euismod viverra orci, vel elementum urna aliquam in.
+      Pellentesque euismod viverra orci.
       `
       if (this.model.breakpoint.noMatch) {
         return truncate(lorem, { length: 190 })
@@ -297,7 +312,7 @@ export default {
       Quisque quis arcu nisi. Etiam interdum luctus neque, non tincidunt metus mollis vel.
       In nec tellus non nisl commodo aliquet a a ligula. Donec semper massa nisl,
       a tristique lectus ultrices ut. Donec ac ultricies lectus, a semper nibh. Integer tempor,
-      purus ac convallis semper, purus sapien dignissim turpis.
+      purus ac convallis semper.
       `
       if (this.model.breakpoint.noMatch) {
         return truncate(lorem, { length: 210 })
