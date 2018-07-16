@@ -117,11 +117,11 @@
           <v-a :scroll-to="$refs.vuex">Vuex</v-a>
         </h4>
         <p>A common practice for managing your Stepper state, is through a Store.</p>
+        <h5>Store</h5>
         <div
           class="docs-markdown"
           v-html="markdowns.examples.vuex.meta"
         ></div>
-        <p>Then, in your component:</p>
         <h5>Template</h5>
         <div
           class="docs-markdown"
@@ -261,7 +261,7 @@ export default {
     flags: {
       debug: false,
       random: false,
-      persist: false,
+      persist: true,
       production: process.env.NODE_ENV !== 'development'
     }
   }),
