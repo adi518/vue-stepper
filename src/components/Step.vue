@@ -103,13 +103,6 @@ export default {
     opacity: 0.85;
   }
 
-  // FIXME: Find another way to compose this!
-  @media screen and (max-width: 640px) {
-    &:not(:first-child) {
-      margin-top: 1rem;
-    }
-  }
-
   *,
   *::before,
   *::after {
@@ -142,6 +135,11 @@ export default {
       background-color: $docs-color-white;
     }
   }
+
+  @media (max-width: 575px) {
+    // Bootstrap "xs"
+    margin-right: 0.5rem;
+  }
 }
 
 .label {
@@ -151,13 +149,13 @@ export default {
 }
 
 .index {
-  width: 3rem;
-  height: 3rem;
+  width: 3.5rem;
+  height: 3.5rem;
   display: flex;
   flex-shrink: 0;
   font-size: 1.5rem;
-  margin-right: 10px;
   border-radius: 50%;
+  margin-right: 0.5rem;
   color: $docs-color-white;
   align-items: center;
   justify-content: center;
@@ -172,7 +170,7 @@ export default {
 
 .divider {
   width: 100%;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   border-bottom: 1px solid $docs-color-white;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }

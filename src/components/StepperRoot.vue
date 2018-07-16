@@ -15,13 +15,8 @@ export default {
   display: flex;
   width: inherit;
   user-select: none;
-  flex-direction: row;
   box-sizing: border-box;
   justify-content: space-between;
-
-  @media only screen and (max-width: 640px) {
-    flex-direction: column;
-  }
 
   *,
   *::before,
