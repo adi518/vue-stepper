@@ -4,37 +4,11 @@
     <!-- BREAKPOINT STATE -->
     <v-breakpoint v-model="model.breakpoint"></v-breakpoint>
 
-    <!-- DOCUMENTATION:JUMBOTRON -->
+    <!-- JUMBOTRON -->
     <div class="docs-container docs-container--has-jumbotron docs-100vh js-vh-fix">
       <div class="container docs-jumbotron">
-        <!-- <v-switch
-          class="docs-switch docs-important docs-switch-debug"
-          size="lg"
-          v-model="flags.debug"
-          @update:value="value => flags.debug = value"
-          open-name="On"
-          close-name="Debug"
-          color="green"
-        /> -->
-        <!-- <v-switch
-          class="docs-switch docs-important docs-switch-linear"
-          size="lg"
-          v-model="flags.random"
-          @update:value="value => flags.random = value"
-          open-name="Random"
-          close-name="Linear"
-          color="green"
-        /> -->
-        <!-- <v-switch
-          class="docs-switch docs-important docs-switch-persist"
-          size="lg"
-          v-model="flags.persist"
-          @update:value="value => flags.persist = value"
-          open-name="Persist"
-          close-name="Static"
-          color="green"
-        /> -->
-        <h1 class="docs-heading mb-3">
+
+        <h1 class="docs-h1 mb-3">
           Vue-Stepper <sup class="docs-version">{{assets.$package.version}}</sup>
         </h1>
         <p class="docs-tagline mb-5">
@@ -107,7 +81,7 @@
       </div>
     </div>
 
-    <!-- DOCUMENTATION:SECOND-PAGE -->
+    <!-- SECOND-PAGE -->
     <div ref="docs" class="docs-container docs-container--second-page docs-min-100vh">
       <div class="container docs-clearfix">
 
@@ -127,21 +101,36 @@
           other input element with two-way binding. The Stepper acts as a group of radio-buttons.
         </p>
         <h5>Template</h5>
-        <div class="docs-markdown" v-html="markdowns.examples.default.template"></div>
+        <div
+          class="docs-markdown"
+          v-html="markdowns.examples.default.template"
+        ></div>
         <h5>Script</h5>
-        <div class="docs-markdown" v-html="markdowns.examples.default.script"></div>
+        <div
+          class="docs-markdown"
+          v-html="markdowns.examples.default.script"
+        ></div>
 
         <!-- VUEX -->
         <h3 ref="vuex">
           <v-a :refs="$refs" scroll-to="vuex">Vuex</v-a>
         </h3>
         <p>A common practice for managing your Stepper state, is through a Store.</p>
-        <div class="docs-markdown" v-html="markdowns.examples.vuex.store"></div>
+        <div
+          class="docs-markdown"
+          v-html="markdowns.examples.vuex.meta"
+        ></div>
         <p>Then, in your component:</p>
         <h5>Template</h5>
-        <div class="docs-markdown" v-html="markdowns.examples.vuex.template"></div>
+        <div
+          class="docs-markdown"
+          v-html="markdowns.examples.vuex.component.template"
+        ></div>
         <h5>Script</h5>
-        <div class="docs-markdown" v-html="markdowns.examples.vuex.script"></div>
+        <div
+          class="docs-markdown"
+          v-html="markdowns.examples.vuex.component.script"
+        ></div>
         
         <!-- PROGRAMMATIC -->
         <h3 ref="programmatic">
@@ -239,11 +228,13 @@ export default {
         },
         programmatic: {
           template: require('@/markdowns/examples/programmatic/template.md')
-        },
+        },        
         vuex: {
-          store: require('@/markdowns/examples/vuex/store.md'),
-          script: require('@/markdowns/examples/vuex/script.md'),
-          template: require('@/markdowns/examples/vuex/template.md')
+          meta: require('@/markdowns/vuex/meta.md'),
+          component: {
+            script: require('@/markdowns/vuex/component-script.md'),
+            template: require('@/markdowns/vuex/component-template.md')
+          }          
         }
       }
     },
@@ -325,11 +316,6 @@ export default {
 </script>
 
 <style lang="scss">
-// https://css-tricks.com/html-vs-body-in-css/
-// https://getbootstrap.com/docs/4.0/getting-started/theming/#variable-defaults
-// https://github.com/sagalbot/vue-select/blob/0ce49212524c0c4f1d6dd61d43d66bc7c276083f/docs/assets/scss/_variables.scss
-
-@import url('https://fonts.googleapis.com/css?family=Dosis');
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400');
 
 /* Meta-variables */
@@ -365,7 +351,7 @@ samp {
 }
 /* Bootstrap end */
 
-/* Prism */
+/* Prismjs */
 @import '~prismjs/themes/prism.css';
 
 .docs {
@@ -387,8 +373,9 @@ samp {
     background: none;
   }
 }
-/* Prism end */
+/* Prismjs end */
 
+/* Tags */
 html {
   @include media-breakpoint-down(xs) {
     font-size: 90%;
@@ -439,18 +426,28 @@ h6 {
     }
   }
 }
+/* Tags end */
 
+/* Headings */
+.docs-h1 {
+  display: flex;
+  opacity: 0.9;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2.7rem;
+  padding-right: 1rem;
+  text-transform: lowercase;
+  background-position: 100%;
+  background-size: 1rem auto;
+  background-repeat: no-repeat;
+  background-image: url('~@/assets/images/logo.png');
+  text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+}
+/* Headings end */
+
+/* Layout */
 .docs {
   min-width: 320px;
-}
-
-.docs-version {
-  font-weight: 300;
-  font-size: 0.7rem;
-}
-
-.docs-logo {
-  width: 4rem;
 }
 
 .docs-container {
@@ -482,82 +479,13 @@ h6 {
   color: $docs-color-white;
 }
 
-.docs-heading {
-  display: flex;
-  opacity: 0.9;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 2.7rem;
-  padding-right: 1rem;
-  text-transform: lowercase;
-  background-position: 100%;
-  background-size: 1rem auto;
-  background-repeat: no-repeat;
-  background-image: url('~@/assets/images/logo.png');
-  text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+.docs-version {
+  font-weight: 300;
+  font-size: 0.7rem;
 }
 
 .docs-tagline {
   text-align: center;
-}
-
-.docs-switch.docs-important.vue-switch.s-lg {
-  width: 4rem;
-  height: 22px;
-  display: flex;
-  align-items: center;
-
-  &.z-on::after {
-    left: 55px;
-  }
-
-  &.docs-switch-debug {
-    top: 0.5rem;
-    left: 0.5rem;
-    opacity: 0.8;
-    position: fixed;    
-
-    &.z-on {
-      opacity: 1;
-    }
-
-    @include media-breakpoint-down(xs) {
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-  }
-
-  &.docs-switch-linear {
-    top: 0.5rem;
-    left: 5rem;
-    opacity: 0.8;
-    position: fixed;
-
-    &.z-on {
-      opacity: 1;
-    }
-
-    @include media-breakpoint-down(xs) {
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-  }
-
-  &.docs-switch-persist {
-    top: 0.5rem;
-    left: 9.5rem;
-    opacity: 0.8;
-    position: fixed;
-    
-    &.z-on {
-      opacity: 1;
-    }
-
-    @include media-breakpoint-down(xs) {
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-  }
 }
 
 .docs-stepper {
@@ -584,14 +512,14 @@ h6 {
   background-color: transparent;
   border: 1px solid rgba($docs-color-white, 0.5);
 
-  @include media-breakpoint-down(xs) {
-    margin-top: 0.5rem;
-  }
-
   &:hover {
     color: $docs-color-white;
     box-shadow: 0 0.25rem 0.5rem rgba($docs-color-black, 0.2);
     background-image: linear-gradient(-135deg, rgba($docs-color-white, 0.5), transparent 100%);
+  }
+  
+  @include media-breakpoint-down(xs) {
+    margin-top: 0.5rem;
   }
 }
 
@@ -647,10 +575,22 @@ h6 {
   left: 1rem;
   position: absolute;
 }
+/* Layout end */
 
 /* Utils */
+.docs-c-pointer {
+  cursor: pointer;
+}
+
+.docs-100vh {
+  height: 100vh;
+}
+
+.docs-min-100vh {
+  min-height: 100vh;
+}
+
 .docs-clearfix {
-  // https://www.rachelandrew.co.uk/archives/2017/01/24/the-end-of-the-clearfix-hack/
   &::after,
   &::before {
     height: 0;
@@ -662,18 +602,6 @@ h6 {
   &::after {
     clear: both;
   }
-}
-
-.docs-c-pointer {
-  cursor: pointer;
-}
-
-.docs-100vh {
-  height: 100vh;
-}
-
-.docs-min-100vh {
-  min-height: 100vh;
 }
 /* Utils end */
 </style>
