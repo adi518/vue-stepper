@@ -315,7 +315,7 @@ export default {
       `
 
       if (this.model.breakpoint.noMatch) {
-        return truncate(lorem, { length: 200 })
+        return truncate(lorem, { length: 210 })
       }
 
       return lorem
