@@ -71,7 +71,7 @@
         <div class="docs-github-star">
           <a
             class="github-button"
-            :href="flags.development ? null : pkg.repository.url"
+            :href="flags.production && pkg.repository.url"
             data-icon="octicon-star"
             data-show-count="true"
             aria-label="Star adi518/vue-stepper-component on GitHub">
@@ -262,7 +262,7 @@ export default {
       debug: false,
       random: false,
       persist: false,
-      development: process.env.NODE_ENV === 'development'
+      production: process.env.NODE_ENV !== 'development'
     }
   }),
   created() {
