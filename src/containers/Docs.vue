@@ -58,7 +58,7 @@
           </div>  
         </v-hide-at>            
 
-        <!-- FIXED ANCHOR -->
+        <!-- ABSOLUTE ANCHOR -->
         <v-a
           class="docs-fixed-anchor docs-c-pointer"
           scroll-to="docs"
