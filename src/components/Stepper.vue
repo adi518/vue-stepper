@@ -166,7 +166,7 @@ export default {
         let disabled = false
         if (this.linear) {
           if (isFirst || isNext) {
-            // leave as is
+            // Keep it enabled.
           } else {
             disabled = true
           }
