@@ -191,12 +191,8 @@
       </p>
     </footer>
 
-    <!-- GIT RIBBON -->
-    <v-git-ribbon
-      :href="pkg.repository.url"
-      octo-color="#18202a"
-      fill-color="#eeeeee"
-    ></v-git-ribbon>
+    <!-- GIT RIBBON -->    
+    <img class="docs-github" :src="assets.octocat" alt="Octicon">
   </div>
 </template>
 
@@ -205,9 +201,8 @@ import pkg from '@root/package'
 
 import Prism from 'prismjs'
 import truncate from 'lodash.truncate'
+import octocat from '@/assets/images/octocat.png'
 import { VhChromeFix } from '@/assets/javascript/VhChromeFix'
-
-import VSwitch from 'vue-switch/switch-2'
 
 import {
   VShowAt,
@@ -218,7 +213,6 @@ import {
 
 import VStepper from '@/components/Stepper'
 import VA from '@/components-internal/Anchor'
-import VGitRibbon from '@/components-internal/GitRibbon'
 
 export default {
   name: 'VDocs',
@@ -226,14 +220,16 @@ export default {
     VA,
     VShowAt,
     VHideAt,
-    VSwitch,
     VStepper,
-    VGitRibbon,
     VBreakpoint
   },
   data: () => ({
 
     pkg,
+
+    assets: {
+      octocat
+    },
 
     markdowns: {
       props: require('@/markdowns/props.md'),
@@ -601,6 +597,14 @@ code {
   top: 1rem;
   left: 1rem;
   position: absolute;
+}
+
+.docs-github {
+  top: 1rem;
+  right: 1rem;
+  width: 4rem;
+  position: absolute;
+  margin-top: -.175rem;
 }
 /* Layout end */
 
