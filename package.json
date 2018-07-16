@@ -16,10 +16,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/adi518/vue-stepper"
+    "url": "https://github.com/adi518/vue-stepper-component"
   },
   "bugs": {
-    "url": "https://github.com/adi518/vue-stepper/issues"
+    "url": "https://github.com/adi518/vue-stepper-component/issues"
   },
   "license": "MIT",
   "peerDependencies": {
