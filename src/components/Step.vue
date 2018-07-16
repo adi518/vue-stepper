@@ -116,7 +116,7 @@ export default {
     }
 
     .index {
-      color: $docs-color-dusty-gray;
+      color: $app-color-dusty-gray;
     }
   }
 
@@ -125,14 +125,14 @@ export default {
 
     .label {
       .index {
-        background-color: $docs-color-white;
+        background-color: $app-color-white;
       }
     }
   }
 
   &.is-visited {
     .index {
-      background-color: $docs-color-white;
+      background-color: $app-color-white;
     }
   }
 
@@ -156,22 +156,22 @@ export default {
   font-size: 1.5rem;
   border-radius: 50%;
   margin-right: 0.5rem;
-  color: $docs-color-white;
+  color: $app-color-white;
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  border: 1px solid $docs-color-wild-sand;
+  border: 1px solid $app-color-wild-sand;
   box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
 }
 
 .title {
-  color: $docs-color-white;
+  color: $app-color-white;
 }
 
 .divider {
   width: 100%;
   margin-left: 0.5rem;
-  border-bottom: 1px solid $docs-color-white;
+  border-bottom: 1px solid $app-color-white;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 </style>

@@ -155,7 +155,7 @@ export default {
     }
 
     .index {
-      color: $docs-color-iron;
+      color: $app-color-iron;
     }
   }
 
@@ -163,7 +163,7 @@ export default {
     .label {
       .index {
         opacity: 1;
-        background-color: $docs-color-white;
+        background-color: $app-color-white;
       }
     }
   }
@@ -171,7 +171,7 @@ export default {
   &.is-visited {
     .index {
       opacity: 0.75;
-      background-color: $docs-color-white;
+      background-color: $app-color-white;
     }
   }
 }
@@ -194,17 +194,17 @@ export default {
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  border: 1px solid $docs-color-wild-sand;
+  border: 1px solid $app-color-wild-sand;
 }
 
 .title {
-  color: $docs-color-white;
+  color: $app-color-white;
 }
 
 .line {
   width: 100%;
   margin-left: 1rem;
-  border-bottom: 1px solid $docs-color-white;
+  border-bottom: 1px solid $app-color-white;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 </style>

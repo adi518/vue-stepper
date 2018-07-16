@@ -312,7 +312,7 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400');
 
 /* Meta-variables */
-$docs-min-width: 320px;
+$app-min-width: 320px;
 
 @import '~@/assets/sass/colors';
 
@@ -321,9 +321,9 @@ $spacer: 1rem;
 $spacers: ();
 $spacers: map-merge((20: ($spacer * 2)), $spacers);
 
-$body-bg: $docs-color-mirage;
-$body-color: $docs-color-white;
-$link-color: rgba($docs-color-white, 0.5);
+$body-bg: $app-color-mirage;
+$body-color: $app-color-white;
+$link-color: rgba($app-color-white, 0.5);
 
 // Required
 @import '~bootstrap/scss/functions';
@@ -399,11 +399,11 @@ h4,
 h5,
 h6 {
   > a {
-    color: $docs-color-white;
+    color: $app-color-white;
 
     &:hover {
       text-decoration: none;
-      color: $docs-color-white;
+      color: $app-color-white;
 
       &::before {
         color: #12525e;
@@ -443,7 +443,7 @@ h6 {
 
 /* Layout */
 .docs {
-  min-width: $docs-min-width;
+  min-width: $app-min-width;
 }
 
 .docs-container {
@@ -456,17 +456,17 @@ h6 {
   background-image:
   linear-gradient(
     125deg,
-    $docs-color-mirage 45%,
-    $docs-color-eden 50%,
-    $docs-color-mirage 80%
+    $app-color-mirage 45%,
+    $app-color-eden 50%,
+    $app-color-mirage 80%
   );
 
   @include media-breakpoint-down(xs) {
     background-image: linear-gradient(
       -125deg,
-      $docs-color-mirage 45%,
-      $docs-color-eden 50%,
-      $docs-color-mirage 80%
+      $app-color-mirage 45%,
+      $app-color-eden 50%,
+      $app-color-mirage 80%
     );
   }
 }
@@ -474,7 +474,7 @@ h6 {
 .docs-jumbotron {
   display: flex;
   flex-direction: column;
-  color: $docs-color-white;
+  color: $app-color-white;
 }
 
 .docs-version {
@@ -505,18 +505,18 @@ h6 {
   font-size: 1.1rem;
   margin-left: 0.35rem;
   margin-right: 0.35rem;
-  color: $docs-color-white;
+  color: $app-color-white;
   transition: box-shadow 0.2s;
   background-color: transparent;
-  border: 1px solid rgba($docs-color-white, 0.5);
+  border: 1px solid rgba($app-color-white, 0.5);
 
   &:hover {
-    color: $docs-color-white;
-    box-shadow: 0 0.25rem 0.5rem rgba($docs-color-black, 0.2);
+    color: $app-color-white;
+    box-shadow: 0 0.25rem 0.5rem rgba($app-color-black, 0.2);
     background-image:
       linear-gradient(
         -135deg,
-        rgba($docs-color-white, 0.5),
+        rgba($app-color-white, 0.5),
         transparent 100%
       );
   }
@@ -540,10 +540,10 @@ h6 {
   font-size: 1.2rem;
   position: absolute;
   text-align: center;
-  color: $docs-color-white;
+  color: $app-color-white;
 
   &:hover {
-    color: $docs-color-white;
+    color: $app-color-white;
   }
 }
 
@@ -558,18 +558,18 @@ h6 {
   justify-content: center;
   background-image: linear-gradient(
     125deg,
-    $docs-color-mirage 25%,
-    $docs-color-eden 50%,
-    $docs-color-mirage 75%
+    $app-color-mirage 25%,
+    $app-color-eden 50%,
+    $app-color-mirage 75%
   );
 }
 
 .docs-credit {
   text-align: center;
-  color: $docs-color-white;
+  color: $app-color-white;
 
   a {
-    color: rgba($docs-color-white, 0.9);
+    color: rgba($app-color-white, 0.9);
   }
 }
 
