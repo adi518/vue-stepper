@@ -81,7 +81,7 @@
     </div>
 
     <!-- SECOND-PAGE -->
-    <div ref="docs" class="docs-container docs-container--second-page docs-min-100vh">
+    <div ref="docs" class="docs-container docs-min-100vh">
       <div class="container docs-clearfix">
 
         <!-- INSTALL -->
@@ -189,7 +189,7 @@ import pkg from '@root/package'
 
 import Prism from 'prismjs'
 import truncate from 'lodash.truncate'
-import { VhChromeFix } from '@/assets/js/VhChromeFix'
+import { VhChromeFix } from '@/assets/javascript/VhChromeFix'
 
 import VSwitch from 'vue-switch/switch-2'
 
@@ -313,13 +313,16 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400');
 
 /* Meta-variables */
-@import '~@/assets/sass/variables';
+$docs-min-width: 320px;
+
+@import '~@/assets/sass/colors';
 
 /* Bootstrap */
 $spacer: 1rem;
 $spacers: ();
 $spacers: map-merge((20: ($spacer * 2)), $spacers);
 
+$body-bg: $docs-color-mirage;
 $body-color: $docs-color-white;
 $link-color: rgba($docs-color-white, 0.5);
 
@@ -441,7 +444,7 @@ h6 {
 
 /* Layout */
 .docs {
-  min-width: 320px;
+  min-width: $docs-min-width;
 }
 
 .docs-container {
@@ -451,20 +454,22 @@ h6 {
 .docs-container--has-jumbotron {
   display: flex;
   align-items: center;
-  background: linear-gradient(125deg, #18202a 45%, #12525e 50%, #18202a 80%);
+  background-image:
+  linear-gradient(
+    125deg,
+    $docs-color-mirage 45%,
+    $docs-color-eden 50%,
+    $docs-color-mirage 80%
+  );
 
   @include media-breakpoint-down(xs) {
     background-image: linear-gradient(
       -125deg,
-      #18202a 45%,
-      #12525e 50%,
-      #18202a 80%
+      $docs-color-mirage 45%,
+      $docs-color-eden 50%,
+      $docs-color-mirage 80%
     );
   }
-}
-
-.docs-container--second-page {
-  background-color: #18202a;
 }
 
 .docs-jumbotron {
@@ -509,7 +514,12 @@ h6 {
   &:hover {
     color: $docs-color-white;
     box-shadow: 0 0.25rem 0.5rem rgba($docs-color-black, 0.2);
-    background-image: linear-gradient(-135deg, rgba($docs-color-white, 0.5), transparent 100%);
+    background-image:
+      linear-gradient(
+        -135deg,
+        rgba($docs-color-white, 0.5),
+        transparent 100%
+      );
   }
   
   @include media-breakpoint-down(xs) {
@@ -549,9 +559,9 @@ h6 {
   justify-content: center;
   background-image: linear-gradient(
     125deg,
-    #18202a 25%,
-    #12525e 50%,
-    #18202a 75%
+    $docs-color-mirage 25%,
+    $docs-color-eden 50%,
+    $docs-color-mirage 75%
   );
 }
 

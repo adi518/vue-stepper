@@ -28,7 +28,6 @@
 // Implementation
 export default {
   name: 'VStep',
-  inheritAttrs: false,
   props: {
     index: {
       type: Number,
@@ -86,12 +85,13 @@ export default {
       const { displayIndex, defaultSlot } = this
       return { displayIndex, defaultSlot }
     }
-  }
+  },  
+  inheritAttrs: false
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/sass/variables';
+@import '~@/assets/sass/colors';
 
 .v-step {
   flex: 1;
@@ -116,7 +116,7 @@ export default {
     }
 
     .index {
-      color: #999999;
+      color: $docs-color-dusty-gray;
     }
   }
 
