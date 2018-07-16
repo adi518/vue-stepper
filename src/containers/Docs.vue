@@ -87,15 +87,15 @@
       <div class="container docs-clearfix">
 
         <!-- INSTALL -->
-        <h3 class="mt-3" ref="install">
+        <h4 class="mt-4" ref="install">
           <v-a :scroll-to="$refs.install">Install</v-a>
-        </h3>
+        </h4>
         <div class="docs-markdown" v-html="markdowns.install"></div>
 
         <!-- USAGE -->
-        <h3 ref="usage">
+        <h4 ref="usage">
           <v-a :scroll-to="$refs.usage">Usage</v-a>
-        </h3>
+        </h4>
         <p>
           To use the component in your templates, simply import and register with your component.
           To control the Stepper state, we use the <code>v-model</code> directive, just like on any
@@ -113,9 +113,9 @@
         ></div>
 
         <!-- VUEX -->
-        <h3 ref="vuex">
+        <h4 ref="vuex">
           <v-a :scroll-to="$refs.vuex">Vuex</v-a>
-        </h3>
+        </h4>
         <p>A common practice for managing your Stepper state, is through a Store.</p>
         <div
           class="docs-markdown"
@@ -134,9 +134,9 @@
         ></div>
         
         <!-- PROGRAMMATIC -->
-        <h3 ref="programmatic">
+        <h4 ref="programmatic">
           <v-a :scroll-to="$refs.programmatic">Programmatic</v-a>
-        </h3>
+        </h4>
         <p>
           Start off by assigning special
           <code>Vue</code> property
@@ -149,24 +149,24 @@
         <div class="docs-markdown" v-html="markdowns.examples.programmatic.template"></div>
 
         <!-- API PROPS -->
-        <h3 ref="api-props">
+        <h4 ref="api-props">
           <v-a :scroll-to="$refs['api-props']">API Props</v-a>          
-        </h3>
+        </h4>
         <div class="docs-markdown" v-html="markdowns.props"></div>
 
         <!-- SUPPORT -->
-        <h3 ref="support">
+        <h4 ref="support">
           <v-a :scroll-to="$refs.support">Support</v-a>
-        </h3>
+        </h4>
         <p>
           Please open an
           <v-a :href="pkg.bugs.url">issue</v-a> for support.
         </p>
 
         <!-- LICENSE -->
-        <h3 class="mt-5" ref="license">          
+        <h4 class="mt-5" ref="license">          
           <v-a :scroll-to="$refs.license">License</v-a>
-        </h3>
+        </h4>
         <p>
           Copyright (c) 2018
           <v-a href="https://github.com/adi518">
