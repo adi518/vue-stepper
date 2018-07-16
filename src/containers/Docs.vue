@@ -320,49 +320,6 @@ export default {
 
       return lorem
     }
-  },
-  methods: {
-    getElementByRef(ref, refs) {
-      refs = refs || this.$refs
-
-      const noRefs = !refs
-
-      if (noRefs) {
-        console.error(`[getElementByRef warn]: No refs found.`)
-        return
-      }
-
-      let element = refs[ref]
-
-      // Is from element?
-      if (element instanceof Element) {
-        return element
-      }
-
-      // Is from component?
-      if (refs[ref]) {
-        element = refs[ref].el
-        if (element instanceof Element) {
-          return element
-        }
-      }
-
-      // Ref doesn't exist
-      console.error(`[getElementByRef warn]: No such ref as "${ref}".`)
-
-      return null
-    },
-    scrollTo(ref, options = {}) {
-      const element = this.getElementByRef(ref)
-
-      if (element) {
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-          ...options
-        })
-      }
-    }
   }
 }
 </script>
