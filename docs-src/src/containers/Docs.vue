@@ -602,9 +602,10 @@ code {
 }
 
 .docs-github {
-  top: 1rem;
+  top: 1.2rem;
   right: 1rem;  
   position: absolute;
+  margin-top: -0.175rem;
   margin-right: -0.5rem;
   animation: docs-float 6s ease-in-out infinite;
 
@@ -648,7 +649,7 @@ code {
 		transform: translateY(0);
 	}
 	50% {
-		transform: translateY(-.5rem);
+		transform: translateY(-0.5rem);
 	}
 	100% {
 		transform: translateY(0);
