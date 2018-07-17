@@ -603,7 +603,7 @@ code {
 
 .docs-github {
   top: 1.2rem;
-  right: 2rem;  
+  right: 1.2rem;  
   position: fixed;
   margin-top: -0.175rem;
   margin-right: -0.5rem;
