@@ -606,7 +606,6 @@ code {
   right: 1rem;  
   position: absolute;
   margin-right: -0.5rem;
-  margin-top: -0.175rem;
   animation: docs-float 6s ease-in-out infinite;
 
   img {
