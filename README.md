@@ -1,1 +1,1 @@
-See demo and documentation [here](https://adi518.github.io/vue-breakpoint-component/#/).
+See demo and documentation [here](https://adi518.github.io/vue-stepper-component/#/).
