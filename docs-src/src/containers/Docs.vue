@@ -482,15 +482,6 @@ code {
     $app-color-eden 50%,
     $app-color-mirage 80%
   );
-
-  @include media-breakpoint-down(xs) {
-    background-image: linear-gradient(
-      -125deg,
-      $app-color-mirage 45%,
-      $app-color-eden 50%,
-      $app-color-mirage 80%
-    );
-  }
 }
 
 .docs-jumbotron {
