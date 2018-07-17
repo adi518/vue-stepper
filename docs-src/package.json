@@ -23,7 +23,6 @@
   "bugs": {
     "url": "https://github.com/adi518/vue-stepper-component/issues"
   },
-  "license": "MIT",
   "peerDependencies": {
     "vue": "^2.5.2"
   },
