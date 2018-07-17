@@ -603,14 +603,15 @@ code {
 
 .docs-github {
   top: 1.2rem;
-  right: 1rem;  
-  position: absolute;
+  right: 2rem;  
+  position: fixed;
   margin-top: -0.175rem;
   margin-right: -0.5rem;
   animation: docs-float 6s ease-in-out infinite;
 
   img {
     width: 4rem;
+    transform: scaleX(-1);
   }
 }
 /* Layout end */
