@@ -11,7 +11,7 @@
         :disabled="step.disabled"
         :with-divider="withDivider"
         :active="step.index === toIndex(value)"
-        @change="onChange"
+        @change="handleChange"
       >
         <template slot="index" slot-scope="api">
           <slot :name="`step-${api.displayIndex}-index`" v-bind="api">
@@ -39,7 +39,6 @@ import VStepperRoot from './StepperRoot'
 // Implementation
 export default {
   name: 'VStepper',
-  inheritAttrs: false,
   components: {
     VStep
   },
@@ -136,7 +135,7 @@ export default {
     isIntermediateIndex(index) {
       return index > 0 && index < this.lastIndex
     },
-    onChange(index) {
+    handleChange(index) {
       const isNext = index === this.index + 1
       const isPrevious = index === this.index - 1
       const oldIndex = this.toIndex(this.value)
@@ -179,7 +178,7 @@ export default {
     offset(offset) {
       const index = this.index + offset
       if (this.doesStepExist(index)) {
-        this.onChange(index)
+        this.handleChange(index)
       }
     },
     next() {
@@ -206,6 +205,7 @@ export default {
     getStorage() {
       return JSON.parse(window[this.storekeeper].getItem(this.id))
     }
-  }
+  },  
+  inheritAttrs: false
 }
 </script>

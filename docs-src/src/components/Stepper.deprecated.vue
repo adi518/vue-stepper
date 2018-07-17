@@ -13,7 +13,7 @@
         :checked="isChecked(step)"
         :disabled="step.disabled"
         v-show="debug"
-        @change="onChange" />
+        @change="handleChange" />
       <label class="label" :for="getId(index)">
         <span class="index" v-html="index + 1" />
         <span class="title" v-html="step.title" v-if="step.title" />
@@ -66,12 +66,12 @@ export default {
         this.$set(this.steps[index], 'visited', true)
       }
     },
-    onChangeCallback(index) {
+    handleChangeCallback(index) {
       this.setStepAsVisited(this.stepIndex)
       this.emitValue(index)
     },
-    onChange(event) {
-      this.onChangeCallback(event.target.value)
+    handleChange(event) {
+      this.handleChangeCallback(event.target.value)
     },
     emitValue(value) {
       this.$emit('input', value)
@@ -97,7 +97,7 @@ export default {
     offset(offset) {
       const step = this.steps[this.stepIndex + offset]
       if (step) {
-        this.onChangeCallback(step.value)
+        this.handleChangeCallback(step.value)
       }
     },
     next() {

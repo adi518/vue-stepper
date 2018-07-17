@@ -7,7 +7,7 @@
       :id="id"
       :name="computedName"
       :checked="active"
-      @change="$emit('change', index)"
+      @change="handleChange"
       v-show="debug"
     >
     <label class="label" :for="id">
@@ -85,7 +85,12 @@ export default {
       const { displayIndex, defaultSlot } = this
       return { displayIndex, defaultSlot }
     }
-  },  
+  },
+  methods: {
+    handleChange() {
+      this.$emit('change', this.index)
+    }
+  },
   inheritAttrs: false
 }
 </script>
