@@ -191,8 +191,10 @@
       </p>
     </footer>
 
-    <!-- GIT RIBBON -->    
-    <img class="docs-github" :src="assets.octocat" alt="Octicon">
+    <!-- GIT RIBBON -->
+    <v-a  class="docs-github" :href="pkg.repository.url">
+      <img :src="assets.octocat" alt="Github">
+    </v-a>
   </div>
 </template>
 
@@ -601,10 +603,14 @@ code {
 
 .docs-github {
   top: 1rem;
-  right: 1rem;
-  width: 4rem;
+  right: 1rem;  
   position: absolute;
   margin-top: -.175rem;
+  animation: docs-float 6s ease-in-out infinite;
+
+  img {
+    width: 4rem;
+  }
 }
 /* Layout end */
 
@@ -635,4 +641,18 @@ code {
   }
 }
 /* Utils end */
+
+/* Animations */
+@keyframes docs-float {
+	0% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-.5rem);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+/* Animations end */
 </style>
