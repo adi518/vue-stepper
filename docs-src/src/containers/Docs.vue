@@ -141,7 +141,7 @@
           Start off by assigning special
           <code>Vue</code> property
           <code><v-a href="https://vuejs.org/v2/api/#ref">ref</v-a></code> to the
-          <code>v-stepper</code> component. Then, assign an API method to an Event handler
+          <code>v-stepper</code> component. Then, assign an API method to an Event listener
           of your choice. The following example is similar to the Demo above, where we assign
           <code>previous</code>, <code>next</code> and <code>reset</code> to the
           <code>click</code> event of a button element.
