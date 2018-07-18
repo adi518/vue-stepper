@@ -1,6 +1,6 @@
 {
   "name": "vue-stepper-component",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A Vue.js Stepper component",
   "author": "Adi Sahar",
   "main": "dist",
