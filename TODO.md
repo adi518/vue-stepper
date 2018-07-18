@@ -1,0 +1,5 @@
+- [x] Add plugin
+- [x] Export
+- [x] Bundle
+- [ ] Tests
+- [ ] SSR Support
