@@ -203,6 +203,7 @@ import pkg from '@root/package'
 
 import Prism from 'prismjs'
 import truncate from 'lodash.truncate'
+
 import octocat from '@/assets/images/octocat.png'
 import { VhChromeFix } from '@/assets/javascript/VhChromeFix'
 
@@ -213,8 +214,8 @@ import {
   Model as BreakpointModel
 } from 'vue-breakpoint-component'
 
-import VStepper from '@/components/Stepper'
-import VA from '@/components-internal/Anchor'
+import VA from '@/components/Anchor'
+import { VStepper } from 'vue-stepper-component'
 
 export default {
   name: 'VDocs',
@@ -332,7 +333,7 @@ export default {
 /* Meta-variables */
 $app-min-width: 320px;
 
-@import '~@/assets/sass/colors';
+@import '~@/sass/colors';
 
 /* Bootstrap */
 $spacer: 1rem;

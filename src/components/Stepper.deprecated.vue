@@ -27,7 +27,6 @@
 // https://www.webpackbin.com/bins/-KvHS7KEmrTLJOYWS9k2
 // https://cristijora.github.io/vue-form-wizard/#/?id=demos
 
-// Implementation
 export default {
   name: 'VStepperOld',
   props: {

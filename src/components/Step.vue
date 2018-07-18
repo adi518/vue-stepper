@@ -1,6 +1,5 @@
 <template>
   <div :class="['v-step', classes]">
-    <!-- We cannot type check here: `value == step.value` -->
     <input
       class="input"
       type="radio" 
@@ -25,7 +24,6 @@
 </template>
 
 <script>
-// Implementation
 export default {
   name: 'VStep',
   props: {
@@ -96,7 +94,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/sass/colors';
+@import '~@/sass/colors';
 
 .v-step {
   flex: 1;
