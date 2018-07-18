@@ -1,6 +1,6 @@
 {
   "name": "vue-stepper-component",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A Vue.js Stepper component",
   "author": "Adi Sahar",
   "main": "dist",
@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node_modules/.bin/webpack --config webpack.config.js",
     "dev": "node_modules/.bin/webpack --config webpack.config.js --watch",
-    "prerelease": "npm run build && npm version patch",
+    "prerelease": "npm run build && npm version major",
     "release": "npm publish",
     "postrelease": "git push --follow-tags"
   },
