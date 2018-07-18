@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 import VueAnalytics from 'vue-analytics'
 
 Vue.use(VueAnalytics, {
-  id: 'UA-122603914-1'
+  id: 'UA-48463434-4'
 })
 
 /* eslint-disable no-new */
