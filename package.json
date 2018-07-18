@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node_modules/.bin/webpack --config webpack.config.js",
     "dev": "node_modules/.bin/webpack --config webpack.config.js --watch",
-    "prerelease": "npm run build && npm version major",
+    "prerelease": "npm run build && npm version patch",
     "release": "npm publish",
     "postrelease": "git push --follow-tags"
   },
