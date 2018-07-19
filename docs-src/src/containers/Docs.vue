@@ -331,9 +331,9 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400');
 
 /* Meta-variables */
-$app-min-width: 320px;
-
 @import '~@/sass/colors';
+
+$app-min-width: 320px;
 
 /* Bootstrap */
 $spacer: 1rem;

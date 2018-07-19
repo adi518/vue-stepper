@@ -82,7 +82,7 @@ export default {
   data() {
     return {
       namespace: 'v-stepper',
-      stepsArr: this.getMap(),
+      stepsArr: this.getStepsArr(),
       index: this.toIndex(this.value)
     }
   },
@@ -158,7 +158,7 @@ export default {
         this.$emit('input', this.toValue(index))
       }
     },
-    getMap() {
+    getStepsArr() {
       return Array.from(Array(this.steps), (step, index) => {
         const isFirst = index === 0
         const isNext = index - 1 === 0
@@ -188,7 +188,7 @@ export default {
       this.offset(-1)
     },
     reset() {
-      this.stepsArr = this.getMap()
+      this.stepsArr = this.getStepsArr()
       this.index = 0
       this.$emit('reset')
     },
