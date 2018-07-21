@@ -123,8 +123,8 @@
           <v-a :scroll-to="$refs.slots">Slots</v-a>
         </h4>
         <p>
-          Slots are scoped and generated dynamically according to the amount of steps.. Since they are scoped,
-          you can leverage shared state and customize either one.
+          Slots are scoped and generated dynamically according to the amount of steps.
+          Since they are scoped, you can leverage shared state and customize either one.
           Slots names: <code>default</code>, <code>index-root</code>, <code>index</code>.
         </p>
         <p>
