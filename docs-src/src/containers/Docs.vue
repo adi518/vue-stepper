@@ -103,7 +103,7 @@
           <v-a :scroll-to="$refs.usage">Usage</v-a>
         </h4>
         <p>
-          To use the component in your templates, simply import and register with your component.
+          To use the component in your template, simply import and register with your component.
           To control the Stepper state, we use the <code>v-model</code> directive, similar to
           an input element.
         </p>
