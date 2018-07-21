@@ -32,6 +32,12 @@
           <template slot="step-1"> Eeny </template>
           <template slot="step-2"> Miny </template>
           <template slot="step-3"> Moe </template>
+
+          <template v-for="step in stepsArr">
+            <template :slot="`step-${step}-index-root`">            
+              <v-void :key="step" v-if="model.breakpoint.noMatch"></v-void>
+            </template>
+          </template>
         </v-stepper>
 
         <template v-if="model.step === 1">
@@ -54,11 +60,11 @@
         
         <v-hide-at no-match>
           <div class="docs-button-group mt-3">
-           <button class="btn docs-button" @click="$refs.stepper.previous()">Previous</button>
-           <button class="btn docs-button" @click="$refs.stepper.next()">Next</button>
-           <button class="btn docs-button" @click="$refs.stepper.reset()">Reset</button>
+            <button class="btn docs-button" @click="$refs.stepper.previous()">Previous</button>
+            <button class="btn docs-button" @click="$refs.stepper.next()">Next</button>
+            <button class="btn docs-button" @click="$refs.stepper.reset()">Reset</button>
           </div>  
-        </v-hide-at>            
+        </v-hide-at>
 
         <!-- ABSOLUTE ANCHOR -->
         <v-a
@@ -68,7 +74,7 @@
         </v-a>
 
         <!-- GITHUB STAR -->
-        <div class="docs-github-star">
+        <div id="github-star" class="docs-github-star">
           <a
             class="github-button"
             :href="flags.production && pkg.repository.url"
@@ -98,8 +104,8 @@
         </h4>
         <p>
           To use the component in your templates, simply import and register with your component.
-          To control the Stepper state, we use the <code>v-model</code> directive, just like on any
-          other input element with two-way binding. The Stepper acts as a group of radio-buttons.
+          To control the Stepper state, we use the <code>v-model</code> directive, similar to
+          an input element.
         </p>
         <h5>Template</h5>
         <div
@@ -112,11 +118,37 @@
           v-html="markdowns.examples.default.script"
         ></div>
 
+        <!-- SLOTS -->
+        <h4 ref="slots">
+          <v-a :scroll-to="$refs.slots">Slots</v-a>
+        </h4>
+        <p>
+          Slots are scoped and generated dynamically according to the amount of steps.. Since they are scoped,
+          you can leverage shared state and customize either one.
+          Slots names: <code>default</code>, <code>index-root</code>, <code>index</code>.
+        </p>
+        <p>
+          Every Slot scope consists of the following properties:
+          <code>index</code>,
+          <code>displayIndex</code>,
+          <code>flags</code>.
+        </p>
+        <p>
+          Few examples of what you can do:
+        </p>
+        <div
+          class="docs-markdown"
+          v-html="markdowns.examples.slots.template"
+        ></div>
+
         <!-- VUEX -->
         <h4 ref="vuex">
           <v-a :scroll-to="$refs.vuex">Vuex</v-a>
         </h4>
-        <p>A common practice for managing your Stepper state, is through a Store.</p>
+        <p>
+          A common practice for managing your Stepper state is through a Store.
+          The following is merely an implementation proposal.
+        </p>
         <h5>Store</h5>
         <div
           class="docs-markdown"
@@ -141,8 +173,8 @@
           Start off by assigning special
           <code>Vue</code> property
           <code><v-a href="https://vuejs.org/v2/api/#ref">ref</v-a></code> to the
-          <code>v-stepper</code> component. Then, assign an API method to an Event listener
-          of your choice. The following example is similar to the Demo above, where we assign
+          <code>v-stepper</code> component. Then, assign an API method to an Event listener.
+          The following example is similar to the Demo above, where we assign
           <code>previous</code>, <code>next</code> and <code>reset</code> to the
           <code>click</code> event of a button element.
         </p>
@@ -192,14 +224,19 @@
     </footer>
 
     <!-- GIT RIBBON -->
-    <v-a  class="docs-github" :href="pkg.repository.url">
-      <img :src="assets.octocat" alt="Github">
-    </v-a>
+    <div id="github" class="docs-github">
+      <v-a class="docs-github-anchor" :href="pkg.repository.url">
+        <img :src="assets.octocat" alt="Github">
+      </v-a>
+    </div>
+
   </div>
 </template>
 
 <script>
-import pkg from '@root/package'
+// https://stackoverflow.com/questions/42414627/create-text-node-with-custom-render-function-in-vue-js
+
+import pkg from '../../../package'
 
 import Prism from 'prismjs'
 import truncate from 'lodash.truncate'
@@ -214,20 +251,25 @@ import {
   Model as BreakpointModel
 } from 'vue-breakpoint-component'
 
+import VVoid from 'vue-void'
 import VA from '@/components/Anchor'
-import { VStepper } from 'vue-stepper-component'
+import { VStepper, VStep } from 'vue-stepper-component'
+
+import store from '@/store'
+import { mapState } from 'vuex'
 
 export default {
   name: 'VDocs',
   components: {
     VA,
+    VVoid,
+    VStep,
     VShowAt,
     VHideAt,
     VStepper,
     VBreakpoint
   },
   data: () => ({
-
     pkg,
 
     assets: {
@@ -244,13 +286,16 @@ export default {
         },
         programmatic: {
           template: require('@/markdowns/examples/programmatic/template.md')
-        },        
+        },
+        slots: {
+          template: require('@/markdowns/examples/slots/template.md')
+        },
         vuex: {
           meta: require('@/markdowns/vuex/meta.md'),
           component: {
             script: require('@/markdowns/vuex/component-script.md'),
             template: require('@/markdowns/vuex/component-template.md')
-          }          
+          }
         }
       }
     },
@@ -259,7 +304,7 @@ export default {
       steps: 3,
       step: undefined,
       breakpoint: new BreakpointModel()
-    },    
+    },
 
     flags: {
       debug: false,
@@ -273,7 +318,7 @@ export default {
   },
   mounted() {
     window.setTimeout(Prism.highlightAll)
-    
+
     this.vhChromeFix = new VhChromeFix([{ selector: '.js-vh-fix', vh: 100 }])
   },
   destroyed() {
@@ -322,7 +367,13 @@ export default {
         return truncate(lorem, { length: 210 })
       }
       return lorem
-    }
+    },
+    stepsArr() {
+      return Array.from(Array(this.model.steps)).map(
+        (value, index) => index + 1
+      )
+    },
+    ...mapState(['step', 'steps', 'stepsMap'])
   }
 }
 </script>
@@ -336,34 +387,9 @@ export default {
 $app-min-width: 320px;
 
 /* Bootstrap */
-$spacer: 1rem;
-$spacers: ();
-$spacers: map-merge((20: ($spacer * 2)), $spacers);
-
-$body-bg: $app-color-mirage;
-$body-color: $app-color-white;
-$link-color: rgba($app-color-white, 0.5);
-
-// Required
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
-
-// Optional
-@import '~bootstrap/scss/reboot';
-@import '~bootstrap/scss/type';
-@import '~bootstrap/scss/images';
-@import '~bootstrap/scss/button-group';
-@import '~bootstrap/scss/buttons';
-@import '~bootstrap/scss/grid';
-@import '~bootstrap/scss/utilities';
-
-pre,
-code,
-kbd,
-samp {
-  font-size: 1rem;
-}
 /* Bootstrap end */
 
 /* Prismjs */
@@ -464,7 +490,7 @@ code {
 }
 /* Headings end */
 
-/* Layout */
+/* Common Layout */
 .docs {
   min-width: $app-min-width;
 }
@@ -476,42 +502,50 @@ code {
 .docs-container--has-jumbotron {
   display: flex;
   align-items: center;
-  background-image:
-  linear-gradient(
+  background-image: linear-gradient(
     125deg,
     $app-color-mirage 45%,
     $app-color-eden 50%,
     $app-color-mirage 80%
   );
 }
-
 .docs-jumbotron {
   display: flex;
   flex-direction: column;
   color: $app-color-white;
 }
-
 .docs-version {
   font-weight: 300;
   font-size: 0.7rem;
 }
-
 .docs-tagline {
   text-align: center;
 }
-
-.docs-stepper {
-  font-size: 1.1rem;
-
-  .v-step {
-    @include media-breakpoint-down(xs) {
-      .index {
-        display: none;
-      }
-    }
+.docs-fixed-anchor {
+  left: 0;
+  width: 100%;
+  bottom: 0.8rem;
+  font-weight: 300;
+  font-size: 1.2rem;
+  position: absolute;
+  text-align: center;
+  color: $app-color-white;
+  &:hover {
+    color: $app-color-white;
   }
 }
-
+.docs-credit {
+  text-align: center;
+  color: $app-color-white;
+  a {
+    color: rgba($app-color-white, 0.9);
+  }
+}
+/* Common Layout end */
+/* Layout */
+.docs-stepper {
+  font-size: 1.1rem;
+}
 .docs-button {
   min-width: 6rem;
   font-weight: 300;
@@ -522,48 +556,27 @@ code {
   transition: box-shadow 0.2s;
   background-color: transparent;
   border: 1px solid rgba($app-color-white, 0.5);
-
   &:hover {
     color: $app-color-white;
     box-shadow: 0 0.25rem 0.5rem rgba($app-color-black, 0.2);
-    background-image:
-      linear-gradient(
-        -135deg,
-        rgba($app-color-white, 0.5),
-        transparent 100%
-      );
+    background-image: linear-gradient(
+      -135deg,
+      rgba($app-color-white, 0.5),
+      transparent 100%
+    );
   }
-  
   @include media-breakpoint-down(xs) {
     margin-top: 0.5rem;
   }
 }
-
 .docs-button-group {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
-
-.docs-fixed-anchor {
-  left: 0;
-  width: 100%;
-  bottom: 0.8rem;
-  font-weight: 300;
-  font-size: 1.2rem;
-  position: absolute;
-  text-align: center;
-  color: $app-color-white;
-
-  &:hover {
-    color: $app-color-white;
-  }
-}
-
 .docs-markdown {
   margin-bottom: 2rem;
 }
-
 .docs-footer {
   display: flex;
   min-height: 5rem;
@@ -576,50 +589,37 @@ code {
     $app-color-mirage 75%
   );
 }
-
-.docs-credit {
-  text-align: center;
-  color: $app-color-white;
-
-  a {
-    color: rgba($app-color-white, 0.9);
-  }
-}
-
 .docs-github-star {
   top: 1rem;
   left: 1rem;
   position: absolute;
 }
-
 .docs-github {
   top: 1.2rem;
-  right: 1.2rem;  
+  right: 1.2rem;
   position: fixed;
+}
+.docs-github-anchor {
+  display: block;
   margin-top: -0.175rem;
   margin-right: -0.5rem;
   animation: docs-float 6s ease-in-out infinite;
-
   img {
     width: 4rem;
     transform: scaleX(-1);
   }
 }
 /* Layout end */
-
 /* Utils */
 .docs-c-pointer {
   cursor: pointer;
 }
-
 .docs-100vh {
   height: 100vh;
 }
-
 .docs-min-100vh {
   min-height: 100vh;
 }
-
 .docs-clearfix {
   &::after,
   &::before {
@@ -628,24 +628,22 @@ code {
     content: '\0020';
     overflow: hidden;
   }
-
   &::after {
     clear: both;
   }
 }
 /* Utils end */
-
 /* Animations */
 @keyframes docs-float {
-	0% {
-		transform: translateY(0);
-	}
-	50% {
-		transform: translateY(-0.5rem);
-	}
-	100% {
-		transform: translateY(0);
-	}
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.5rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 /* Animations end */
 </style>

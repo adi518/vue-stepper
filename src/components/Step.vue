@@ -10,13 +10,15 @@
       v-show="debug"
     >
     <label class="label" :for="id">
-      <span class="index">
-        <slot name="index" v-bind="api">
-          {{api.displayIndex}}
-        </slot>
-      </span>
+      <slot name="index-root" v-bind="scope">
+        <span class="index">            
+          <slot name="index" v-bind="scope">
+            {{scope.displayIndex}}
+          </slot>
+        </span>
+      </slot>
       <span class="title" v-if="defaultSlot">
-        <slot v-bind="api"></slot>
+        <slot v-bind="scope"></slot>
       </span>
       <span class="divider" v-if="withDivider"></span>
     </label>
@@ -53,12 +55,14 @@ export default {
     },
     debug: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
-  data: () => ({
-    namespace: 'v-step'
-  }),
+  data() {
+    return {
+      namespace: 'v-step'
+    }
+  },
   computed: {
     id() {
       return `${this.namespace}-${this._uid}-${this.index}`
@@ -66,22 +70,29 @@ export default {
     displayIndex() {
       return this.index + 1
     },
-    classes() {
-      return {
-        'is-active': this.active,
-        'is-visited': this.visited,
-        'is-disabled': this.disabled
-      }
-    },
     computedName() {
       return this.name || this.id
     },
     defaultSlot() {
       return this.$slots.default || this.$scopedSlots.default
     },
-    api() {
-      const { displayIndex, defaultSlot } = this
-      return { displayIndex, defaultSlot }
+    scope() {
+      const { index, displayIndex, defaultSlot, flags } = this
+      return { index, displayIndex, defaultSlot, flags }
+    },
+    flags() {
+      return {
+        isActive: this.active,
+        isVisited: this.visited,
+        isDisabled: this.disabled
+      }
+    },
+    classes() {
+      return {
+        'is-active': this.active,
+        'is-visited': this.visited,
+        'is-disabled': this.disabled
+      }
     }
   },
   methods: {

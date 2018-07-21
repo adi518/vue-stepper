@@ -1,6 +1,7 @@
 ```js
 import path from 'path'
 import router from './router'
+import { mapGetters } from 'vuex'
 
 import { VStepper } from 'vue-stepper-component'
 
@@ -8,33 +9,34 @@ export default {
   components: {
     VStepper
   },
+  created() {
+    this.changeRoute(route)
+  },
   watch: {
-    $route: { 
-      handler(route) {
-        this.changeRoute(route)
-      },
-      immediate: true
+    $route(route) {
+      this.changeRoute(route)
     }
   },
   computed: {
-    ...mapGetters({
-      steps: types.STEPS,
-      step: types.STEP
-    }),
+    ...mapGetters([
+      'step',
+      'steps',
+      'stepsMap'
+    ]),
     step: {
       get() {
         return this.step
       },
-      set(step: route) {
-        this.changeRoute({ name: route })
+      set(step) {
+        const { route: { name } } = this.stepsMap.get(step)
+
+        this.changeRoute({ name })
       }
     }
   },
   methods: {
     changeRoute(route) {
-      const basename = route.name || path.basename(route.fullPath)
-
-      router.push(basename)
+      router.push(route)
     }
   }
 }

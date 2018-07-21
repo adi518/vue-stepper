@@ -13,14 +13,34 @@
         :active="step.index === toIndex(value)"
         @change="handleChange"
       >
-        <template slot="index" slot-scope="api">
-          <slot :name="`step-${api.displayIndex}-index`" v-bind="api">
-            {{api.displayIndex}}
+        <!-- PASS SLOT INDEX-ROOT -->
+        <template
+          slot="index-root"
+          slot-scope="scope"
+          v-if="$slots[`step-${scope.displayIndex}-index-root`]"
+        >
+          <!-- LIFT SLOT INDEX-ROOT -->
+          <slot :name="`step-${scope.displayIndex}-index-root`" v-bind="scope"></slot>
+        </template>
+
+        <!-- PASS SLOT INDEX -->
+        <template
+          slot="index"
+          slot-scope="scope"
+          v-if="!$slots[`step-${scope.displayIndex}-index-root`]"
+        >
+          <!-- LIFT SLOT INDEX -->
+          <slot :name="`step-${scope.displayIndex}-index`" v-bind="scope">
+            {{scope.displayIndex}}
           </slot>
         </template>
-        <template slot-scope="api">
-          <slot :name="`step-${api.displayIndex}`" v-bind="api"></slot>
+
+        <!-- PASS SLOT DEFAULT (NAME) -->
+        <template slot-scope="scope">
+          <!-- LIFT SLOT DEFAULT (NAME) -->
+          <slot :name="`step-${scope.displayIndex}`" v-bind="scope"></slot>
         </template>
+        
       </v-step>
     </component> 
   </div>
@@ -146,15 +166,18 @@ export default {
           this.setStep(index, 'disabled', false)
           this.setStep(oldIndex, 'active', false)
           this.setStep(oldIndex, 'visited', true)
+
           this.stepsArr.forEach(step => {
             if (step.index > index) {
               this.setStep(step.index, 'disabled', true)
             }
           })
+
           this.$emit('input', this.toValue(index))
         }
       } else {
         this.setStep(oldIndex, 'visited', true)
+
         this.$emit('input', this.toValue(index))
       }
     },
@@ -205,7 +228,7 @@ export default {
     getStorage() {
       return JSON.parse(window[this.storekeeper].getItem(this.id))
     }
-  },  
+  },
   inheritAttrs: false
 }
 </script>

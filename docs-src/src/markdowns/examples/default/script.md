@@ -5,6 +5,9 @@ export default {
   components: {
     VStepper
   },
-  data: () => ({ steps: 3, step: undefined })
+  data: () => ({
+    steps: 3,
+    step: undefined
+  })
 }
 ```
