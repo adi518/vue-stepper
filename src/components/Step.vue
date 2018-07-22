@@ -3,7 +3,7 @@
     <input
       :id="id"
       class="input"
-      type="radio" 
+      type="radio"
       v-show="debug"
       :checked="active"
       :name="computedName"
@@ -20,7 +20,7 @@
       <span class="title" v-if="defaultSlot">
         <slot v-bind="scope"></slot>
       </span>
-      <span class="divider" v-if="withDivider"></span>
+      <span class="divider" v-if="divider"></span>
     </label>
   </div>
 </template>
@@ -51,7 +51,7 @@ export default {
       type: Boolean,
       default: false
     },
-    withDivider: {
+    divider: {
       type: Boolean,
       default: false
     },

@@ -8,9 +8,9 @@
         :debug="debug"
         :index="$index"
         @change="handleChange"
+        :divider="divider"
         :visited="step.visited"
         :disabled="step.disabled"
-        :with-divider="withDivider"
         :active="step.index === toIndex(value.value)">
 
         <!-- Proxy slot ("index-root") -->
@@ -148,7 +148,7 @@ export default {
      * Adds/Removes a divider to/from each Step component.
      * @type {boolean}
      */
-    withDivider: {
+    divider: {
       type: Boolean,
       default: true
     },
