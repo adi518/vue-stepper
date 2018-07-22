@@ -29,9 +29,10 @@
           :linear="flags.linear"
           :persist="flags.persist"
         >
-          <template slot="step-1"> Eeny </template>
-          <template slot="step-2"> Miny </template>
-          <template slot="step-3"> Moe </template>
+          <!-- We use `{}` to convert slot to scoped-slot. -->
+          <template slot="step-1" slot-scope="{}"> Eeny </template>
+          <template slot="step-2" slot-scope="{}"> Miny </template>
+          <template slot="step-3" slot-scope="{}"> Moe </template>
 
           <template v-for="(displayIndex, index) in stepsArr" :slot="getSlotName('index', displayIndex)" slot-scope="scope">
             <span :key="index" class="docs-stepper__index-ripple" v-ripple>{{ scope.displayIndex }}</span>

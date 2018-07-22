@@ -1,27 +1,24 @@
 <template>
-  <div :class="['v-step', classes]">
-    <label class="label">
-      <slot name="index-root" v-bind="scope">
-        <slot name="index" v-bind="scope">
-          {{ scope.displayIndex }}
-        </slot>
+  <component :is="label" :klass="classes">
+    <slot name="index-root" v-bind="scope">
+      <slot name="index" v-bind="scope">
+        {{ scope.displayIndex }}
       </slot>
-      <slot v-bind="scope"></slot>      
-      <input
-        type="radio"
-        v-show="debug"
-        :checked="active"
-        :name="computedName"
-        @change="handleChange">
-    </label>
-  </div>
+    </slot>
+    <slot v-bind="scope"></slot>
+    <input
+      type="radio"
+      v-show="debug"
+      :checked="active"
+      :name="computedName"
+      @change="handleChange">
+  </component>
 </template>
 
 <script>
-import Utils from '@/modules/Stepper.Utils'
+import Label from './Step.label'
 
 export default {
-  name: 'VStep',
   props: {
     index: {
       type: Number,
@@ -47,13 +44,17 @@ export default {
       type: Boolean,
       default: false
     },
+    label: {
+      type: Object,
+      default: () => Label
+    },
     debug: {
       type: Boolean,
       default: false
     }
   },
   data: () => ({
-    namespace: { kebab: 'v-step', capitalize: 'V-Step' }
+    namespace: { kebab: 'v-step-bare', capitalize: 'V-StepBare' }
   }),
   computed: {
     id() {
@@ -70,8 +71,14 @@ export default {
       return this.$slots.default || this.$scopedSlots.default
     },
     scope() {
-      const { index, displayIndex, defaultSlot, flags } = this
-      return { index, displayIndex, defaultSlot, flags }
+      const { index, displayIndex, defaultSlot, flags, classes } = this
+      return {
+        index,
+        flags,
+        classes,
+        defaultSlot,
+        displayIndex
+      }
     },
     flags() {
       return {

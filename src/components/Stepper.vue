@@ -1,5 +1,5 @@
 <template>
-  <div class="v-stepper">
+  <div :class="[namespace.kebab]">
     <component :is="rootComponent">
       <v-step
         v-for="(step, $index) in stepsArr"
@@ -7,8 +7,8 @@
         :key="$index"
         :debug="debug"
         :index="$index"
-        @change="handleChange"
         :divider="divider"
+        @change="handleChange"
         :visited="step.visited"
         :disabled="step.disabled"
         :active="step.index === toIndex(value.value)">
@@ -52,7 +52,7 @@ import Utils from '@/modules/Utils'
 import $Utils from '@/modules/Stepper.Utils'
 
 export default {
-  name: 'VStepper',
+  name: 'v-stepper',
 
   components: {
     VStep
