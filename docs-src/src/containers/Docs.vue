@@ -190,7 +190,7 @@
           <v-a :scroll-to="$refs.license">License</v-a>
         </h4>
         <p>
-          Copyright (c) 2018
+          Copyright (c) {{ new Date().getFullYear() }}
           <v-a href="https://github.com/adi518">
             {{ pkg.author }}
           </v-a>
