@@ -1,15 +1,14 @@
 <template>
   <div :class="['v-step', classes]">
-    <input
-      :id="id"
-      class="input"
-      type="radio"
-      v-show="debug"
-      :checked="active"
-      :name="computedName"
-      @change="handleChange"
-    >
-    <label class="label" :for="id">
+    <label class="label">
+      <input
+        class="input"
+        type="radio"
+        v-show="debug"
+        :checked="active"
+        :name="computedName"
+        @change="handleChange"
+      >
       <slot name="index-root" v-bind="scope">
         <span class="index">
           <slot name="index" v-bind="scope">
