@@ -19,6 +19,7 @@
 import Label from './Step.label'
 
 export default {
+  name: 'v-step-bare',
   props: {
     index: {
       type: Number,
@@ -53,9 +54,10 @@ export default {
       default: false
     }
   },
-  data: () => ({
-    namespace: { kebab: 'v-step-bare', capitalize: 'V-StepBare' }
-  }),
+  data() {
+    const { $options: { name: kebab } } = this
+    return { namespace: { kebab } }
+  },
   computed: {
     id() {
       const { namespace: { kebab: namespace }, _uid: id, index } = this

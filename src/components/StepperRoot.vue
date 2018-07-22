@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'VStepperRoot'
+  name: 'v-stepper-root'
 }
 </script>
 
