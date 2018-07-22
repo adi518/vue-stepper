@@ -1,8 +1,10 @@
 <template>
   <div :class="['v-menu', 'clearfix', classes]">
     <!-- We need to wrap token to fix Desktop Safari 5 -->
-    <div class="token" @touchstart.stop.prevent="toggle" @click.stop.prevent="toggle"></div>
-    <ul ref="menu" class="menu" @touchstart.stop>
+    <div class="token" @touchstart.passive="toggle" @click.stop.prevent="toggle"></div>
+    <!-- <div class="token" @touchstart.stop.prevent="toggle" @click.stop.prevent="toggle"></div> -->
+    <ul ref="menu" class="menu" @touchstart.passive="() => {}">
+    <!-- <ul ref="menu" class="menu" @touchstart.stop> -->
       <li v-for="(route, index) in computedRoutes" :key="index">
         <router-link v-if="route.name" :to="{ name: route.name }" v-html="route.name" />
       </li>

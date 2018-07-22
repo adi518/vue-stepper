@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import Utils from './Stepper.Utils'
+import Utils from '@/modules/Stepper.Utils'
 
 export default {
   name: 'VStep',

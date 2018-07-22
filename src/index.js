@@ -2,8 +2,8 @@ import Step from '@/components/Step'
 import Stepper from '@/components/Stepper'
 import StepperRoot from '@/components/StepperRoot'
 
-export { default as Model } from '@/components/Stepper.Model'
-export { default as Utils } from '@/components/Stepper.Utils'
+export { default as Model } from '@/modules/Stepper.Model'
+export { default as Utils } from '@/modules/Stepper.Utils'
 
 export { default as VStep } from '@/components/Step'
 export { default as VStepper } from '@/components/Stepper'
