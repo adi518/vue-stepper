@@ -1,5 +1,5 @@
 <template>
-  <label :class="['v-step-label', klass]">
+  <label :class="['v-step-label', $attrs.class]">
     <slot></slot>
   </label>
 </template>
@@ -7,11 +7,6 @@
 <script>
 export default {
   name: 'v-step-label',
-  props: {
-    klass: {
-      type: [String, Array, Object]
-    }
-  },
   inheritAttrs: false
 }
 </script>
