@@ -190,8 +190,8 @@ steps: {
 },
 
 /**
- * Sets up the Stepper in either
- * linear or random mode.
+ * Whether to run in linear
+ * mode (random otherwise).
  * @type {Boolean}
  */
 linear: {
@@ -200,7 +200,7 @@ linear: {
 },
 
 /**
- * Sync state with storage?
+ * Whether to sync state with storage.
  * @type {Boolean}
  */
 persist: {
@@ -240,8 +240,8 @@ rootComponent: {
 },
 
 /**
- * Sets up debug mode, which reveals
- * the actual radio-button behind each step.
+ * Sets up debug mode, which reveals the
+ * actual radio-button behind each step.
  * @type {Boolean}
  */
 debug: {
