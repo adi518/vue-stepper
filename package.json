@@ -8,9 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node_modules/.bin/webpack --config webpack.config.js",
     "start": "node_modules/.bin/webpack --config webpack.config.js --watch",
-    "link": "cd ./docs-src && npm link vue-stepper-component && npm link vue-breakpoint-component",
+    "link": "cd ./docs && npm link vue-stepper-component && npm link vue-breakpoint-component",
     "predocs": "npm run link",
-    "docs": "npm start --prefix ./docs-src",
+    "docs": "npm start --prefix ./docs",
     "prerelease": "npm run build && npm version patch",
     "release": "npm publish",
     "postrelease": "git push --follow-tags"
