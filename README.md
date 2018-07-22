@@ -10,15 +10,15 @@ To use the component in your template, simply import and register with your comp
 ```html
 <v-stepper :steps="steps" v-model="step"></v-stepper>
 
-<template v-if="step.query.isStep1">
+<template v-if="step.flags.step1">
   <!-- Step 1 Content -->
 </template>
 
-<template v-if="step.query.isStep2">
+<template v-if="step.flags.step2">
   <!-- Step 2 Content -->
 </template>
 
-<template v-if="step.query.isStep3">
+<template v-if="step.flags.step3">
   <!-- Step 3 Content -->
 </template>
 ```
@@ -40,7 +40,7 @@ export default {
 ## Slots
 Slots are scoped and generated dynamically according to the amount of steps. Since they are scoped, you can leverage shared state and customize either one. Slots names: `default`, `index-root`, `index`.
 
-Every Slot scope consists of the following properties: `index`, `displayIndex`, `flags`.
+Every Slot scope consists of the following properties: `index`, `displayIndex`, `flags: { active, disabled, visited }`.
 
 Few examples of what you can do:
 

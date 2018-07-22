@@ -254,15 +254,15 @@ export default {
     },
 
     /**
-     * Creates queries for ease of composition.
+     * Creates flags for ease of composition.
      * @returns {object}
      */
-    queries() {
+    flags() {
       const { steps, index } = this
-      return Array.from(Array(steps)).reduce((queries, step, $index) => {
-        const query = `isStep${$index + 1}`
-        queries[query] = index === $index
-        return queries
+      return Array.from(Array(steps)).reduce((flags, step, $index) => {
+        const flag = `step${$index + 1}`
+        flags[flag] = index === $index
+        return flags
       }, {})
     }
   },
@@ -449,8 +449,8 @@ export default {
      * @returns {void}
      */
     emitValue(value) {
-      const { id, queries: query } = this
-      this.$emit('input', { id, value, query })
+      const { id, flags } = this
+      this.$emit('input', { id, value, flags })
     },
 
     /**

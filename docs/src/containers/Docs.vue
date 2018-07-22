@@ -43,9 +43,9 @@
         </v-stepper>
 
         <p class="docs-lorem">
-          <template v-if="model.step.query.isStep1">{{ einyLorem }}</template>
-          <template v-if="model.step.query.isStep2">{{ minyLorem }}</template>
-          <template v-if="model.step.query.isStep3">{{ moeLorem }}</template>
+          <template v-if="model.step.flags.step1">{{ einyLorem }}</template>
+          <template v-if="model.step.flags.step2">{{ minyLorem }}</template>
+          <template v-if="model.step.flags.step3">{{ moeLorem }}</template>
         </p>
         
         <v-hide-at no-match>

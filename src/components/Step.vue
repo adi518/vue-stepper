@@ -82,9 +82,9 @@ export default {
     },
     flags() {
       return {
-        isActive: this.active,
-        isVisited: this.visited,
-        isDisabled: this.disabled
+        active: this.active,
+        visited: this.visited,
+        disabled: this.disabled
       }
     },
     classes() {
