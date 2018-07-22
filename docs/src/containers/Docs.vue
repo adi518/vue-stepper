@@ -83,7 +83,7 @@
       <div class="container docs-clearfix" :class="model.breakpoint.noMatch && ['pl-3', 'pr-3'] || 'p-0'">
 
         <!-- INSTALL -->
-        <h4 class="mt-4" ref="install">
+        <h4 class="mt-4 mb-3" ref="install">
           <v-a :scroll-to="$refs.install">Install</v-a>
         </h4>
         <div class="docs-markdown" v-html="markdowns.install"></div>
@@ -176,6 +176,18 @@
         </h4>
         <div class="docs-markdown" v-html="markdowns.props"></div>
 
+        <!-- DEVELOPMENT -->
+        <h4 ref="development">
+          <v-a :scroll-to="$refs.development">Development</v-a>          
+        </h4>
+        <div class="docs-markdown" v-html="markdowns.development.meta"></div>
+
+        <!-- DEVELOPMENT (DOCS) -->
+        <h4 ref="development-docs">
+          <v-a :scroll-to="$refs['development-docs']">Documentation</v-a>
+        </h4>
+        <div class="docs-markdown" v-html="markdowns.development.docs"></div>
+
         <!-- SUPPORT -->
         <h4 ref="support">
           <v-a :scroll-to="$refs.support">Support</v-a>
@@ -186,14 +198,11 @@
         </p>
 
         <!-- LICENSE -->
-        <h4 class="mt-5" ref="license">          
+        <h4 ref="license">          
           <v-a :scroll-to="$refs.license">License</v-a>
         </h4>
         <p>
           Copyright (c) {{ new Date().getFullYear() }}
-          <v-a href="https://github.com/adi518">
-            {{ pkg.author }}
-          </v-a>
           by
           <v-a href="https://opensource.org/licenses/MIT">
             {{ pkg.license }}
@@ -278,6 +287,10 @@ export default {
     markdowns: {
       props: require('@/markdowns/props.md'),
       install: require('@/markdowns/install.md'),
+      development: {
+        meta: require('@/markdowns/development.md'),
+        docs: require('@/markdowns/development.docs.md')
+      },
       examples: {
         default: {
           script: require('@/markdowns/examples/default/script.md'),
@@ -610,10 +623,11 @@ code {
   justify-content: center;
 }
 .docs-markdown {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 .docs-footer {
   display: flex;
+  margin-top: 2rem;
   min-height: 5rem;
   align-items: center;
   justify-content: center;
