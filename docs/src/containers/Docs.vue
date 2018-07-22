@@ -132,7 +132,7 @@ import {
 import store from '@/store'
 import { mapState } from 'vuex'
 
-import readme from '@repo/README_V2.md'
+import readme from '@repo/README.md'
 
 export default {
   name: 'VDocs',
