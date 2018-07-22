@@ -13,7 +13,8 @@
     "docs": "npm start --prefix ./docs",
     "prerelease": "npm run build && npm version patch",
     "release": "npm publish",
-    "postrelease": "git push --follow-tags"
+    "postrelease": "git push --follow-tags",
+    "update-git-remotes": "git remote prune origin"
   },
   "repository": {
     "type": "git",
