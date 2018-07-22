@@ -170,10 +170,10 @@ Start off by assigning special Vue property `ref` to the component. Then, assign
 ## API Props
 ```js
 /**
- * Contains the current step value. Very similar to a
- * `value` attribute on an input. In most cases, you'll want
- * to set this as a two-way binding, using the `v-model` directive.
- * @type {Number||undefined||null}
+ * Contains the current step value. Very similar to a `value`
+ * attribute on an input. In most cases, you'll want to set
+ * this as a two-way binding, using the `v-model` directive.
+ * @type {(number||undefined||null)}
  */
 value: {
   type: Number,

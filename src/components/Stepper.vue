@@ -60,10 +60,10 @@ export default {
 
   props: {
     /**
-     * Contains the current step value. Very similar to a
-     * `value` attribute on an input. In most cases, you'll want
-     * to set this as a two-way binding, using the `v-model` directive.
-     * @type {Number||undefined||null}
+     * Contains the current step value. Very similar to a `value`
+     * attribute on an input. In most cases, you'll want to set
+     * this as a two-way binding, using the `v-model` directive.
+     * @type {(number||undefined||null)}
      */
     value: {
       type: Object,
@@ -105,7 +105,7 @@ export default {
 
     /**
      * Contains the steps count.
-     * @type {Number}
+     * @type {number}
      */
     steps: {
       type: Number,
@@ -115,7 +115,7 @@ export default {
     /**
      * Whether to run in linear
      * mode (random otherwise).
-     * @type {Boolean}
+     * @type {boolean}
      */
     linear: {
       type: Boolean,
@@ -124,7 +124,7 @@ export default {
 
     /**
      * Whether to sync state with storage.
-     * @type {Boolean}
+     * @type {boolean}
      */
     persist: {
       type: Boolean,
@@ -134,7 +134,7 @@ export default {
     /**
      * Which Storage API to use.
      * Should be used with `persist` prop.
-     * @type {String}
+     * @type {string}
      */
     storekeeper: {
       type: String,
@@ -146,7 +146,7 @@ export default {
 
     /**
      * Adds/Removes a divider to/from each Step component.
-     * @type {Boolean}
+     * @type {boolean}
      */
     withDivider: {
       type: Boolean,
@@ -155,7 +155,7 @@ export default {
 
     /**
      * Steps wrapper component.
-     * @type {Object}
+     * @type {object}
      */
     rootComponent: {
       type: Object,
@@ -165,7 +165,7 @@ export default {
     /**
      * Sets up debug mode, which reveals the
      * actual radio-button behind each step.
-     * @type {Boolean}
+     * @type {boolean}
      */
     debug: {
       type: Boolean,
@@ -233,21 +233,21 @@ export default {
 
   computed: {
     /**
-     * @returns {String}
+     * @returns {string}
      */
     id() {
       return `${this.namespace.kebab}-${this._uid}`
     },
 
     /**
-     * @returns {Number}
+     * @returns {number}
      */
     lastIndex() {
       return this.stepsArr.length - 1
     },
 
     /**
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     random() {
       return this.linear === false
@@ -255,7 +255,7 @@ export default {
 
     /**
      * Creates queries for ease of composition.
-     * @returns {Object}
+     * @returns {object}
      */
     queries() {
       const { steps, index } = this
@@ -270,7 +270,7 @@ export default {
   methods: {
     /**
      * Converts index to value.
-     * @returns {Number}
+     * @returns {number}
      */
     toValue(index) {
       return index + 1
@@ -278,7 +278,7 @@ export default {
 
     /**
      * Converts value to index.
-     * @returns {Number}
+     * @returns {number}
      */
     toIndex(value = 0) {
       return value - 1
@@ -287,14 +287,14 @@ export default {
     /**
      * Whether a step
      * exists or not.
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     doesStepExist(index) {
       return !!this.stepsArr[index]
     },
 
     /**
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     isIntermediateIndex(index) {
       return index > 0 && index < this.lastIndex
@@ -344,7 +344,7 @@ export default {
 
     /**
      * Value getter
-     * @returns {Number}
+     * @returns {number}
      */
     getValue() {
       return this.value.value
@@ -432,7 +432,7 @@ export default {
 
     /**
      * Storage getter.
-     * @returns {Object}
+     * @returns {object}
      */
     getStorage() {
       return JSON.parse(window[this.storekeeper].getItem(this.id))
@@ -440,7 +440,7 @@ export default {
 
     /**
      * Constructs a step slot name.
-     * @returns {String}
+     * @returns {string}
      */
     getSlotName: $Utils.getSlotName,
 
@@ -455,13 +455,13 @@ export default {
 
     /**
      * Returns whether step slot was passed.
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     withSlot: $Utils.withSlot,
 
     /**
      * Returns whether step slot was not passed.
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     withoutSlot: $Utils.withoutSlot
   },

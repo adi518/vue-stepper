@@ -98,7 +98,7 @@ export default {
     },
     $scrollTo(ref, options = {}) {
       let element
-      
+
       if (ref instanceof Element) {
         element = ref
       } else {
