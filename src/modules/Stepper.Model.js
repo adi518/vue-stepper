@@ -3,7 +3,7 @@ export class Model {
    * Constructs model for v-model.
    */
   constructor() {
-    return { id: undefined, value: 1, queries: {} }
+    return { id: null, value: 1, query: {} }
   }
 }
 

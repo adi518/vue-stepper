@@ -63,7 +63,7 @@ export default {
      * Contains the current step value. Very similar to a `value`
      * attribute on an input. In most cases, you'll want to set
      * this as a two-way binding, using the `v-model` directive.
-     * @type {(number||undefined||null)}
+     * @type {(number|undefined|null)}
      */
     value: {
       type: Object,
@@ -76,8 +76,8 @@ export default {
 
         tests.push({
           name: 'id',
-          type: [undefined, String.name],
-          value: id === undefined || typeof id === 'string'
+          type: [undefined, null, String.name],
+          value: [undefined, null].includes(id) || typeof id === 'string'
         })
 
         tests.push({
@@ -449,8 +449,8 @@ export default {
      * @returns {void}
      */
     emitValue(value) {
-      const { id, queries } = this
-      this.$emit('input', { id, value, queries })
+      const { id, queries: query } = this
+      this.$emit('input', { id, value, query })
     },
 
     /**

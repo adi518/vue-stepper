@@ -10,15 +10,15 @@ To use the component in your template, simply import and register with your comp
 ```html
 <v-stepper :steps="steps" v-model="step"></v-stepper>
 
-<template v-if="step.queries.isStep1">
+<template v-if="step.query.isStep1">
   <!-- Step 1 Content -->
 </template>
 
-<template v-if="step.queries.isStep2">
+<template v-if="step.query.isStep2">
   <!-- Step 2 Content -->
 </template>
 
-<template v-if="step.queries.isStep3">
+<template v-if="step.query.isStep3">
   <!-- Step 3 Content -->
 </template>
 ```
@@ -173,7 +173,7 @@ Start off by assigning special Vue property `ref` to the component. Then, assign
  * Contains the current step value. Very similar to a `value`
  * attribute on an input. In most cases, you'll want to set
  * this as a two-way binding, using the `v-model` directive.
- * @type {(number||undefined||null)}
+ * @type {(number|undefined|null)}
  */
 value: {
   type: Number,
