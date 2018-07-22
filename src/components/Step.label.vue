@@ -1,5 +1,5 @@
 <template>
-  <label :class="['v-step-label', $attrs.class]">
+  <label :class="[$options.name, $attrs.class]">
     <slot></slot>
   </label>
 </template>
