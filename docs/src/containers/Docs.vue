@@ -132,6 +132,8 @@ import {
 import store from '@/store'
 import { mapState } from 'vuex'
 
+import readme from '@repo/README_V2.md'
+
 export default {
   name: 'VDocs',
   components: {
@@ -154,7 +156,7 @@ export default {
     },
 
     markdowns: {
-      readme: require('@repo/readme.md')
+      readme
     },
 
     model: {
