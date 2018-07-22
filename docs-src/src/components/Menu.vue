@@ -1,8 +1,8 @@
 <template>
   <div :class="['v-menu', 'clearfix', classes]">
     <!-- We need to wrap token to fix Desktop Safari 5 -->
-    <div class="token" @touchstart.stop.prevent="toggle" @click.stop.prevent="toggle"></div>
-    <ul ref="menu" class="menu" @touchstart.stop>
+    <div class="token" @touchstart.passive.stop="toggle" @click.stop.prevent="toggle"></div>
+    <ul ref="menu" class="menu" @touchstart.passive.stop>
       <li v-for="(route, index) in computedRoutes" :key="index">
         <router-link v-if="route.name" :to="{ name: route.name }" v-html="route.name" />
       </li>
@@ -18,6 +18,7 @@
 // https://developer.mozilla.org/en-US/docs/Web/Events/mouseout
 // https://developer.mozilla.org/en-US/docs/Web/Events/mouseleave
 // https://gist.github.com/languanghao/5f74ca361f22192ba774941a69fd275b
+// https://developers.google.com/web/updates/2016/06/passive-event-listeners
 // https://stackoverflow.com/questions/4616694/what-is-event-bubbling-and-capturing
 // https://stackoverflow.com/questions/39589911/svg-image-not-working-in-safari-5-1-7-windows
 

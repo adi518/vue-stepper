@@ -1,22 +1,22 @@
-// https://github.com/noamkfir/webpack/tree/webpack-4/template
-
-/* Webpack 4 + Babel 7 (Next) bundle configuration boilerplate for Vue components */
-
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin // eslint-disable-line
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
+function resolve(dir) {
+  return path.join(__dirname, dir)
+}
 
 module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'index.js',
-    path: path.join(__dirname, 'dist'),
+    path: resolve('dist'),
     libraryTarget: 'umd'
   },
   resolve: {
     extensions: ['.js', '.vue'],
     alias: {
-      '@': path.join(__dirname, 'src')
+      '@': resolve('src')
     }
   },
   module: {
@@ -31,10 +31,11 @@ module.exports = {
         options: {
           presets: [
             ['@babel/preset-env', {
-              forceAllTransforms: true,
+              forceAllTransforms: process.env.PRODUCTION,
             }]
           ],
           plugins: [
+            '@babel/plugin-transform-modules-commonjs',
             'babel-plugin-transform-vue-jsx'
           ]
         }
@@ -64,7 +65,7 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin()
   ],
-  mode: 'production'
+  mode: process.env.PRODUCTION || 'development'
 }
 
 if (process.env.ANALYZE) {

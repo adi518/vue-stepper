@@ -8,7 +8,7 @@
     <div class="docs-container docs-container--has-jumbotron docs-100vh js-vh-fix">
       
       <!-- JUMBOTRON -->
-      <div class="container docs-jumbotron">
+      <div class="container docs-jumbotron" :class="model.breakpoint.noMatch && ['pl-3', 'pr-3'] || 'p-0'">
 
         <h1 class="docs-h1 mb-3">
           Vue-Stepper <sup class="docs-version">{{ pkg.version }}</sup>
@@ -22,7 +22,7 @@
         <!-- DEMO -->
         <v-stepper
           ref="stepper"
-          class="docs-stepper mb-3"
+          class="docs-stepper mb-4"
           v-model="model.step"
           :steps="model.steps"
           :debug="flags.debug"
@@ -33,37 +33,27 @@
           <template slot="step-2"> Miny </template>
           <template slot="step-3"> Moe </template>
 
-          <template v-for="step in stepsArr">
-            <template :slot="`step-${step}-index-root`">            
-              <v-void :key="step" v-if="model.breakpoint.noMatch"></v-void>
-            </template>
+          <template v-for="(displayIndex, index) in stepsArr" :slot="getSlotName('index', displayIndex)" slot-scope="scope">
+            <span :key="index" class="docs-stepper__index-ripple" v-ripple>{{ scope.displayIndex }}</span>
+          </template>
+
+          <template v-for="(displayIndex, index) in stepsArr" :slot="getSlotName('index-root', displayIndex)">
+            <v-void :key="index"  v-if="model.breakpoint.noMatch"></v-void>
           </template>
         </v-stepper>
 
-        <template v-if="model.step === 1">
-          <p class="docs-lorem">
-            {{ einyLorem }}
-          </p>
-        </template>
-
-        <template v-if="model.step === 2">
-          <p class="docs-lorem">
-            {{ minyLorem }}
-          </p>
-        </template>
-
-        <template v-if="model.step === 3">
-          <p class="docs-lorem">
-            {{ moeLorem }}
-          </p>
-        </template>
+        <p class="docs-lorem">
+          <template v-if="model.step.queries.isStep1">{{ einyLorem }}</template>
+          <template v-if="model.step.queries.isStep2">{{ minyLorem }}</template>
+          <template v-if="model.step.queries.isStep3">{{ moeLorem }}</template>
+        </p>
         
         <v-hide-at no-match>
-          <div class="docs-button-group mt-3">
-            <button class="btn docs-button" @click="$refs.stepper.previous()">Previous</button>
-            <button class="btn docs-button" @click="$refs.stepper.next()">Next</button>
-            <button class="btn docs-button" @click="$refs.stepper.reset()">Reset</button>
-          </div>  
+          <div class="docs-button-group mt-25">
+            <button v-ripple class="btn docs-button" @click="$refs.stepper.previous()">Previous</button>
+            <button v-ripple class="btn docs-button" @click="$refs.stepper.next()">Next</button>
+            <button v-ripple class="btn docs-button" @click="$refs.stepper.reset()">Reset</button>
+          </div>
         </v-hide-at>
 
         <!-- ABSOLUTE ANCHOR -->
@@ -90,7 +80,7 @@
 
     <!-- SECOND-PAGE -->
     <div ref="docs" class="docs-container docs-min-100vh">
-      <div class="container docs-clearfix">
+      <div class="container docs-clearfix" :class="model.breakpoint.noMatch && ['pl-3', 'pr-3'] || 'p-0'">
 
         <!-- INSTALL -->
         <h4 class="mt-4" ref="install">
@@ -240,6 +230,7 @@ import pkg from '../../../package'
 
 import Prism from 'prismjs'
 import truncate from 'lodash.truncate'
+import Ripple from 'vue-ripple-directive'
 
 import octocat from '@/assets/images/octocat.png'
 import { VhChromeFix } from '@/assets/javascript/VhChromeFix'
@@ -253,7 +244,12 @@ import {
 
 import VVoid from 'vue-void'
 import VA from '@/components/Anchor'
-import { VStepper, VStep } from 'vue-stepper-component'
+import {
+  VStepper,
+  VStep,
+  Model as StepperModel,
+  Utils as StepperUtils
+} from 'vue-stepper-component'
 
 import store from '@/store'
 import { mapState } from 'vuex'
@@ -268,6 +264,9 @@ export default {
     VHideAt,
     VStepper,
     VBreakpoint
+  },
+  directives: {
+    Ripple
   },
   data: () => ({
     pkg,
@@ -302,7 +301,7 @@ export default {
 
     model: {
       steps: 3,
-      step: undefined,
+      step: new StepperModel(),
       breakpoint: new BreakpointModel()
     },
 
@@ -311,18 +310,32 @@ export default {
       random: false,
       persist: true,
       production: process.env.NODE_ENV !== 'development'
-    }
+    },
+
+    instances: {}
   }),
   created() {
-    this.vhChromeFix = undefined
+    /**
+     * Initiate non-reactive properties.
+     */
+    this.instances.ChromeFix = undefined
+
+    /**
+     * Remove storage of stale Stepper instances.
+     */
+    const { model: { step: id } } = this
+
+    StepperUtils.removeStaleStorage(id)
   },
   mounted() {
     window.setTimeout(Prism.highlightAll)
 
-    this.vhChromeFix = new VhChromeFix([{ selector: '.js-vh-fix', vh: 100 }])
+    this.instances.vhChromeFix = new VhChromeFix([
+      { selector: '.js-vh-fix', vh: 100 }
+    ])
   },
   destroyed() {
-    this.vhChromeFix.destroy()
+    this.instances.vhChromeFix.destroy()
   },
   computed: {
     einyLorem() {
@@ -374,6 +387,9 @@ export default {
       )
     },
     ...mapState(['step', 'steps', 'stepsMap'])
+  },
+  methods: {
+    getSlotName: StepperUtils.getSlotName
   }
 }
 </script>
@@ -480,12 +496,13 @@ code {
   margin-left: auto;
   margin-right: auto;
   font-size: 2.7rem;
-  padding-right: 1rem;
+  position: relative;
+  // padding-right: 1rem;
   text-transform: lowercase;
-  background-position: 100%;
-  background-size: 1rem auto;
-  background-repeat: no-repeat;
-  background-image: url('~@/assets/images/logo.png');
+  // background-position: 100%;
+  // background-size: 1rem auto;
+  // background-repeat: no-repeat;
+  // background-image: url('~@/assets/images/logo.png');
   text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
 }
 /* Headings end */
@@ -517,6 +534,10 @@ code {
 .docs-version {
   font-weight: 300;
   font-size: 0.7rem;
+  top: 0;
+  right: 0;
+  position: absolute;
+  margin-right: -1rem;
 }
 .docs-tagline {
   text-align: center;
@@ -545,6 +566,20 @@ code {
 /* Layout */
 .docs-stepper {
   font-size: 1.1rem;
+  label {
+    margin-bottom: 0; // Reset Bootstrap
+  }
+}
+.docs-stepper__index-ripple {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+.docs-lorem {
+  margin-bottom: 0;
 }
 .docs-button {
   min-width: 6rem;
@@ -561,7 +596,7 @@ code {
     box-shadow: 0 0.25rem 0.5rem rgba($app-color-black, 0.2);
     background-image: linear-gradient(
       -135deg,
-      rgba($app-color-white, 0.5),
+      rgba($app-color-white, 0.15),
       transparent 100%
     );
   }

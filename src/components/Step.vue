@@ -1,19 +1,19 @@
 <template>
   <div :class="['v-step', classes]">
     <input
+      :id="id"
       class="input"
       type="radio" 
-      :id="id"
-      :name="computedName"
-      :checked="active"
-      @change="handleChange"
       v-show="debug"
+      :checked="active"
+      :name="computedName"
+      @change="handleChange"
     >
     <label class="label" :for="id">
       <slot name="index-root" v-bind="scope">
-        <span class="index">            
+        <span class="index">
           <slot name="index" v-bind="scope">
-            {{scope.displayIndex}}
+            {{ scope.displayIndex }}
           </slot>
         </span>
       </slot>
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import Utils from './Stepper.Utils'
+
 export default {
   name: 'VStep',
   props: {
@@ -58,14 +60,12 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      namespace: 'v-step'
-    }
-  },
+  data: () => ({
+    namespace: { kebab: 'v-step', capitalize: 'V-Step' }
+  }),
   computed: {
     id() {
-      return `${this.namespace}-${this._uid}-${this.index}`
+      return `${this.namespace.kebab}-${this._uid}-${this.index}`
     },
     displayIndex() {
       return this.index + 1
@@ -96,6 +96,10 @@ export default {
     }
   },
   methods: {
+    /**
+     * Lift index (a la v-model).
+     * @returns {void}
+     */
     handleChange() {
       this.$emit('change', this.index)
     }
@@ -137,9 +141,14 @@ export default {
   &.is-active {
     opacity: 1;
 
+    .title {
+      color: lighten($app-color-eden, 30%);
+    }
+
     .label {
       .index {
-        background-color: $app-color-white;
+        border-color: rgba($app-color-wild-sand, 0.2);
+        background-color: lighten($app-color-eden, 0%);
       }
     }
   }
@@ -151,8 +160,10 @@ export default {
   }
 
   @media (max-width: 575px) {
-    // Bootstrap "xs"
-    margin-right: 0.5rem;
+    &:not(:last-child) {
+      // Bootstrap "xs"
+      margin-right: 0.5rem;
+    }
   }
 }
 
@@ -175,7 +186,6 @@ export default {
   justify-content: center;
   background-color: transparent;
   border: 1px solid $app-color-wild-sand;
-  box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
 }
 
 .title {

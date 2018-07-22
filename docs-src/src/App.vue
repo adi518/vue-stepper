@@ -30,7 +30,7 @@ export default {
   },
   data: () => ({
     pkg,
-    
+
     routes,
 
     flags: {
@@ -39,13 +39,21 @@ export default {
   }),
   created() {
     if (process.env.NODE_ENV === 'development') {
+      /**
+       * Log route for debugging purposes.
+       */
       console.log(this.$route)
     }
   },
+  mounted() {
+    this.ghstar = document.getElementById('github-star')
+  },
   watch: {
-    // Listen to changes triggered by
-    // navigation buttons (back/forward),
-    // and programmatic changes (`router.push`).
+    /**
+    Listen to changes triggered by
+    navigation buttons (back/forward),
+    and programmatic changes (`router.push`).
+     */
     $route: {
       handler(route) {
         this.changeRoute(route)
@@ -57,21 +65,17 @@ export default {
       router.push({ name: route && router.name })
     },
     handleOpen({ width }) {
-      const ghstar = document.getElementById('github-star')
+      const { ghstar } = this
 
       if (ghstar) {
         ghstar.style.setProperty('display', 'none')
-
-        /* ghstar.style.setProperty('left', `calc(${width}px + 1.25rem)`) */
       }
     },
     handleClose() {
-      const ghstar = document.getElementById('github-star')
+      const { ghstar } = this
 
       if (ghstar) {
         ghstar.style.removeProperty('display')
-
-        /* ghstar.style.removeProperty('left') */
       }
     }
   }
@@ -85,7 +89,8 @@ export default {
 /* Bootstrap */
 $spacer: 1rem;
 $spacers: ();
-$spacers: map-merge((20: ($spacer * 2)), $spacers);
+$spacers: map-merge((20: $spacer * 2), $spacers);
+$spacers: map-merge((25: $spacer * 2 + 0.5), $spacers);
 
 $body-bg: $app-color-mirage;
 $body-color: $app-color-white;
