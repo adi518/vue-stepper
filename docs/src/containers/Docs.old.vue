@@ -59,7 +59,9 @@
         <!-- ABSOLUTE ANCHOR -->
         <v-a
           class="docs-fixed-anchor docs-c-pointer"
-          :scroll-to="$refs.docs">Install, Examples &amp; Documentation</v-a>
+          :scroll-to="$refs.docs">
+          Install, Examples &amp; Documentation
+        </v-a>
 
         <!-- GITHUB STAR -->
         <div id="github-star" class="docs-github-star">
@@ -73,14 +75,140 @@
           </a>
         </div>
 
-        <!-- END -->
       </div>
     </div>
 
     <!-- SECOND-PAGE -->
     <div ref="docs" class="docs-container docs-min-100vh">
       <div class="container docs-clearfix" :class="model.breakpoint.noMatch && ['pl-3', 'pr-3'] || 'p-0'">
-        <div class="docs-markdown" v-html="markdowns.readme"></div>
+
+        <!-- INSTALL -->
+        <h4 class="mt-4 mb-3" ref="install">
+          <v-a :scroll-to="$refs.install">Install</v-a>
+        </h4>
+        <div class="docs-markdown" v-html="markdowns.install"></div>
+
+        <!-- USAGE -->
+        <h4 ref="usage">
+          <v-a :scroll-to="$refs.usage">Usage</v-a>
+        </h4>
+        <p>
+          To use the component in your template, simply import and register with your component.
+          To control the Stepper state, we use the <code>v-model</code> directive, similar to
+          an input element.
+        </p>
+        <h5>Template</h5>
+        <div
+          class="docs-markdown"
+          v-html="markdowns.examples.default.template"
+        ></div>
+        <h5>Script</h5>
+        <div
+          class="docs-markdown"
+          v-html="markdowns.examples.default.script"
+        ></div>
+
+        <!-- SLOTS -->
+        <h4 ref="slots">
+          <v-a :scroll-to="$refs.slots">Slots</v-a>
+        </h4>
+        <p>
+          Slots are scoped and generated dynamically according to the amount of steps.
+          Since they are scoped, you can leverage shared state and customize either one.
+          Slots names: <code>default</code>, <code>index-root</code>, <code>index</code>.
+        </p>
+        <p>
+          Every Slot scope consists of the following properties:
+          <code>index</code>,
+          <code>displayIndex</code>,
+          <code>flags</code>.
+        </p>
+        <p>
+          Few examples of what you can do:
+        </p>
+        <div
+          class="docs-markdown"
+          v-html="markdowns.examples.slots.template"
+        ></div>
+
+        <!-- VUEX -->
+        <h4 ref="vuex">
+          <v-a :scroll-to="$refs.vuex">Vuex</v-a>
+        </h4>
+        <p>
+          A common practice for managing your Stepper state is through a Store.
+          The following is merely an implementation proposal.
+        </p>
+        <h5>Store</h5>
+        <div
+          class="docs-markdown"
+          v-html="markdowns.examples.vuex.meta"
+        ></div>
+        <h5>Template</h5>
+        <div
+          class="docs-markdown"
+          v-html="markdowns.examples.vuex.component.template"
+        ></div>
+        <h5>Script</h5>
+        <div
+          class="docs-markdown"
+          v-html="markdowns.examples.vuex.component.script"
+        ></div>
+        
+        <!-- PROGRAMMATIC -->
+        <h4 ref="programmatic">
+          <v-a :scroll-to="$refs.programmatic">Programmatic</v-a>
+        </h4>
+        <p>
+          Start off by assigning special
+          <code>Vue</code> property
+          <code><v-a href="https://vuejs.org/v2/api/#ref">ref</v-a></code> to the
+          <code>v-stepper</code> component. Then, assign an API method to an Event listener.
+          The following example is similar to the Demo above, where we assign
+          <code>previous</code>, <code>next</code> and <code>reset</code> to the
+          <code>click</code> event of a button element.
+        </p>
+        <div class="docs-markdown" v-html="markdowns.examples.programmatic.template"></div>
+
+        <!-- API PROPS -->
+        <h4 ref="api-props">
+          <v-a :scroll-to="$refs['api-props']">API Props</v-a>          
+        </h4>
+        <div class="docs-markdown" v-html="markdowns.props"></div>
+
+        <!-- DEVELOPMENT -->
+        <h4 ref="development">
+          <v-a :scroll-to="$refs.development">Development</v-a>          
+        </h4>
+        <div class="docs-markdown" v-html="markdowns.development.meta"></div>
+
+        <!-- DEVELOPMENT (DOCS) -->
+        <h4 ref="development-docs">
+          <v-a :scroll-to="$refs['development-docs']">Documentation</v-a>
+        </h4>
+        <div class="docs-markdown" v-html="markdowns.development.docs"></div>
+
+        <!-- SUPPORT -->
+        <h4 ref="support">
+          <v-a :scroll-to="$refs.support">Support</v-a>
+        </h4>
+        <p>
+          Please open an
+          <v-a :href="pkg.bugs.url">issue</v-a> for support.
+        </p>
+
+        <!-- LICENSE -->
+        <h4 ref="license">          
+          <v-a :scroll-to="$refs.license">License</v-a>
+        </h4>
+        <p>
+          Copyright (c) {{ new Date().getFullYear() }}
+          by
+          <v-a href="https://opensource.org/licenses/MIT">
+            {{ pkg.license }}
+          </v-a>
+        </p>
+
       </div>
     </div>
 
@@ -88,16 +216,19 @@
     <footer class="docs-footer docs-clearfix">
       <p class="docs-credit mt-2 mb-2">
         Made with ❤️ by
-        <v-a href="https://github.com/adi518">Adi Sahar</v-a>
+        <v-a href="https://github.com/adi518">
+          Adi Sahar
+        </v-a>
       </p>
     </footer>
 
     <!-- GIT RIBBON -->
     <div id="github" class="docs-github">
-      <v-a class="docs-github-anchor" :href="pkg.repository.url"><img :src="assets.octocat" alt="Github"></v-a>
+      <v-a class="docs-github-anchor" :href="pkg.repository.url">
+        <img :src="assets.octocat" alt="Github">
+      </v-a>
     </div>
 
-    <!-- END -->
   </div>
 </template>
 
@@ -154,7 +285,31 @@ export default {
     },
 
     markdowns: {
-      readme: require('@repo/readme.md')
+      props: require('@/markdowns/props.md'),
+      install: require('@/markdowns/install.md'),
+      development: {
+        meta: require('@/markdowns/development.md'),
+        docs: require('@/markdowns/development.docs.md')
+      },
+      examples: {
+        default: {
+          script: require('@/markdowns/examples/default/script.md'),
+          template: require('@/markdowns/examples/default/template.md')
+        },
+        programmatic: {
+          template: require('@/markdowns/examples/programmatic/template.md')
+        },
+        slots: {
+          template: require('@/markdowns/examples/slots/template.md')
+        },
+        vuex: {
+          meta: require('@/markdowns/vuex/meta.md'),
+          component: {
+            script: require('@/markdowns/vuex/component-script.md'),
+            template: require('@/markdowns/vuex/component-template.md')
+          }
+        }
+      }
     },
 
     model: {
@@ -277,7 +432,6 @@ $app-min-width: 320px;
 
   :not(pre) > code[class*='language-'],
   pre[class*='language-'] {
-    margin-bottom: 1.5rem;
     background: rgba(#f5f2f0, 0.9);
   }
 
@@ -469,13 +623,7 @@ code {
   justify-content: center;
 }
 .docs-markdown {
-  h2 {
-    font-size: 1.5rem; // h4
-    margin-top: 1.5rem;
-  }
-  h3 {
-    font-size: 1.25rem; // h5
-  }
+  margin-bottom: 2.5rem;
 }
 .docs-footer {
   display: flex;
