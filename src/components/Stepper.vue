@@ -1,6 +1,6 @@
 <template>
   <div :class="[namespace.kebab]">
-    <component :is="rootComponent">
+    <component :is="Container">
       <v-step
         v-for="(step, $index) in stepsArr"
         :name="id"
@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import VStep from './Step'
-import VStepperRoot from './StepperRoot'
+import Step from './Step'
+import Container from './Stepper.container'
 
 import Utils from '@/modules/Utils'
 import $Utils from '@/modules/Stepper.Utils'
@@ -55,7 +55,7 @@ export default {
   name: 'v-stepper',
 
   components: {
-    VStep
+    'v-step': Step
   },
 
   props: {
@@ -154,12 +154,12 @@ export default {
     },
 
     /**
-     * Steps wrapper component.
+     * Steps container (component).
      * @type {object}
      */
-    rootComponent: {
+    Container: {
       type: Object,
-      default: () => VStepperRoot
+      default: () => Container
     },
 
     /**

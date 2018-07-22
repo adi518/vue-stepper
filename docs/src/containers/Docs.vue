@@ -29,7 +29,7 @@
           :linear="flags.linear"
           :persist="flags.persist"
         >
-          <!-- We use `{}` to convert slot to scoped-slot. -->
+          <!-- We use `{}` to convert slot to scoped-slot (prevents slot duplication error). -->
           <template slot="step-1" slot-scope="{}"> Eeny </template>
           <template slot="step-2" slot-scope="{}"> Miny </template>
           <template slot="step-3" slot-scope="{}"> Moe </template>
@@ -122,13 +122,15 @@ import {
 } from 'vue-breakpoint-component'
 
 import VVoid from 'vue-void'
-import VA from '@/components/Anchor'
 import {
   VStepper,
   VStep,
   Model as StepperModel,
   Utils as StepperUtils
 } from 'vue-stepper-component'
+
+import VA from '@/components/Anchor'
+import VScopedSlot from '@/components/ScopedSlot'
 
 import store from '@/store'
 import { mapState } from 'vuex'
@@ -144,7 +146,8 @@ export default {
     VShowAt,
     VHideAt,
     VStepper,
-    VBreakpoint
+    VBreakpoint,
+    VScopedSlot
   },
   directives: {
     Ripple
@@ -554,50 +557,69 @@ code {
 
 <style lang="stylus">
 // https://github.com/vuejs/vuepress/blob/fd46a26d3a884b62092581451028121fd0daf654/lib/default-theme/styles/code.styl
+for lang in js ts html md vue css sass scss less stylus go java c sh yaml {
+  pre{'[class~="language-' + lang + '"]'} {
+    &:before {
+      content: '' + lang;
+    }
+  }
+}
 
-for lang in js ts html md vue css sass scss less stylus go java c sh yaml
-  pre{'[class~="language-' + lang + '"]'}
-    &:before
-      content ('' + lang)
+pre[class*=language-] {
+  position: relative;
 
-pre[class*=language-]
-  position: relative
-  &::before
-    position absolute
-    z-index 3
-    top 0.8rem
-    right 1rem
-    font-size 0.75rem
+  &::before {
+    position: absolute;
+    z-index: 3;
+    top: 0.8rem;
+    right: 1rem;
+    font-size: 0.75rem;
+  }
+}
 
-pre[class~="language-bash"]
-  &:before
-    content "bash"
+pre[class~='language-bash'] {
+  &:before {
+    content: 'bash';
+  }
+}
 
-pre[class~="language-javascript"]
-  &:before
-    content "js"
+pre[class~='language-javascript'] {
+  &:before {
+    content: 'js';
+  }
+}
 
-div[class~="language-typescript"]
-  &:before
-    content "ts"
+div[class~='language-typescript'] {
+  &:before {
+    content: 'ts';
+  }
+}
 
-div[class~="language-markup"]
-  &:before
-    content "html"
+div[class~='language-markup'] {
+  &:before {
+    content: 'html';
+  }
+}
 
-div[class~="language-markdown"]
-  &:before
-    content "md"
+div[class~='language-markdown'] {
+  &:before {
+    content: 'md';
+  }
+}
 
-div[class~="language-json"]:before
-  content "json"
+div[class~='language-json']:before {
+  content: 'json';
+}
 
-div[class~="language-ruby"]:before
-  content "rb"
+div[class~='language-ruby']:before {
+  content: 'rb';
+}
 
-div[class~="language-python"]:before
-  content "py"
+div[class~='language-python']:before {
+  content: 'py';
+}
 
-div[class~="language-bash"]:before
-  content "sh"
+div[class~='language-bash']:before {
+  content: 'sh';
+}
 </style>

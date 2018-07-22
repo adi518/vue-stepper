@@ -225,18 +225,18 @@ storekeeper: {
  * Add/Remove a divider to/from each Step component.
  * @type {Boolean}
  */
-withDivider: {
+divider: {
   type: Boolean,
   default: true
 },
 
 /**
- * Steps wrapper component.
+ * Steps container (component).
  * @type {Object}
  */
-rootComponent: {
+Container: {
   type: Object,
-  default: () => VStepperRoot
+  default: () => Container
 },
 
 /**

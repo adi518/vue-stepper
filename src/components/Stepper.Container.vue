@@ -1,5 +1,5 @@
 <template>
-	<div class="v-stepper-root">
+	<div :class="[$options.name]">
     <slot></slot>
   </div>
 </template>
