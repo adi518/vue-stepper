@@ -319,6 +319,13 @@ export default {
       const isPrevious = index === this.index - 1
       const oldIndex = this.toIndex(value)
 
+      if (this.random) {
+        this.setStep(oldIndex, 'visited', true)
+        this.emitValue(this.toValue(index))
+
+        return
+      }
+
       if (this.linear && (isNext || isPrevious)) {
         this.setStep(index, 'active', true)
         this.setStep(index, 'visited', false)
@@ -331,14 +338,6 @@ export default {
             this.setStep(step.index, 'disabled', true)
           }
         })
-
-        this.emitValue(this.toValue(index))
-
-        return
-      }
-
-      if (this.random) {
-        this.setStep(oldIndex, 'visited', true)
 
         this.emitValue(this.toValue(index))
       }
