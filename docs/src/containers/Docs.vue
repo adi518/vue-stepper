@@ -2,20 +2,20 @@
   <div class="docs">
 
     <!-- BREAKPOINT STATE -->
-    <v-breakpoint v-model="model.breakpoint"></v-breakpoint>
+    <v-breakpoint v-model="models.breakpoint"></v-breakpoint>
 
     <!-- FIRST PAGE -->
     <div class="docs-container docs-container--has-jumbotron docs-100vh js-vh-fix">
       
       <!-- JUMBOTRON -->
-      <div class="container docs-jumbotron" :class="model.breakpoint.noMatch && ['pl-3', 'pr-3'] || 'p-0'">
+      <div class="container docs-jumbotron" :class="models.breakpoint.noMatch && ['pl-3', 'pr-3'] || 'p-0'">
 
         <h1 class="docs-h1 mb-3">
           Vue-Stepper <sup class="docs-version">{{ pkg.version }}</sup>
         </h1>
         <p class="docs-tagline mb-5">
           Fully customizable
-          Stepper component <br v-show="model.breakpoint.noMatch"> with Vuex
+          Stepper component <br v-show="models.breakpoint.noMatch"> with Vuex
           support and Zero dependencies.
         </p>        
         
@@ -23,8 +23,8 @@
         <v-stepper
           ref="stepper"
           class="docs-stepper mb-4"
-          v-model="model.step"
-          :steps="model.steps"
+          v-model="stepper.model"
+          :steps="stepper.size"
           :debug="flags.debug"
           :linear="flags.linear"
           :persist="flags.persist"
@@ -34,19 +34,19 @@
           <template slot="step-2" slot-scope="{}"> Miny </template>
           <template slot="step-3" slot-scope="{}"> Moe </template>
 
-          <template v-for="(displayIndex, index) in stepsArr" :slot="getSlotName('index', displayIndex)" slot-scope="scope">
+          <template v-for="(displayIndex, index) in stepper.array" :slot="getSlotName('index', displayIndex)" slot-scope="scope">
             <span :key="index" class="docs-stepper__index-ripple" v-ripple>{{ scope.displayIndex }}</span>
           </template>
 
-          <template v-for="(displayIndex, index) in stepsArr" :slot="getSlotName('index-root', displayIndex)">
-            <v-void :key="index"  v-if="model.breakpoint.noMatch"></v-void>
+          <template v-for="(displayIndex, index) in stepper.array" :slot="getSlotName('index-root', displayIndex)">
+            <v-void :key="index"  v-if="models.breakpoint.noMatch"></v-void>
           </template>
         </v-stepper>
 
         <p class="docs-lorem">
-          <template v-if="model.step.flags.step1">{{ einyLorem }}</template>
-          <template v-if="model.step.flags.step2">{{ minyLorem }}</template>
-          <template v-if="model.step.flags.step3">{{ moeLorem }}</template>
+          <template v-if="stepper.model.flags.step1">{{ einy }}</template>
+          <template v-if="stepper.model.flags.step2">{{ miny }}</template>
+          <template v-if="stepper.model.flags.step3">{{ moe }}</template>
         </p>
         
         <v-hide-at no-match>
@@ -80,7 +80,7 @@
 
     <!-- SECOND-PAGE -->
     <div ref="docs" class="docs-container docs-min-100vh">
-      <div class="container docs-clearfix" :class="model.breakpoint.noMatch && ['pl-3', 'pr-3'] || 'p-0'">
+      <div class="container docs-clearfix" :class="models.breakpoint.noMatch && ['pl-3', 'pr-3'] || 'p-0'">
         <div class="docs-markdown" v-html="markdowns.readme"></div>
       </div>
     </div>
@@ -105,7 +105,7 @@
 <script>
 // https://stackoverflow.com/questions/42414627/create-text-node-with-custom-render-function-in-vue-js
 
-import pkg from '../../../package'
+import pkg from '@repo/package'
 
 import Prism from 'prismjs'
 import truncate from 'lodash.truncate'
@@ -118,16 +118,11 @@ import {
   VShowAt,
   VHideAt,
   VBreakpoint,
-  Model as BreakpointModel
+  Model as Breakpoint
 } from 'vue-breakpoint-component'
 
 import VVoid from 'vue-void'
-import {
-  VStepper,
-  VStep,
-  Model as StepperModel,
-  Utils as StepperUtils
-} from 'vue-stepper-component'
+import { VStepper, Utils, Model as Step } from 'vue-stepper-component'
 
 import VA from '@/components/Anchor'
 import VScopedSlot from '@/components/ScopedSlot'
@@ -142,7 +137,6 @@ export default {
   components: {
     VA,
     VVoid,
-    VStep,
     VShowAt,
     VHideAt,
     VStepper,
@@ -152,48 +146,61 @@ export default {
   directives: {
     Ripple
   },
-  data: () => ({
-    pkg,
+  data: () => {
+    const production = process.env.NODE_ENV === 'production'
 
-    assets: {
-      octocat
-    },
+    return {
+      pkg,
 
-    markdowns: {
-      readme
-    },
+      assets: {
+        octocat
+      },
 
-    model: {
-      steps: 3,
-      step: new StepperModel(),
-      breakpoint: new BreakpointModel()
-    },
+      markdowns: {
+        readme
+      },
 
-    flags: {
-      debug: false,
-      linear: true,
-      persist: true,
-      production: process.env.NODE_ENV !== 'development'
-    },
+      models: {
+        breakpoint: new Breakpoint()
+      },
 
-    instances: {}
-  }),
+      flags: {
+        debug: false,
+        linear: true,
+        persist: true,
+        production: production
+      },
+
+      instances: {
+        breakpoint: new Breakpoint()
+      }
+    }
+  },
+  watch: {
+    'stepper.model'(model) {
+      store.commit('stepper_model', model)
+    }
+  },
   created() {
     /**
      * Initiate non-reactive properties.
      */
-    this.instances.ChromeFix = undefined
+    this.instances.vhChromeFix = undefined
 
     /**
      * Remove storage of stale Stepper instances.
      */
-    const { model: { step: id } } = this
-
-    StepperUtils.removeStaleStorage(id)
+    Utils.removeStaleStorage(this.stepper.model.id)
   },
   mounted() {
+    /**
+     * Highlights all code blocks.
+     */
     window.setTimeout(Prism.highlightAll)
 
+    /**
+     * Tries to fix viewport height behavior in Chrome.
+     */
     this.instances.vhChromeFix = new VhChromeFix([
       { selector: '.js-vh-fix', vh: 100 }
     ])
@@ -202,7 +209,16 @@ export default {
     this.instances.vhChromeFix.destroy()
   },
   computed: {
-    einyLorem() {
+    ...mapState(['stepper']),
+    // model: {
+    //   get() {
+    //     return this.stepper.model
+    //   },
+    //   set(payload) {
+    //     store.commit('stepper', payload)
+    //   }
+    // },
+    einy() {
       const lorem = `
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       In euismod elementum ante ac volutpat. Suspendisse euismod est enim,
@@ -211,12 +227,12 @@ export default {
       congue libero id, vehicula sem. Maecenas nec ex imperdiet, bibendum justo vel,
       feugiat velit. Vivamus eu maximus mi. Fusce ac metus magna.
       `
-      if (this.model.breakpoint.noMatch) {
+      if (this.models.breakpoint.noMatch) {
         return truncate(lorem, { length: 200 })
       }
       return lorem
     },
-    minyLorem() {
+    miny() {
       const lorem = `
       Nunc a nunc at sapien posuere consequat. Vestibulum sed maximus felis.
       Nulla a diam sit amet nulla malesuada commodo.
@@ -226,12 +242,12 @@ export default {
       Quisque ipsum tellus, sodales ac ante sed, consequat efficitur metus.
       Pellentesque euismod viverra orci.
       `
-      if (this.model.breakpoint.noMatch) {
+      if (this.models.breakpoint.noMatch) {
         return truncate(lorem, { length: 190 })
       }
       return lorem
     },
-    moeLorem() {
+    moe() {
       const lorem = `
       Aenean vel arcu mollis, feugiat ipsum vitae, sollicitudin nibh. Integer fermentum,
       dui ut laoreet faucibus, nibh elit ultricies ipsum, sit amet placerat libero nisl id enim.
@@ -240,20 +256,14 @@ export default {
       a tristique lectus ultrices ut. Donec ac ultricies lectus, a semper nibh. Integer tempor,
       purus ac convallis semper.
       `
-      if (this.model.breakpoint.noMatch) {
+      if (this.models.breakpoint.noMatch) {
         return truncate(lorem, { length: 210 })
       }
       return lorem
-    },
-    stepsArr() {
-      return Array.from(Array(this.model.steps)).map(
-        (value, index) => index + 1
-      )
-    },
-    ...mapState(['step', 'steps', 'stepsMap'])
+    }
   },
   methods: {
-    getSlotName: StepperUtils.getSlotName
+    getSlotName: Utils.getSlotName
   }
 }
 </script>
@@ -362,12 +372,7 @@ code {
   margin-right: auto;
   font-size: 2.7rem;
   position: relative;
-  // padding-right: 1rem;
   text-transform: lowercase;
-  // background-position: 100%;
-  // background-size: 1rem auto;
-  // background-repeat: no-repeat;
-  // background-image: url('~@/assets/images/logo.png');
   text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
 }
 /* Headings end */

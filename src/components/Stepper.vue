@@ -357,11 +357,12 @@ export default {
      * @returns {Array}
      */
     getStepsArr() {
-      return Array.from(Array(this.steps), (step, index) => {
+      const { steps, linear, toValue } = this
+      return Array.from(Array(steps), (step, index) => {
         const isFirst = index === 0
         const isNext = index - 1 === 0
         let disabled = false
-        if (this.linear) {
+        if (linear) {
           if (isFirst || isNext) {
             // Leave Step enabled.
           } else {
@@ -369,7 +370,7 @@ export default {
           }
         }
         const visited = false
-        const value = this.toValue(index)
+        const value = toValue(index)
         return { index, value, visited, disabled }
       })
     },

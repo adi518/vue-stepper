@@ -23,6 +23,8 @@ import router, { routes } from './router'
 
 import VMenu from '@/components/Menu'
 
+import { mapState } from 'vuex'
+
 export default {
   name: 'app',
   components: {
@@ -34,7 +36,7 @@ export default {
     routes,
 
     flags: {
-      production: process.env.NODE_ENV !== 'development'
+      production: process.env.NODE_ENV === 'production'
     }
   }),
   created() {
@@ -59,6 +61,9 @@ export default {
         this.changeRoute(route)
       }
     }
+  },
+  computed: {
+    ...mapState(['count'])
   },
   methods: {
     changeRoute(route) {

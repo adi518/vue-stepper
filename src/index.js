@@ -1,6 +1,7 @@
 import Step from '@/components/Step'
 import Stepper from '@/components/Stepper'
 
+export { default as Stepper } from '@/modules/Stepper'
 export { default as Model } from '@/modules/Stepper.Model'
 export { default as Utils } from '@/modules/Stepper.Utils'
 

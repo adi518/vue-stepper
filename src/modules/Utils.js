@@ -12,7 +12,16 @@ export class Utils {
    * @returns {Boolean}
    */
   static isNan() {
-    return this.isNumber.apply(this, arguments) === false
+    return Utils.isNumber.apply(Utils, arguments) === false
+  }
+
+  /**
+   * Whether is function.
+   * @param {*} fn
+   * @returns {boolean}
+   */
+  static isFunction(fn) {
+    return Object.prototype.toString.call(fn) == '[object Function]' // eslint-disable-line
   }
 }
 

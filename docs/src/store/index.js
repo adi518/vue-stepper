@@ -1,16 +1,25 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import { Stepper, Utils } from 'vue-stepper-component'
+
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
-    step: 1,
-    steps: 3,
-    stepsMap: new Map([
-      [1, { route: { name: 'step-1' } }],
-      [2, { route: { name: 'step-2' } }],
-      [3, { route: { name: 'step-3' } }]
-    ])
+    stepper: new Stepper(3)
+  },
+  getters: {
+    stepper: state => state.stepper
+  },
+  mutations: {
+    stepper_model: (state, payload) => {
+      state.stepper.model = payload
+    }
   }
 })
+
+export default store
+
+export const commit = store.commit
+export const getters = store.getters

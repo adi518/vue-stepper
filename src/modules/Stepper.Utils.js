@@ -1,5 +1,7 @@
 import $Utils from '@/modules/Utils'
 
+const { isNan, isFunction } = $Utils
+
 export class Utils {
   /**
    * Remove stale storage keys.
@@ -30,7 +32,7 @@ export class Utils {
     options = Object.assign({}, defaults, options)
     const { prefix } = options
     const name = []
-    if ($Utils.isNan(displayIndex)) {
+    if (isNan(displayIndex)) {
       throw new Error(`[Stepper.Utils.getSlotName warn]: Cannot generate name without a "displayIndex".`)
     }
     if (prefix) {
@@ -63,6 +65,41 @@ export class Utils {
     const noSlot = !this.$slots[name] || (this.$slots[name] && !this.$slots[name].length)
     const noScopedSlot = !this.$scopedSlots[name]
     return noSlot && noScopedSlot
+  }
+
+  /**
+   * Constructs steps array. E.g.: [1, 2, 3...]
+   * @param {number} steps
+   * @returns {Array}
+   */
+  static makeStepsArray(steps) {
+    if (steps) {
+      return Array.from(Array(steps)).map((value, index) => index + 1)
+    }
+    return []
+  }
+
+  /**
+   * Constructs steps map.
+   * @param {number} steps
+   * @param {function} callback
+   * @returns {Array}
+   */
+  static Steps(steps, callback = function () { }) {
+    // Duck-type
+    if (isFunction(callback)) {
+      // OK
+    } else {
+      throw new Error(`[Steps error]: Argument "callback" is not a function.`)
+    }
+    const array = Utils.makeStepsArray(steps).map(step => {
+      const name = `step-${step}`
+      const entry = [step, { route: name }]
+      entry[1] = callback(entry)
+      return entry
+    })
+
+    return new Map(array)
   }
 }
 
