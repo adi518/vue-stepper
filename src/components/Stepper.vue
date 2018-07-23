@@ -1,6 +1,6 @@
 <template>
   <div :class="[namespace.kebab]">
-    <component :is="Container">
+    <component :is="container">
       <v-step
         v-for="(step, $index) in stepsArr"
         :name="id"
