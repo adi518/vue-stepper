@@ -319,23 +319,25 @@ export default {
       const isPrevious = index === this.index - 1
       const oldIndex = this.toIndex(value)
 
-      if (this.linear) {
-        if (isNext || isPrevious) {
-          this.setStep(index, 'active', true)
-          this.setStep(index, 'visited', false)
-          this.setStep(index, 'disabled', false)
-          this.setStep(oldIndex, 'active', false)
-          this.setStep(oldIndex, 'visited', true)
+      if (this.linear && (isNext || isPrevious)) {
+        this.setStep(index, 'active', true)
+        this.setStep(index, 'visited', false)
+        this.setStep(index, 'disabled', false)
+        this.setStep(oldIndex, 'active', false)
+        this.setStep(oldIndex, 'visited', true)
 
-          this.stepsArr.forEach(step => {
-            if (step.index > index) {
-              this.setStep(step.index, 'disabled', true)
-            }
-          })
+        this.stepsArr.forEach(step => {
+          if (step.index > index) {
+            this.setStep(step.index, 'disabled', true)
+          }
+        })
 
-          this.emitValue(this.toValue(index))
-        }
-      } else {
+        this.emitValue(this.toValue(index))
+
+        return
+      }
+
+      if (this.random) {
         this.setStep(oldIndex, 'visited', true)
 
         this.emitValue(this.toValue(index))
