@@ -234,7 +234,7 @@ divider: {
  * Steps container (component).
  * @type {Object}
  */
-Container: {
+container: {
   type: Object,
   default: () => Container
 },

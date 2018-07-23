@@ -157,7 +157,7 @@ export default {
      * Steps container (component).
      * @type {object}
      */
-    Container: {
+    container: {
       type: Object,
       default: () => Container
     },
