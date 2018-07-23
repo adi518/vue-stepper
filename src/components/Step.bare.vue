@@ -1,9 +1,7 @@
 <template>
   <component :is="label" :klass="classes">
-    <slot name="index-root" v-bind="scope">
-      <slot name="index" v-bind="scope">
-        {{ scope.displayIndex }}
-      </slot>
+    <slot name="index" v-bind="scope">
+      {{ scope.displayIndex }}
     </slot>
     <slot v-bind="scope"></slot>
     <input

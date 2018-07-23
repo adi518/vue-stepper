@@ -1,8 +1,8 @@
 <template>
   <div :class="[namespace.kebab]">
     <v-step-bare v-bind="$props" @change="handleChange">
-      <template slot="index-root" slot-scope="scope">
-        <slot name="slot-index">
+      <template slot="index" slot-scope="scope">
+        <slot name="slot-index" v-bind="scope">
           <span :class="['index', scope.classes]">
             <slot name="index" v-bind="scope">
               {{ scope.displayIndex }}
