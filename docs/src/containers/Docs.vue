@@ -171,7 +171,7 @@ export default {
 
     flags: {
       debug: false,
-      random: false,
+      linear: true,
       persist: true,
       production: process.env.NODE_ENV !== 'development'
     },
