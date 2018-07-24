@@ -11,6 +11,7 @@
     "link": "cd ./docs && npm link vue-stepper-component && npm link vue-breakpoint-component",
     "predocs": "npm run link",
     "docs": "npm start --prefix ./docs",
+    "deploy": "cd ./docs && npm run deploy",
     "prerelease": "npm run build && npm version patch",
     "release": "npm publish",
     "postrelease": "git push --follow-tags",

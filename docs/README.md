@@ -1,22 +1,6 @@
-# vue-stepper-component
+# vue-stepper-component-docs
 
 > A Vue.js project
-
-## Scaffold
-
-```
-PS C:\> vue init webpack
-
-? Project name vue-stepper-component
-? Project description A Vue.js project
-? Author adi <adisahar1@hotmail.com>
-? Vue build standalone
-? Install vue-router? Yes
-? Use ESLint to lint your code? Yes
-? Pick an ESLint preset Standard
-? Setup unit tests with Karma + Mocha? Yes
-? Setup e2e tests with Nightwatch? Yes
-```
 
 ## Build Setup
 
