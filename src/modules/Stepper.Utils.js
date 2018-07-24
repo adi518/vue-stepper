@@ -41,7 +41,7 @@ export class Utils {
     const { prefix } = options
     const name = []
     if (isNan(display)) {
-      throw new Error(`[Stepper.Utils.getSlotName warn]: Cannot generate name without a "display".`)
+      throw new Error(`[Stepper.Utils.getSlotName warn]: Cannot generate name without argument "display".`)
     }
     if (prefix) {
       name.push(prefix)
