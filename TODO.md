@@ -1,4 +1,4 @@
-- [x] Add plugin
+- [x] Plugin
 - [x] Export
 - [x] Bundle
 - [ ] Tests
