@@ -13,7 +13,7 @@ export class Utils {
   }
   /**
    * Remove stale storage keys.
-   * @param {(string||Array)} id
+   * @param {(string|Array)} id
    * @returns {void}
    */
   static removeStaleStorage(keys = []) {
