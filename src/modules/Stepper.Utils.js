@@ -3,6 +3,14 @@ import $Utils from '@/modules/Utils'
 const { isNan, isFunction } = $Utils
 
 export class Utils {
+  static Model(step = 1) {
+    /**
+     * Constructs an object model for v-model.
+     * @param {number} step
+     * @returns {object}
+     */
+    return { id: undefined, step, flags: {} }
+  }
   /**
    * Remove stale storage keys.
    * @param {(string||Array)} id
@@ -23,23 +31,23 @@ export class Utils {
   /**
    * Constructs a step slot name.
    * @param {string} suffix
-   * @param {number} displayIndex
+   * @param {number} display
    * @param {object} options
-   * @returns {string} String of prefix, displayIndex and suffix.
+   * @returns {string} String of prefix, display and suffix.
    */
-  static getSlotName(suffix = '', displayIndex, options = {}) {
+  static getSlotName(suffix = '', display, options = {}) {
     const defaults = { prefix: 'step' }
     options = Object.assign({}, defaults, options)
     const { prefix } = options
     const name = []
-    if (isNan(displayIndex)) {
-      throw new Error(`[Stepper.Utils.getSlotName warn]: Cannot generate name without a "displayIndex".`)
+    if (isNan(display)) {
+      throw new Error(`[Stepper.Utils.getSlotName warn]: Cannot generate name without a "display".`)
     }
     if (prefix) {
       name.push(prefix)
     }
-    if (displayIndex) {
-      name.push(displayIndex)
+    if (display) {
+      name.push(display)
     }
     if (suffix) {
       name.push(suffix)

@@ -1,22 +1,24 @@
 import Utils from './Stepper.Utils'
-import Model from './Stepper.Model'
 
 /**
- * Constructs Stepper model and map.
- * @param {number} size
+ * Constructs Stepper utility object.
+ * @param {number} steps
+ * @param {number} step
  * @returns {object}
  */
 export class Stepper {
-  constructor(size) {
-    const model = new Model()
-    const map = new Utils.Steps(size)
-    const array = Utils.makeStepsArray(size)
+  constructor(steps, step) {
+    const map = new Utils.Steps(steps)
+    const model = new Utils.Model(step)
+    const array = Utils.makeStepsArray(steps)
+    const size = steps
+    const length = steps
     return {
       map,
       array,
       model,
-      size: map.size,
-      length: map.size
+      size,
+      length
     }
   }
 }

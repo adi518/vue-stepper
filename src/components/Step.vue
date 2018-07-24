@@ -5,7 +5,7 @@
         <slot name="slot-index" v-bind="scope">
           <span :class="['index', scope.classes]">
             <slot name="index" v-bind="scope">
-              {{ scope.displayIndex }}
+              {{ scope.display }}
             </slot>
           </span>
         </slot>

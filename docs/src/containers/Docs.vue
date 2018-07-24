@@ -34,19 +34,21 @@
           <template slot="step-2" slot-scope="{}"> Miny </template>
           <template slot="step-3" slot-scope="{}"> Moe </template>
 
-          <template v-for="(displayIndex, index) in stepper.array" :slot="getSlotName('index', displayIndex)" slot-scope="scope">
-            <span :key="index" class="docs-stepper__index-ripple" v-ripple>{{ scope.displayIndex }}</span>
+          <template v-for="(display, index) in stepper.array" :slot="getSlotName('index', display)" slot-scope="scope">
+            <!-- ADD RIPPLE EFFECT EXAMPLE -->
+            <span :key="index" class="docs-stepper__index-ripple" v-ripple>{{ scope.display }}</span>
           </template>
 
-          <template v-for="(displayIndex, index) in stepper.array" :slot="getSlotName('index-root', displayIndex)">
-            <v-void :key="index"  v-if="models.breakpoint.noMatch"></v-void>
+          <template v-for="(display, index) in stepper.array" :slot="getSlotName('index-root', display)">
+            <!-- HIDE INDEXES ON BOOTSTRAP BREAKPOINT "XS" -->
+            <v-void :key="index" v-if="models.breakpoint.noMatch"></v-void>
           </template>
         </v-stepper>
 
         <p class="docs-lorem">
-          <template v-if="stepper.model.flags.step1">{{ einy }}</template>
-          <template v-if="stepper.model.flags.step2">{{ miny }}</template>
-          <template v-if="stepper.model.flags.step3">{{ moe }}</template>
+          <template v-if="stepper.model.flags.s1">{{ einy }}</template>
+          <template v-if="stepper.model.flags.s2">{{ miny }}</template>
+          <template v-if="stepper.model.flags.s3">{{ moe }}</template>
         </p>
         
         <v-hide-at no-match>

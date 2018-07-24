@@ -1,7 +1,7 @@
 <template>
   <component :is="label" :klass="classes">
     <slot name="index" v-bind="scope">
-      {{ scope.displayIndex }}
+      {{ scope.display }}
     </slot>
     <slot v-bind="scope"></slot>
     <input
@@ -61,7 +61,7 @@ export default {
       const { namespace: { kebab: namespace }, _uid: id, index } = this
       return [namespace, id, index].join('-')
     },
-    displayIndex() {
+    display() {
       return this.index + 1
     },
     computedName() {
@@ -71,13 +71,13 @@ export default {
       return this.$slots.default || this.$scopedSlots.default
     },
     scope() {
-      const { index, displayIndex, defaultSlot, flags, classes } = this
+      const { index, display, defaultSlot, flags, classes } = this
       return {
         index,
         flags,
         classes,
         defaultSlot,
-        displayIndex
+        display
       }
     },
     flags() {

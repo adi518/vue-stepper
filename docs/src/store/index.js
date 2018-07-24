@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { Stepper, Utils } from 'vue-stepper-component'
+import { Stepper } from 'vue-stepper-component'
 
 Vue.use(Vuex)
 

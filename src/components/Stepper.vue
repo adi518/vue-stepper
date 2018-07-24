@@ -2,7 +2,7 @@
   <div :class="[namespace.kebab]">
     <component :is="container">
       <v-step
-        v-for="(step, $index) in stepsArr"
+        v-for="(step, $index) in array"
         :name="id"
         :key="$index"
         :debug="debug"
@@ -11,32 +11,32 @@
         @change="handleChange"
         :visited="step.visited"
         :disabled="step.disabled"
-        :active="step.index === toIndex(value.value)">
+        :active="step.index === toIndex(value.step)">
 
         <!-- Proxy slot ("index-root") -->
         <template
           slot="index-root"
           slot-scope="scope"
-          v-if="withSlot(getSlotName('index-root', scope.displayIndex))">
+          v-if="withSlot(getSlotName('index-root', scope.display))">
           <!-- Lift slot ("index-root") -->
-          <slot :name="getSlotName('index-root', scope.displayIndex)" v-bind="scope"></slot>
+          <slot :name="getSlotName('index-root', scope.display)" v-bind="scope"></slot>
         </template>
 
         <!-- Proxy slot ("index") -->
         <template
           slot="index"
           slot-scope="scope"
-          v-if="withoutSlot(getSlotName('index-root', scope.displayIndex))">
+          v-if="withoutSlot(getSlotName('index-root', scope.display))">
           <!-- Lift slot ("index") -->
-          <slot :name="getSlotName('index', scope.displayIndex)" v-bind="scope">
-            {{ scope.displayIndex }}
+          <slot :name="getSlotName('index', scope.display)" v-bind="scope">
+            {{ scope.display }}
           </slot>
         </template>
 
         <!-- Proxy slot ("default") -->
         <template slot-scope="scope">
           <!-- Lift slot ("default") -->
-          <slot :name="getSlotName('', scope.displayIndex)" v-bind="scope"></slot>
+          <slot :name="getSlotName('', scope.display)" v-bind="scope"></slot>
         </template>
         
       </v-step>
@@ -48,8 +48,8 @@
 import Step from './Step'
 import Container from './Stepper.container'
 
-import Utils from '@/modules/Utils'
-import $Utils from '@/modules/Stepper.Utils'
+import utils from '@/modules/Utils'
+import Utils from '@/modules/Stepper.Utils'
 
 export default {
   name: 'v-stepper',
@@ -67,27 +67,26 @@ export default {
      */
     value: {
       type: Object,
-      default: () => ({
-        value: 1,
-        id: undefined
-      }),
-      validator: ({ id, value }) => {
+      default: () => {
+        return new Model()
+      },
+      validator: ({ id, step }) => {
         const tests = []
 
         tests.push({
           name: 'id',
           type: [undefined, null, String.name],
-          value: [undefined, null].includes(id) || typeof id === 'string'
+          result: [undefined, null].includes(id) || typeof id === 'string'
         })
 
         tests.push({
-          name: 'value',
-          type: [Number.name],
-          value: Utils.isNumber(value)
+          name: 'step',
+          type: Number.name,
+          result: utils.isNumber(step)
         })
 
-        return tests.every(({ name, type, value }) => {
-          if (value) {
+        return tests.every(({ name, type, result }) => {
+          if (result) {
             return true
           }
           console.error(
@@ -174,12 +173,12 @@ export default {
   },
 
   data() {
-    const { value: { value } } = this
-    return {
-      namespace: { kebab: 'v-stepper', capitalize: 'V-Stepper' },
-      stepsArr: this.getStepsArr(),
-      index: this.toIndex(value)
-    }
+    const { toIndex, getArray, getStep, $options: { name: kebab } } = this
+    const step = getStep()
+    const array = getArray()
+    const index = toIndex(step.display)
+    const namespace = { kebab, capitalize: 'V-Stepper' }
+    return { namespace, index, array }
   },
 
   watch: {
@@ -187,8 +186,8 @@ export default {
      * When `value` prop changes, update storage.
      */
     value: {
-      handler({ value }) {
-        this.index = this.toIndex(value)
+      handler({ step: display }) {
+        this.index = this.toIndex(display)
         if (this.persist) {
           this.setStorage()
         }
@@ -201,7 +200,8 @@ export default {
      */
     index: {
       handler(index) {
-        this.emitValue(this.toValue(index))
+        const display = this.toDisplay(index)
+        this.emit(display)
       },
       immediate: true
     }
@@ -209,12 +209,12 @@ export default {
 
   created() {
     /**
-     * Update from Storage if persistable.
+     * Update from/set Storage if persistable.
      */
     if (this.persist) {
       const storage = this.getStorage()
       if (storage) {
-        this.stepsArr = storage.stepsArr
+        this.array = storage.array
         this.index = storage.index
       } else {
         this.setStorage()
@@ -233,6 +233,7 @@ export default {
 
   computed: {
     /**
+     * Namespaced id.
      * @returns {string}
      */
     id() {
@@ -240,10 +241,32 @@ export default {
     },
 
     /**
+     * FIXME: doesn't compute correctly.
+     * Current index, display.
+     * @returns {number}
+     */
+    current() {
+      const { toIndex, display } = this
+      const index = toIndex(display)
+      return {
+        index,
+        display
+      }
+    },
+
+    /**
+     * Step (aka display-index).
+     * @returns {number}
+     */
+    step() {
+      return this.value.step
+    },
+
+    /**
      * @returns {number}
      */
     lastIndex() {
-      return this.stepsArr.length - 1
+      return this.array.length - 1
     },
 
     /**
@@ -258,10 +281,13 @@ export default {
      * @returns {object}
      */
     flags() {
-      const { steps, index } = this
-      return Array.from(Array(steps)).reduce((flags, step, $index) => {
+      const { getSimpleArray, index } = this
+      const array = getSimpleArray()
+      return array.reduce((flags, step, $index) => {
         const flag = `step${$index + 1}`
+        const alias = `s${$index + 1}`
         flags[flag] = index === $index
+        flags[alias] = index === $index
         return flags
       }, {})
     }
@@ -269,31 +295,47 @@ export default {
 
   methods: {
     /**
-     * Converts index to value.
+     * Get step (necessary for certain sceanarios).
      * @returns {number}
      */
-    toValue(index) {
+    getStep() {
+      const { toIndex, value: { step: display } } = this
+      const index = toIndex(display)
+      return { index, display: display }
+    },
+
+    /**
+     * Converts index to value.
+     * @param {number} index
+     * @returns {number}
+     */
+    toDisplay(index = 0) {
       return index + 1
     },
 
     /**
      * Converts value to index.
+     * @param {number} display
      * @returns {number}
      */
-    toIndex(value = 0) {
-      return value - 1
+    toIndex(display = 0) {
+      return display - 1
     },
 
     /**
      * Whether a step
      * exists or not.
+     * @param {number} index
      * @returns {boolean}
      */
     doesStepExist(index) {
-      return !!this.stepsArr[index]
+      return !!this.array[index]
     },
 
     /**
+     * Whether a step
+     * is a intermediate.
+     * @param {number} index
      * @returns {boolean}
      */
     isIntermediateIndex(index) {
@@ -303,6 +345,7 @@ export default {
     /**
      * Handle `change` event and
      * programmatic changes.
+     * @param {event}
      * @returns {void}
      */
     handleChange() {
@@ -311,17 +354,19 @@ export default {
 
     /**
      * Changes step by index.
+     * @param {number} index
      * @returns {void}
      */
     changeStep(index) {
-      const value = this.getValue()
+      const current = this.getStep()
       const isNext = index === this.index + 1
       const isPrevious = index === this.index - 1
-      const oldIndex = this.toIndex(value)
+      const display = this.toDisplay(index)
 
       if (this.random) {
-        this.setStep(oldIndex, 'visited', true)
-        this.emitValue(this.toValue(index))
+        this.setStep(current.index, 'visited', true)
+
+        this.emit(display)
 
         return
       }
@@ -330,48 +375,68 @@ export default {
         this.setStep(index, 'active', true)
         this.setStep(index, 'visited', false)
         this.setStep(index, 'disabled', false)
-        this.setStep(oldIndex, 'active', false)
-        this.setStep(oldIndex, 'visited', true)
+        this.setStep(current.index, 'active', false)
+        this.setStep(current.index, 'visited', true)
 
-        this.stepsArr.forEach(step => {
-          if (step.index > index) {
-            this.setStep(step.index, 'disabled', true)
-          }
-        })
+        this.disableSteps(index)
 
-        this.emitValue(this.toValue(index))
+        this.emit(display)
       }
     },
 
     /**
-     * Value getter
-     * @returns {number}
+     * Disables all steps after index.
+     * @param {number} index
+     * @returns {void}
      */
-    getValue() {
-      return this.value.value
+    disableSteps(index = 0, isFirst = this.isFirst) {
+      const first = isFirst(index)
+      this.array.forEach(step => {
+        if (step.index > index || first) {
+          this.setStep(step.index, 'disabled', true)
+        }
+      })
+    },
+
+    /**
+     * Constructs a weak
+     */
+    getSimpleArray(steps = this.steps) {
+      const weakarray = Array(steps)
+      const array = Array.from(weakarray)
+      return array
     },
 
     /**
      * Constructs steps array
      * from `steps` prop.
+     * @param {boolean} linear
+     * @param {function} toDisplay
+     * @param {function} isCurrent
+     * @param {function} isAdjacent
+     * @param {function} getSimpleArray
      * @returns {Array}
      */
-    getStepsArr() {
-      const { steps, linear, toValue } = this
-      return Array.from(Array(steps), (step, index) => {
-        const isFirst = index === 0
-        const isNext = index - 1 === 0
-        let disabled = false
-        if (linear) {
-          if (isFirst || isNext) {
-            // Leave Step enabled.
-          } else {
-            disabled = true
-          }
+    getArray(
+      linear = this.linear,
+      toDisplay = this.toDisplay,
+      isCurrent = this.isCurrent,
+      isAdjacent = this.isAdjacent,
+      getSimpleArray = this.getSimpleArray
+    ) {
+      const array = getSimpleArray()
+      return array.map((step, index) => {
+        const flags = { visited: false }
+        const current = isCurrent(index)
+        const adjacent = isAdjacent(index)
+        const disableable = current || adjacent
+        const display = toDisplay(index)
+
+        if (linear && disableable) {
+          flags.disabled = true
         }
-        const visited = false
-        const value = toValue(index)
-        return { index, value, visited, disabled }
+
+        return { index, display, ...flags }
       })
     },
 
@@ -379,11 +444,49 @@ export default {
      * Offsets stepper {n} steps.
      * @returns {void}
      */
-    offset(offset) {
-      const index = this.index + offset
-      if (this.doesStepExist(index)) {
-        this.handleChange(index)
+    offset(offset, index = this.index) {
+      const offsetted = index + offset
+      if (this.doesStepExist(offsetted)) {
+        this.handleChange(offsetted)
       }
+    },
+
+    /**
+     * Whether first index.
+     * @param {number} index
+     * @returns {boolean}
+     */
+    isFirst(index) {
+      return index === 0
+    },
+
+    /**
+     * Whether second index.
+     * @param {number} index
+     * @returns {boolean}
+     */
+    isSecond(index) {
+      return index - 1 === 0
+    },
+
+    /**
+     * Whether current index.
+     * @param {number} index
+     * @returns {boolean}
+     */
+    isCurrent(index) {
+      return this.index === index
+    },
+
+    /**
+     * Whether adjacent index.
+     * @param {number} indexa
+     * @param {number} indexb
+     * @returns {boolean}
+     */
+    isAdjacent(indexa, indexb) {
+      const delta = indexa - indexb
+      return [1, -1].includes(delta)
     },
 
     /**
@@ -407,17 +510,20 @@ export default {
      * @returns {void}
      */
     reset() {
-      this.stepsArr = this.getStepsArr()
+      this.array = this.getArray()
       this.index = 0
       this.$emit('reset')
     },
 
     /**
-     * Sets a step property.
+     * Sets a step property to array.
+     * @param {number} index
+     * @param {string} prop
+     * @param {string} value
      * @returns {void}
      */
     setStep(index, prop, value) {
-      this.$set(this.stepsArr[index], prop, value)
+      this.$set(this.array[index], prop, value)
     },
 
     /**
@@ -425,11 +531,9 @@ export default {
      * @returns {void}
      */
     setStorage() {
-      const { index, stepsArr } = this
-      window[this.storekeeper].setItem(
-        this.id,
-        JSON.stringify({ index, stepsArr })
-      )
+      const { id: key, index, array } = this
+      const value = JSON.stringify({ index, array })
+      window[this.storekeeper].setItem(key, value)
     },
 
     /**
@@ -437,35 +541,36 @@ export default {
      * @returns {object}
      */
     getStorage() {
-      return JSON.parse(window[this.storekeeper].getItem(this.id))
+      const storage = window[this.storekeeper].getItem(this.id)
+      return JSON.parse(storage)
     },
 
     /**
      * Constructs a step slot name.
      * @returns {string}
      */
-    getSlotName: $Utils.getSlotName,
+    getSlotName: Utils.getSlotName,
 
     /**
      * Update v-model.
      * @returns {void}
      */
-    emitValue(value) {
+    emit(display) {
       const { id, flags } = this
-      this.$emit('input', { id, value, flags })
+      this.$emit('input', { id, step: display, flags })
     },
 
     /**
      * Returns whether step slot was passed.
      * @returns {boolean}
      */
-    withSlot: $Utils.withSlot,
+    withSlot: Utils.withSlot,
 
     /**
      * Returns whether step slot was not passed.
      * @returns {boolean}
      */
-    withoutSlot: $Utils.withoutSlot
+    withoutSlot: Utils.withoutSlot
   },
   inheritAttrs: false
 }
