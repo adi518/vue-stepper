@@ -11,9 +11,9 @@
         </slot>
       </template>
       <template slot-scope="scope">
-        <slot v-bind="scope">
-          <span :class="['title', scope.classes]" v-if="scope.defaultSlot">
-            <slot v-bind="scope"></slot>
+        <slot name="title-template" v-bind="scope">
+          <span class="title" :class="scope.classes" v-if="scope.defaultSlot">
+            <slot name="title" v-bind="scope"></slot>
           </span>
         </slot>
         <slot name="divider" v-bind="scope" v-if="divider">

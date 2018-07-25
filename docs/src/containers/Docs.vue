@@ -30,9 +30,9 @@
           :persist="flags.persist"
         >
           <!-- We use `{}` to convert slot to scoped-slot (prevents slot duplication error). -->
-          <template slot="step-1" slot-scope="{}"> Eeny </template>
-          <template slot="step-2" slot-scope="{}"> Miny </template>
-          <template slot="step-3" slot-scope="{}"> Moe </template>
+          <template slot="step-1-title" slot-scope="{}"> Eeny </template>
+          <template slot="step-2-title" slot-scope="{}"> Miny </template>
+          <template slot="step-3-title" slot-scope="{}"> Moe </template>
 
           <template v-for="(display, index) in stepper.array" :slot="getSlotName('index', display)" slot-scope="scope">
             <!-- ADD RIPPLE EFFECT EXAMPLE -->

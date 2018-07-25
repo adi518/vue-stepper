@@ -34,9 +34,9 @@
         </template>
 
         <!-- Proxy slot ("default") -->
-        <template slot-scope="scope">
+        <template slot="title" slot-scope="scope">
           <!-- Lift slot ("default") -->
-          <slot :name="getSlotName('', scope.display)" v-bind="scope"></slot>
+          <slot :name="getSlotName('title', scope.display)" v-bind="scope"></slot>
         </template>
         
       </v-step>
