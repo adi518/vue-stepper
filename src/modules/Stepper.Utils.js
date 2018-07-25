@@ -60,8 +60,8 @@ export class Utils {
   * @param {string} name
   * @returns {boolean}
   */
-  static withSlot(name) {
-    return this.withoutSlot(name) === false
+  static withSlot(context, name) {
+    return Utils.withoutSlot(context, name) === false
   }
 
   /**
@@ -69,9 +69,9 @@ export class Utils {
    * @param {string} name
    * @returns {boolean}
    */
-  static withoutSlot(name) {
-    const noSlot = !this.$slots[name] || (this.$slots[name] && !this.$slots[name].length)
-    const noScopedSlot = !this.$scopedSlots[name]
+  static withoutSlot(context, name) {
+    const noSlot = !context.$slots[name] || (context.$slots[name] && !context.$slots[name].length)
+    const noScopedSlot = !context.$scopedSlots[name]
     return noSlot && noScopedSlot
   }
 
@@ -82,7 +82,9 @@ export class Utils {
    */
   static makeStepsArray(steps) {
     if (steps) {
-      return Array.from(Array(steps)).map((value, index) => index + 1)
+      const weakarray = Array(steps)
+      const array = Array.from(weakarray)
+      return array.map((value, index) => index + 1)
     }
     return []
   }

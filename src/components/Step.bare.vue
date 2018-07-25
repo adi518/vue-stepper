@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Label from './Step.label'
+import Label from './Step.Label'
 
 export default {
   name: 'v-step-bare',
@@ -58,8 +58,8 @@ export default {
   },
   computed: {
     id() {
-      const { namespace: { kebab: namespace }, _uid: id, index } = this
-      return [namespace, id, index].join('-')
+      const { namespace, _uid: id, index } = this
+      return [namespace.kebab, id, index].join('-')
     },
     display() {
       return this.index + 1
@@ -76,8 +76,8 @@ export default {
         index,
         flags,
         classes,
-        defaultSlot,
-        display
+        display,
+        defaultSlot
       }
     },
     flags() {

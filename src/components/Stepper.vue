@@ -2,11 +2,11 @@
   <div :class="[namespace.kebab]">
     <component :is="container">
       <v-step
-        v-for="(step, $index) in array"
+        v-for="(step, key) in array"
         :name="id"
-        :key="$index"
+        :key="key"
+        :index="key"
         :debug="debug"
-        :index="$index"
         :divider="divider"
         @change="handleChange"
         :visited="step.visited"
@@ -564,13 +564,17 @@ export default {
      * Returns whether step slot was passed.
      * @returns {boolean}
      */
-    withSlot: Utils.withSlot,
+    withSlot(name) {
+      return Utils.withSlot(this, name)
+    },
 
     /**
      * Returns whether step slot was not passed.
      * @returns {boolean}
      */
-    withoutSlot: Utils.withoutSlot
+    withoutSlot(name) {
+      return Utils.withoutSlot(this, name)
+    }
   },
   inheritAttrs: false
 }
