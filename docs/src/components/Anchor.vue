@@ -3,10 +3,7 @@
     :href="href"
     :target="computedTarget"
     :tabindex="tabindex"
-    @click="handleClick"
-  >
-    <slot></slot>
-  </a>
+    @click="handleClick"><slot></slot></a>
 </template>
 
 <script>
@@ -116,4 +113,3 @@ export default {
   }
 }
 </script>
-

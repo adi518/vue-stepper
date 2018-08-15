@@ -9,7 +9,7 @@
     "build": "node_modules/.bin/webpack --config webpack.config.js",
     "start": "node_modules/.bin/webpack --config webpack.config.js --watch",
     "link": "cd ./docs && npm link vue-stepper-component && npm link vue-breakpoint-component",
-    "predocs": "npm run link",
+    "predocs": "npm link && npm run link",
     "docs": "npm start --prefix ./docs",
     "deploy": "cd ./docs && npm run deploy",
     "prerelease": "npm run build && npm version patch",

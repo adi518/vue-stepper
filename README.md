@@ -6,6 +6,20 @@ $ npm install vue-stepper-component --save
 ## Usage
 To use the component in your template, simply import and register with your component. To control the Stepper state, we use the `v-model` directive, similar to an input element. The model type is an Object, which holds the component id, step display and auxiliary properties like `flags` to ease composition. Optionally, you can cherry-import `Stepper` class and use that to initialize the model among other useful auxiliary properties.
 
+### Script
+```js
+import { VStepper } from 'vue-stepper-component'
+export default {
+  components: {
+    VStepper
+  },
+  data: () => ({
+    steps: 3,
+    step: undefined
+  })
+}
+```
+
 ### Template
 ```html
 <v-stepper :steps="steps" v-model="step"></v-stepper>
@@ -21,20 +35,6 @@ To use the component in your template, simply import and register with your comp
 <template v-if="step.flags.step3">
   <!-- Step 3 Content -->
 </template>
-```
-
-### Script
-```js
-import { VStepper } from 'vue-stepper-component'
-export default {
-  components: {
-    VStepper
-  },
-  data: () => ({
-    steps: 3,
-    step: undefined
-  })
-}
 ```
 
 ## Slots

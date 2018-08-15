@@ -61,7 +61,7 @@
 
         <!-- ABSOLUTE ANCHOR -->
         <v-a
-          class="docs-fixed-anchor docs-c-pointer"
+          class="docs-fixed-anchor"
           :scroll-to="$refs.docs">Install, Examples &amp; Documentation</v-a>
 
         <!-- GITHUB STAR -->
@@ -415,16 +415,16 @@ code {
   text-align: center;
 }
 .docs-fixed-anchor {
-  left: 0;
+  font-size: 1.2rem;
+  font-weight: 300;
+  left: 50%;
   width: 100%;
   bottom: 0.8rem;
-  font-weight: 300;
-  font-size: 1.2rem;
   position: absolute;
-  text-align: center;
   color: $app-color-white;
+  transform: translateX(-50%);
   &:hover {
-    color: $app-color-white;
+    color: inherit;
   }
 }
 .docs-credit {
@@ -560,73 +560,4 @@ code {
   }
 }
 /* Animations end */
-</style>
-
-<style lang="stylus">
-// https://github.com/vuejs/vuepress/blob/fd46a26d3a884b62092581451028121fd0daf654/lib/default-theme/styles/code.styl
-for lang in js ts html md vue css sass scss less stylus go java c sh yaml {
-  pre{'[class~="language-' + lang + '"]'} {
-    &:before {
-      content: '' + lang;
-    }
-  }
-}
-
-pre[class*=language-] {
-  position: relative;
-
-  &::before {
-    position: absolute;
-    z-index: 3;
-    top: 0.8rem;
-    right: 1rem;
-    font-size: 0.75rem;
-  }
-}
-
-pre[class~='language-bash'] {
-  &:before {
-    content: 'bash';
-  }
-}
-
-pre[class~='language-javascript'] {
-  &:before {
-    content: 'js';
-  }
-}
-
-div[class~='language-typescript'] {
-  &:before {
-    content: 'ts';
-  }
-}
-
-div[class~='language-markup'] {
-  &:before {
-    content: 'html';
-  }
-}
-
-div[class~='language-markdown'] {
-  &:before {
-    content: 'md';
-  }
-}
-
-div[class~='language-json']:before {
-  content: 'json';
-}
-
-div[class~='language-ruby']:before {
-  content: 'rb';
-}
-
-div[class~='language-python']:before {
-  content: 'py';
-}
-
-div[class~='language-bash']:before {
-  content: 'sh';
-}
 </style>
