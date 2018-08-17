@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Bare from './Step.bare'
+import Bare from './Step.Bare'
 
 export default {
   name: 'v-step',
