@@ -32,6 +32,10 @@ export default {
   components: {
     'v-step-bare': Bare
   },
+  /**
+   * FIXME: Eslint-loader throws an error
+   * if props are merged using spread operator.
+   */
   props: Object.assign(
     {},
     /**
