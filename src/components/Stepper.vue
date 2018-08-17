@@ -12,7 +12,6 @@
         :visited="step.visited"
         :disabled="step.disabled"
         :active="step.index === toIndex(value.step)">
-
         <!-- Proxy slot ("index-root") -->
         <template
           slot="index-root"
@@ -21,7 +20,6 @@
           <!-- Lift slot ("index-root") -->
           <slot :name="getSlotName('index-root', scope.display)" v-bind="scope"></slot>
         </template>
-
         <!-- Proxy slot ("index") -->
         <template
           slot="index"
@@ -32,13 +30,11 @@
             {{ scope.display }}
           </slot>
         </template>
-
         <!-- Proxy slot ("default") -->
         <template slot="title" slot-scope="scope">
           <!-- Lift slot ("default") -->
           <slot :name="getSlotName('title', scope.display)" v-bind="scope"></slot>
         </template>
-
       </v-step>
     </component>
   </div>
