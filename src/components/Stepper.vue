@@ -336,8 +336,8 @@ export default {
     },
 
     /**
-     * Whether a step
-     * is a intermediate.
+     * Whether a step index is intermediate.
+     * E.g.: Step 2/3 will return true.
      * @param {number} index
      * @returns {boolean}
      */
