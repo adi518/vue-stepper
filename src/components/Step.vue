@@ -32,7 +32,22 @@ export default {
   components: {
     'v-step-bare': Bare
   },
-  props: Bare.props,
+  props: Object.assign(
+    {},
+    /**
+     * Inherit all props from Bare.
+     */
+    Bare.props,
+    /**
+     * Whether to display a divider.
+     */
+    {
+      divider: {
+        type: Boolean,
+        default: true
+      }
+    }
+  ),
   data() {
     const { $options: { name: kebab } } = this
     return { namespace: { kebab } }

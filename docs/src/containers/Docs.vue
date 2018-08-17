@@ -18,8 +18,7 @@
         </h1>
         <p class="docs-tagline mb-5">
           Fully customizable
-          Stepper component <br v-show="models.breakpoint.noMatch"> with Vuex
-          support and Zero dependencies.
+          Stepper component <br v-show="models.breakpoint.noMatch"> with zero dependencies.
         </p>        
         
         <!-- DEMO -->

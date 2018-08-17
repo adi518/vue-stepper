@@ -12,29 +12,36 @@
         :visited="step.visited"
         :disabled="step.disabled"
         :active="step.index === toIndex(value.step)">
+
         <!-- Proxy slot ("index-root") -->
         <template
           slot="index-root"
           slot-scope="scope"
           v-if="withSlot(getSlotName('index-root', scope.display))">
+          
           <!-- Lift slot ("index-root") -->
           <slot :name="getSlotName('index-root', scope.display)" v-bind="scope"></slot>
         </template>
+
         <!-- Proxy slot ("index") -->
         <template
           slot="index"
           slot-scope="scope"
           v-if="withoutSlot(getSlotName('index-root', scope.display))">
+
           <!-- Lift slot ("index") -->
           <slot :name="getSlotName('index', scope.display)" v-bind="scope">
             {{ scope.display }}
           </slot>
         </template>
+
         <!-- Proxy slot ("default") -->
         <template slot="title" slot-scope="scope">
+
           <!-- Lift slot ("default") -->
           <slot :name="getSlotName('title', scope.display)" v-bind="scope"></slot>
         </template>
+
       </v-step>
     </component>
   </div>
@@ -169,8 +176,8 @@ export default {
   },
 
   data() {
-    const { toIndex, getArray, getStep, $options: { name: kebab } } = this
-    const step = getStep()
+    const { toIndex, getArray, getStepObj, $options: { name: kebab } } = this
+    const step = getStepObj()
     const array = getArray()
     const index = toIndex(step.display)
     const namespace = { kebab, capitalize: 'V-Stepper' }
@@ -278,8 +285,8 @@ export default {
      */
     flags() {
       const { getSimpleArray, index } = this
-      const array = getSimpleArray()
-      return array.reduce((flags, step, $index) => {
+      const steps = getSimpleArray()
+      return steps.reduce((flags, step, $index) => {
         const flag = `step${$index + 1}`
         const alias = `s${$index + 1}`
         flags[flag] = index === $index
@@ -291,17 +298,17 @@ export default {
 
   methods: {
     /**
-     * Get step (necessary for certain sceanarios).
-     * @returns {number}
+     * Get step object (eases code composition).
+     * @param {number} step
+     * @returns {object}
      */
-    getStep() {
-      const { toIndex, value: { step: display } } = this
-      const index = toIndex(display)
-      return { index, display: display }
+    getStepObj(step = this.value.step) {
+      const index = this.toIndex(step)
+      return { index, display: step }
     },
 
     /**
-     * Converts index to value.
+     * Maps index to display value.
      * @param {number} index
      * @returns {number}
      */
@@ -310,7 +317,7 @@ export default {
     },
 
     /**
-     * Converts value to index.
+     * Maps display value to index.
      * @param {number} display
      * @returns {number}
      */
@@ -341,7 +348,7 @@ export default {
     /**
      * Handle `change` event and
      * programmatic changes.
-     * @param {event}
+     * @param {event} event
      * @returns {void}
      */
     handleChange() {
@@ -354,7 +361,7 @@ export default {
      * @returns {void}
      */
     changeStep(index) {
-      const current = this.getStep()
+      const current = this.getStepObj()
       const isNext = index === this.index + 1
       const isPrevious = index === this.index - 1
       const display = this.toDisplay(index)
@@ -397,11 +404,11 @@ export default {
     /**
      * Constructs a simple steps array.
      * E.g.: `[1, 2, 3]`.
+     * @param {number} steps
+     * @returns {array}
      */
     getSimpleArray(steps = this.steps) {
-      const weakarray = Array(steps)
-      const array = Array.from(weakarray)
-      return array
+      return Utils.makeStepsArray(steps)
     },
 
     /**
