@@ -5,7 +5,10 @@
     <v-breakpoint v-model="models.breakpoint"></v-breakpoint>
 
     <!-- FIRST PAGE -->
-    <div class="docs-container docs-container--has-jumbotron docs-100vh js-vh-fix">
+    <div
+      class="docs-container docs-container--has-jumbotron"
+      :style="{ height: `${models.breakpoint.innerHeight}px` }
+    ">
       
       <!-- JUMBOTRON -->
       <div class="container docs-jumbotron" :class="models.breakpoint.noMatch && ['pl-3', 'pr-3'] || 'p-0'">
@@ -56,6 +59,12 @@
             <button v-ripple class="btn docs-button" @click="$refs.stepper.previous()">Previous</button>
             <button v-ripple class="btn docs-button" @click="$refs.stepper.next()">Next</button>
             <button v-ripple class="btn docs-button" @click="$refs.stepper.reset()">Reset</button>
+            <button v-ripple class="btn docs-button" @click="toggleMode"
+              :title="`Switch to ${flags.linear ? 'Random' : 'Linear' } mode`"
+              >Mode : {{ flags.linear ? 'Linear' : 'Random' }}</button>
+            <button v-ripple class="btn docs-button" @click="togglePersist"
+              :title="`Switch to ${flags.persist ? 'Regular' : 'Persistable' } mode`"
+              >Mode : {{ flags.persist ? 'Persistable' : 'Regular' }}</button>
           </div>
         </v-hide-at>
 
@@ -81,7 +90,7 @@
     </div>
 
     <!-- SECOND-PAGE -->
-    <div ref="docs" class="docs-container docs-min-100vh">
+    <div ref="docs" class="docs-container">
       <div class="container docs-clearfix" :class="models.breakpoint.noMatch && ['pl-3', 'pr-3'] || 'p-0'">
         <div class="docs-markdown" v-html="markdowns.readme"></div>
       </div>
@@ -114,7 +123,6 @@ import truncate from 'lodash.truncate'
 import Ripple from 'vue-ripple-directive'
 
 import octocat from '@/assets/images/octocat.png'
-import { VhChromeFix } from '@/assets/javascript/VhChromeFix'
 
 import {
   VShowAt,
@@ -171,10 +179,6 @@ export default {
         linear: true,
         persist: true,
         production: production
-      },
-
-      instances: {
-        breakpoint: new Breakpoint()
       }
     }
   },
@@ -185,11 +189,6 @@ export default {
   },
   created() {
     /**
-     * Initiate non-reactive properties.
-     */
-    this.instances.vhChromeFix = undefined
-
-    /**
      * Remove storage of stale Stepper instances.
      */
     Utils.removeStaleStorage(this.stepper.model.id)
@@ -199,16 +198,6 @@ export default {
      * Highlights all code blocks.
      */
     window.setTimeout(Prism.highlightAll)
-
-    /**
-     * Tries to fix viewport height behavior in Chrome.
-     */
-    this.instances.vhChromeFix = new VhChromeFix([
-      { selector: '.js-vh-fix', vh: 100 }
-    ])
-  },
-  destroyed() {
-    this.instances.vhChromeFix.destroy()
   },
   computed: {
     ...mapState(['stepper']),
@@ -265,6 +254,20 @@ export default {
     }
   },
   methods: {
+    toggleMode() {
+      this.flags.linear = !this.flags.linear
+
+      this.$refs.stepper.reset()
+    },
+    togglePersist() {
+      this.flags.persist = !this.flags.persist
+
+      if (this.flags.persist === false) {
+        this.$refs.stepper.removeStorage()
+      }
+
+      this.$refs.stepper.reset()
+    },
     getSlotName: Utils.getSlotName
   }
 }
@@ -418,9 +421,9 @@ code {
   font-size: 1.2rem;
   font-weight: 300;
   left: 50%;
-  width: 100%;
   bottom: 0.8rem;
   position: absolute;
+  white-space: nowrap;
   color: $app-color-white;
   transform: translateX(-50%);
   &:hover {
@@ -527,12 +530,6 @@ code {
 /* Utils */
 .docs-c-pointer {
   cursor: pointer;
-}
-.docs-100vh {
-  height: 100vh;
-}
-.docs-min-100vh {
-  min-height: 100vh;
 }
 .docs-clearfix {
   &::after,

@@ -1,17 +1,17 @@
 <template>
-	<div :class="[$options.name]">
+  <div :class="[$options.name]">
     <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'v-stepper-root'
+  name: 'v-stepper-container'
 }
 </script>
 
 <style lang="scss" scoped>
-.v-stepper-root {
+.v-stepper-container {
   display: flex;
   width: inherit;
   user-select: none;

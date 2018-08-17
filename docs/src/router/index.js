@@ -9,7 +9,7 @@ Vue.use(Router)
 export const routes = [
   {
     path: '/',
-    name: 'Docs',
+    name: 'Documentation',
     component: Docs
   }
 ]

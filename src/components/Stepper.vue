@@ -38,9 +38,9 @@
           <!-- Lift slot ("default") -->
           <slot :name="getSlotName('title', scope.display)" v-bind="scope"></slot>
         </template>
-        
+
       </v-step>
-    </component> 
+    </component>
   </div>
 </template>
 
@@ -68,7 +68,7 @@ export default {
     value: {
       type: Object,
       default: () => {
-        return new Model()
+        return new Utils.Model()
       },
       validator: ({ id, step }) => {
         const tests = []
@@ -543,6 +543,14 @@ export default {
     getStorage() {
       const storage = window[this.storekeeper].getItem(this.id)
       return JSON.parse(storage)
+    },
+
+    /**
+     * Storage Remover.
+     * @returns {void}
+     */
+    removeStorage() {
+      window[this.storekeeper].removeItem(this.id)
     },
 
     /**

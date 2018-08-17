@@ -21,9 +21,5 @@ export default {
   &.is-visited {
     cursor: pointer;
   }
-
-  &.is-active {
-    opacity: 1;
-  }
 }
 </style>

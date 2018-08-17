@@ -17,7 +17,7 @@
           </span>
         </slot>
         <slot name="divider" v-bind="scope" v-if="divider">
-          <span class="divider"></span>
+          <span class="divider" :class="scope.classes"></span>
         </slot>
       </template>
     </v-step-bare>
@@ -47,12 +47,12 @@ export default {
 
 .v-step {
   flex: 1;
-  opacity: 0.55;
+  opacity: 0.9;
   box-sizing: border-box;
   transition: opacity 0.7s;
 
   &:hover:not(.is-disabled) {
-    opacity: 0.85;
+    opacity: 1;
   }
 
   *,
@@ -111,5 +111,9 @@ export default {
   margin-left: 0.5rem;
   border-bottom: 1px solid $app-color-white;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+
+  &.is-active {
+    border-bottom-color: lighten($app-color-eden, 30%);
+  }
 }
 </style>
