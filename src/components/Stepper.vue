@@ -395,7 +395,8 @@ export default {
     },
 
     /**
-     * Constructs a weak
+     * Constructs a simple steps array.
+     * E.g.: `[1, 2, 3]`.
      */
     getSimpleArray(steps = this.steps) {
       const weakarray = Array(steps)
@@ -407,26 +408,17 @@ export default {
      * Constructs steps array
      * from `steps` prop.
      * @param {boolean} linear
-     * @param {function} toDisplay
-     * @param {function} isCurrent
-     * @param {function} isAdjacent
-     * @param {function} getSimpleArray
      * @returns {Array}
      */
-    getArray(
-      linear = this.linear,
-      toDisplay = this.toDisplay,
-      isCurrent = this.isCurrent,
-      isAdjacent = this.isAdjacent,
-      getSimpleArray = this.getSimpleArray
-    ) {
-      const array = getSimpleArray()
-      return array.map((step, index) => {
+    getArray(linear = this.linear) {
+      const { toDisplay, isCurrent, isAdjacent, getSimpleArray } = this
+      const steps = getSimpleArray()
+      return steps.map((step, index) => {
         const flags = { visited: false }
+        const display = toDisplay(index)
         const current = isCurrent(index)
         const adjacent = isAdjacent(index)
         const disableable = current || adjacent
-        const display = toDisplay(index)
 
         if (linear && disableable) {
           flags.disabled = true
