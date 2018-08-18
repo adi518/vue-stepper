@@ -60,10 +60,10 @@
             <button v-ripple class="btn docs-button" @click="$refs.stepper.reset()">Reset</button>
             <button v-ripple class="btn docs-button" @click="toggleMode"
               title="Toggle Linear"
-              >Linear : {{ flags.linear ? 'On' : 'Off' }}</button>
+              >Linear : <span :style="flags.linear ? 'color: #42b883' : 'color: crimson'">{{ flags.linear ? 'On' : 'Off' }}</span></button>
             <button v-ripple class="btn docs-button" @click="togglePersist"
               title="Toggle Persistable"
-              >Persistable : {{ flags.persist ? 'On' : 'Off' }}</button>
+              >Persistable&nbsp;:&nbsp;<span :style="flags.persist ? 'color: #42b883' : 'color: crimson'">{{ flags.persist ? 'On' : 'Off' }}</span></button>
           </div>
         <!-- </v-hide-at> -->
 
@@ -458,7 +458,7 @@ code {
 .docs-button {
   min-width: 6rem;
   font-weight: 300;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   margin-top: 0.35rem;
   margin-bottom: 0.35rem;
   margin-left: 0.35rem;
@@ -478,6 +478,7 @@ code {
   }
   @include media-breakpoint-down(xs) {
     flex-grow: 1;
+    flex-basis: 6rem;
   }
 }
 .docs-button-group {
