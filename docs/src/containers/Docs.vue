@@ -456,7 +456,6 @@ code {
   margin-bottom: 0;
 }
 .docs-button {
-  flex-grow: 1;
   min-width: 6rem;
   font-weight: 300;
   font-size: 1.1rem;
@@ -476,6 +475,9 @@ code {
       rgba($app-color-white, 0.15),
       transparent 100%
     );
+  }
+  @include media-breakpoint-down(xs) {
+    flex-grow: 1;
   }
 }
 .docs-button-group {
