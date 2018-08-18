@@ -59,10 +59,10 @@
             <button v-ripple class="btn docs-button" @click="$refs.stepper.next()">Next</button>
             <button v-ripple class="btn docs-button" @click="$refs.stepper.reset()">Reset</button>
             <button v-ripple class="btn docs-button" @click="toggleMode"
-              :title="`Switch to ${flags.linear ? 'Random' : 'Linear' } mode`"
+              title="Toggle Linear"
               >Linear : {{ flags.linear ? 'On' : 'Off' }}</button>
             <button v-ripple class="btn docs-button" @click="togglePersist"
-              :title="`Switch to ${flags.persist ? 'Non-Persistable' : 'Persistable' } mode`"
+              title="Toggle Persistable"
               >Persistable : {{ flags.persist ? 'On' : 'Off' }}</button>
           </div>
         <!-- </v-hide-at> -->
