@@ -18,8 +18,8 @@ export const routes = [
 
 if (process.env.NODE_ENV === 'development') {
   routes.push({
-    path: '/playground',
-    name: 'Playground',
+    path: '/router-example',
+    name: 'Router Example',
     component: () => import('@/components/HelloWorld.vue')
   })
 }

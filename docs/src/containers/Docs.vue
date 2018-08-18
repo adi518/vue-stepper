@@ -98,7 +98,7 @@
     <!-- FOOTER -->    
     <footer class="docs-footer docs-clearfix">
       <p class="docs-credit mt-2 mb-2">
-        Made with ❤️ by
+        Made with&nbsp;&nbsp;<v-octicon icon-name="heart" style="fill: red; width: 1rem; height: auto"></v-octicon>&nbsp;&nbsp;by
         <v-a href="https://github.com/adi518">Adi Sahar</v-a>
       </p>
     </footer>
@@ -131,6 +131,7 @@ import {
 } from 'vue-breakpoint-component'
 
 import VVoid from 'vue-void'
+import VOcticon from 'vue-octicons'
 import { VStepper, Utils, Model as Step } from 'vue-stepper-component'
 
 import VA from '@/components/Anchor'
@@ -148,6 +149,7 @@ export default {
     VVoid,
     VShowAt,
     VHideAt,
+    VOcticon,
     VStepper,
     VBreakpoint,
     VScopedSlot
