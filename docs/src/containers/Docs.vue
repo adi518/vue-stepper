@@ -47,25 +47,25 @@
           </template>
         </v-stepper>
 
-        <p class="docs-lorem">
+        <p class="docs-lorem mb-25">
           <template v-if="stepper.model.flags.s1">{{ einy }}</template>
           <template v-if="stepper.model.flags.s2">{{ miny }}</template>
           <template v-if="stepper.model.flags.s3">{{ moe }}</template>
         </p>
         
-        <v-hide-at no-match>
-          <div class="docs-button-group mt-25">
+        <!-- <v-hide-at no-match> -->
+          <div class="docs-button-group">
             <button v-ripple class="btn docs-button" @click="$refs.stepper.previous()">Previous</button>
             <button v-ripple class="btn docs-button" @click="$refs.stepper.next()">Next</button>
             <button v-ripple class="btn docs-button" @click="$refs.stepper.reset()">Reset</button>
             <button v-ripple class="btn docs-button" @click="toggleMode"
               :title="`Switch to ${flags.linear ? 'Random' : 'Linear' } mode`"
-              >Mode : {{ flags.linear ? 'Linear' : 'Random' }}</button>
+              >Linear : {{ flags.linear ? 'On' : 'Off' }}</button>
             <button v-ripple class="btn docs-button" @click="togglePersist"
-              :title="`Switch to ${flags.persist ? 'Regular' : 'Persistable' } mode`"
-              >Mode : {{ flags.persist ? 'Persistable' : 'Regular' }}</button>
+              :title="`Switch to ${flags.persist ? 'Non-Persistable' : 'Persistable' } mode`"
+              >Persistable : {{ flags.persist ? 'On' : 'Off' }}</button>
           </div>
-        </v-hide-at>
+        <!-- </v-hide-at> -->
 
         <!-- ABSOLUTE ANCHOR -->
         <v-a
@@ -456,9 +456,12 @@ code {
   margin-bottom: 0;
 }
 .docs-button {
+  flex-grow: 1;
   min-width: 6rem;
   font-weight: 300;
   font-size: 1.1rem;
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
   margin-left: 0.35rem;
   margin-right: 0.35rem;
   color: $app-color-white;
@@ -473,9 +476,6 @@ code {
       rgba($app-color-white, 0.15),
       transparent 100%
     );
-  }
-  @include media-breakpoint-down(xs) {
-    margin-top: 0.5rem;
   }
 }
 .docs-button-group {
