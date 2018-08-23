@@ -9,6 +9,7 @@ To use the component in your template, simply import and register with your comp
 ### Script
 ```js
 import { VStepper } from 'vue-stepper-component'
+
 export default {
   components: {
     VStepper
