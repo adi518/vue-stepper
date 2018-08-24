@@ -1,25 +1,59 @@
 import Utils from './Stepper.Utils'
 
-/**
- * Constructs Stepper utility object.
- * @param {number} steps
- * @param {number} step
- * @returns {object}
- */
 export class Stepper {
-  constructor(steps, step) {
-    const map = new Utils.Steps(steps)
-    const model = new Utils.Model(step)
-    const array = Utils.makeStepsArray(steps)
-    const size = steps
-    const length = steps
-    return {
-      map,
-      array,
-      model,
-      size,
-      length
-    }
+  /**
+   * Constructs Stepper utility object.
+   * @param {number} steps
+   * @param {object} options
+   * @returns {object}
+   */
+  constructor(steps, options = {}) {
+    const defaults = { step: null }
+    options = Object.assign({}, defaults, options)
+    this.map = new Utils.Steps(steps)
+    this.model = new Utils.Model(options.step)
+    this.array = Utils.makeStepsArray(steps)
+    this.size = steps
+    this.length = steps // Alias
+    this.linear = options.linear
+  }
+
+  /**
+   * Maps display value to index.
+   * @param {number} display
+   * @returns {number}
+   */
+  toIndex(display = 0) {
+    return display - 1
+  }
+
+  /**
+   * Whether step exists in stepper.
+   * @returns {boolean}
+   */
+  has(display) {
+    return this.map.has(display)
+  }
+
+  /**
+   * @returns {number}
+   */
+  get step() {
+    return this.model.step
+  }
+
+  /**
+   * @returns {number}
+   */
+  get next() {
+    return this.model.step + 1
+  }
+
+  /**
+   * @returns {number}
+   */
+  get previous() {
+    return this.model.step - 1
   }
 }
 

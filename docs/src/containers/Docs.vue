@@ -5,16 +5,18 @@
     <v-breakpoint v-model="models.breakpoint"></v-breakpoint>
 
     <!-- FIRST PAGE -->
-    <div
-      class="docs-container docs-container--has-jumbotron"
+    <div class="docs-container docs-container--has-jumbotron"
       :style="{ height: `${models.breakpoint.innerHeight}px` }
     ">
       
       <!-- JUMBOTRON -->
       <div class="container docs-jumbotron" :class="models.breakpoint.noMatch && ['pl-3', 'pr-3'] || 'p-0'">
 
-        <h1 class="docs-h1 mb-3">
-          Vue-Stepper <sup class="docs-version">{{ pkg.version }}</sup>
+        <h1 class="docs-h1 mb-3 no-anchor">
+          <router-link :to="{ name: 'Step 1' }">
+            <!-- Wrap text to fix IE -->
+            <span class="position-relative">Vue Stepper <sup class="docs-version">{{ pkg.version }}</sup></span>
+          </router-link>        
         </h1>
         <p class="docs-tagline mb-5">
           Fully customizable
@@ -37,35 +39,35 @@
           <template slot="step-3-title" slot-scope="{}"> Moe </template>
 
           <template v-for="(display, index) in stepper.array" :slot="getSlotName('index', display)" slot-scope="scope">
-            <!-- ADD RIPPLE EFFECT EXAMPLE -->
+            <!-- EXAMPLE: CUSTOMIZE WITH RIPPLE EFFECT -->
             <span :key="index" class="docs-stepper__index-ripple" v-ripple>{{ scope.display }}</span>
           </template>
 
           <template v-for="(display, index) in stepper.array" :slot="getSlotName('index-root', display)">
-            <!-- HIDE INDEXES ON BOOTSTRAP BREAKPOINT "XS" -->
+            <!-- EXAMPLE: HIDE INDEXES ON BOOTSTRAP BREAKPOINT "XS" -->
             <v-void :key="index" v-if="models.breakpoint.noMatch"></v-void>
           </template>
         </v-stepper>
 
         <p class="docs-lorem mb-25">
-          <template v-if="stepper.model.flags.s1">{{ einy }}</template>
-          <template v-if="stepper.model.flags.s2">{{ miny }}</template>
-          <template v-if="stepper.model.flags.s3">{{ moe }}</template>
+          <router-view></router-view>
+          <!-- EXAMPLE: WITHOUT VUEX OR ROUTER -->
+          <!-- <template v-if="stepper.model.flags.s1.active">{{ einy }}</template> -->
+          <!-- <template v-if="stepper.model.flags.s2.active">{{ miny }}</template> -->
+          <!-- <template v-if="stepper.model.flags.s3.active">{{ moe }}</template> -->
         </p>
         
-        <!-- <v-hide-at no-match> -->
-          <div class="docs-button-group">
-            <button v-ripple class="btn docs-button" @click="$refs.stepper.previous()">Previous</button>
-            <button v-ripple class="btn docs-button" @click="$refs.stepper.next()">Next</button>
-            <button v-ripple class="btn docs-button" @click="$refs.stepper.reset()">Reset</button>
-            <button v-ripple class="btn docs-button" @click="toggleMode"
-              title="Toggle Linear"
-              >Linear : <span :style="flags.linear ? 'color: #42b883' : 'color: crimson'">{{ flags.linear ? 'On' : 'Off' }}</span></button>
-            <button v-ripple class="btn docs-button" @click="togglePersist"
-              title="Toggle Persistable"
-              >Persistable&nbsp;:&nbsp;<span :style="flags.persist ? 'color: #42b883' : 'color: crimson'">{{ flags.persist ? 'On' : 'Off' }}</span></button>
-          </div>
-        <!-- </v-hide-at> -->
+        <div class="docs-button-group">
+          <button v-ripple class="btn docs-button" @click="$refs.stepper.previous()">Previous</button>
+          <button v-ripple class="btn docs-button" @click="$refs.stepper.next()">Next</button>
+          <button v-ripple class="btn docs-button" @click="$refs.stepper.reset()">Reset</button>
+          <button v-ripple class="btn docs-button" @click="toggleMode"
+            title="Toggle Linear"
+            >Linear : <span :style="flags.linear ? 'color: #42b883' : 'color: crimson'">{{ flags.linear ? 'On' : 'Off' }}</span></button>
+          <button v-ripple class="btn docs-button" @click="togglePersist"
+            title="Toggle Persistable"
+            >Persistable&nbsp;:&nbsp;<span :style="flags.persist ? 'color: #42b883' : 'color: crimson'">{{ flags.persist ? 'On' : 'Off' }}</span></button>
+        </div>
 
         <!-- ABSOLUTE ANCHOR -->
         <v-a
@@ -79,9 +81,7 @@
             :href="flags.production && pkg.repository.url"
             data-icon="octicon-star"
             data-show-count="true"
-            aria-label="Star adi518/vue-stepper-component on GitHub">
-            Star
-          </a>
+            aria-label="Star adi518/vue-stepper-component on GitHub">Star</a>
         </div>
 
         <!-- END -->
@@ -98,7 +98,7 @@
     <!-- FOOTER -->    
     <footer class="docs-footer docs-clearfix">
       <p class="docs-credit mt-2 mb-2">
-        Made with&nbsp;&nbsp;<v-octicon icon-name="heart" style="fill: red; width: 1rem; height: auto"></v-octicon>&nbsp;&nbsp;by
+        Made with&nbsp;&nbsp;<v-octicon icon-name="heart" style="fill: #ff0000; width: 1.3rem; height: 1.3rem"></v-octicon>&nbsp;&nbsp;by
         <v-a href="https://github.com/adi518">@adi518</v-a>
       </p>
     </footer>
@@ -117,6 +117,7 @@
 
 import pkg from '@repo/package'
 
+import path from 'path'
 import Prism from 'prismjs'
 import truncate from 'lodash.truncate'
 import Ripple from 'vue-ripple-directive'
@@ -137,8 +138,8 @@ import { VStepper, Utils, Model as Step } from 'vue-stepper-component'
 import VA from '@/components/Anchor'
 import VScopedSlot from '@/components/ScopedSlot'
 
-import store from '@/store'
-import { mapState } from 'vuex'
+import { dispatch } from '@/store'
+import { mapGetters } from 'vuex'
 
 import readme from '@repo/README.md'
 
@@ -178,19 +179,40 @@ export default {
       flags: {
         debug: false,
         linear: true,
-        persist: true,
+        persist: false,
         production: production
       }
     }
   },
   watch: {
-    'stepper.model'(model) {
-      store.commit('stepper_model', model)
+    'stepper.model'(model, oldModel) {
+      /**
+       * Update router.
+       */
+      this.$router.push({ name: `Step ${model.step}` })
+
+      /**
+       * Bind model to store.
+       */
+      dispatch('SET', model)
+    },
+    $route(route) {
+      /**
+       * Bind route to store.
+       */
+      if (route.meta.hasOwnProperty('step')) {
+        dispatch('SET_STEP', route.meta.step)
+      }
     }
   },
   created() {
     /**
-     * Remove storage of stale Stepper instances.
+     * Synchronize stepper from router.
+     */
+    // this.syncStore(this.$route)
+
+    /**
+     * Remove storage of stale stepper instances.
      */
     Utils.removeStaleStorage(this.stepper.model.id)
   },
@@ -201,15 +223,7 @@ export default {
     window.setTimeout(Prism.highlightAll)
   },
   computed: {
-    ...mapState(['stepper']),
-    // model: {
-    //   get() {
-    //     return this.stepper.model
-    //   },
-    //   set(payload) {
-    //     store.commit('stepper', payload)
-    //   }
-    // },
+    ...mapGetters(['stepper']),
     einy() {
       const lorem = `
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -340,7 +354,7 @@ h3,
 h4,
 h5,
 h6 {
-  > a {
+  &:not(.no-anchor) > a {
     color: $app-color-white;
 
     &:hover {
@@ -377,9 +391,17 @@ code {
   margin-left: auto;
   margin-right: auto;
   font-size: 2.7rem;
-  position: relative;
+  justify-content: center;
   text-transform: lowercase;
   text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+
+  a {
+    color: inherit;
+
+    &:hover {
+      text-decoration: inherit;
+    }
+  }
 }
 /* Headings end */
 
@@ -500,7 +522,8 @@ code {
 .docs-footer {
   display: flex;
   margin-top: 2rem;
-  min-height: 5rem;
+  height: 0; // Fix IE `align-items: center`
+  min-height: 6rem;
   align-items: center;
   justify-content: center;
   background-image: linear-gradient(

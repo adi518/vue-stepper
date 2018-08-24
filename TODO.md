@@ -1,5 +1,6 @@
 - [x] Plugin
 - [x] Export
 - [x] Bundle
-- [ ] Tests
+- [ ] Unit Tests
+- [ ] E2E Tests
 - [ ] SSR Support

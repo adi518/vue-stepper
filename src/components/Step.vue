@@ -79,13 +79,6 @@ export default {
   *::after {
     box-sizing: inherit;
   }
-
-  @media (max-width: 575px) {
-    &:not(:last-child) {
-      // Bootstrap "xs"
-      margin-right: 0.5rem;
-    }
-  }
 }
 
 .index {

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-menu :routes="routes" @open="handleOpen" @close="handleClose">
+    <v-menu :routes="routes" :exclude="['Step 1', 'Step 2', 'Step 3']" @open="handleOpen" @close="handleClose">
       <template slot="last-child">
         <a
         class="github-button"
@@ -44,31 +44,15 @@ export default {
       /**
        * Log route for debugging purposes.
        */
-      console.log(this.$route)
+      if (this.debug) {
+        console.log(this.$route)
+      }
     }
   },
   mounted() {
     this.ghstar = document.getElementById('github-star')
   },
-  watch: {
-    /**
-    Listen to changes triggered by
-    navigation buttons (back/forward),
-    and programmatic changes (`router.push`).
-     */
-    $route: {
-      handler(route) {
-        this.changeRoute(route)
-      }
-    }
-  },
-  computed: {
-    ...mapState(['count'])
-  },
   methods: {
-    changeRoute(route) {
-      router.push({ name: route && router.name })
-    },
     handleOpen({ width }) {
       const { ghstar } = this
 

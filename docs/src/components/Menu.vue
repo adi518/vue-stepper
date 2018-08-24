@@ -24,6 +24,7 @@
 // https://stackoverflow.com/questions/4616694/what-is-event-bubbling-and-capturing
 // https://stackoverflow.com/questions/39589911/svg-image-not-working-in-safari-5-1-7-windows
 
+import reject from 'lodash.reject'
 import { flattenRoutes } from 'vue-flatten-routes'
 
 import token from '@/assets/images/logo.svg'
@@ -32,6 +33,10 @@ export default {
   name: 'VMenu',
   props: {
     routes: {
+      type: Array,
+      default: () => []
+    },
+    exclude: {
       type: Array,
       default: () => []
     }
@@ -68,7 +73,9 @@ export default {
       }
     },
     computedRoutes() {
-      return flattenRoutes(this.routes)
+      return reject(flattenRoutes(this.routes), route =>
+        this.exclude.includes(route.name || route.path)
+      )
     }
   },
   methods: {
