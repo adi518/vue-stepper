@@ -212,11 +212,6 @@ export default {
   },
   created() {
     /**
-     * Synchronize stepper from router.
-     */
-    // this.syncStore(this.$route)
-
-    /**
      * Remove storage of stale stepper instances.
      */
     Utils.removeStaleStorage(this.stepper.model.id)
