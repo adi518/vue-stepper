@@ -88,12 +88,12 @@ export default {
   flex-shrink: 0;
   font-size: 1.5rem;
   border-radius: 50%;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
   color: $app-color-white;
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  border: 1px solid $app-color-wild-sand;
+  border: 2px solid rgba($app-color-wild-sand, 0.5);
 
   &.is-active,
   &.is-visited {

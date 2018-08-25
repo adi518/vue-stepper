@@ -185,9 +185,14 @@ export default {
     }
   },
   watch: {
+    /**
+     * Two-way binding:
+     * 1. Local state to store.
+     * 2. Route state to store.
+     */
     'stepper.model'(model, oldModel) {
       /**
-       * Update router.
+       * Bind model to router.
        */
       this.$router.push({ name: `Step ${model.step}` })
 

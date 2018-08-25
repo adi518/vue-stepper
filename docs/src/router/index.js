@@ -49,11 +49,9 @@ const router = new Router({ routes })
 import { getters } from '@/store'
 
 /**
- * Listen to changes triggered by
- * navigation buttons (back/forward),
- * and programmatic changes (`router.push`).
- * In linear mode, possible steps are
- * only next, current or previous.
+ * Guard from illogical step routes.
+ * E.g.: In linear mode, possible steps
+ * are only current, next or previous.
  */
 router.beforeEach((to, from, next) => {
   const route = to
