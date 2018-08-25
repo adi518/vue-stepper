@@ -8,7 +8,7 @@ export { default as Utils } from '@/modules/Stepper.Utils'
 export { default as VStep } from '@/components/Step'
 export { default as VStepper } from '@/components/Stepper'
 export { default as VStepBare } from '@/components/Step.Bare'
-export { default as VStepperContainer } from '@/components/Stepper.container'
+export { default as VStepperContainer } from '@/components/Steps.Container'
 
 export const Model = Utils.Model
 

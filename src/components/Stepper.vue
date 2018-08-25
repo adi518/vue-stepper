@@ -52,7 +52,7 @@
 
 <script>
 import Step from './Step'
-import Container from './Stepper.Container'
+import Container from './Steps.Container'
 import StepContainer from './Step.Container'
 
 import utils from '@/modules/Utils'
@@ -226,13 +226,11 @@ export default {
 
     /**
      * When internal property `index` changes,
-     * convert to value and update v-model.
+     * convert to display and update v-model.
      */
     index: {
       handler(index, oldIndex) {
         const display = this.toDisplay(index)
-        // this.oldIndex = oldIndex === undefined && null
-        // this.oldDisplay = this.toDisplay(oldIndex)
         this.emit(display)
       },
       immediate: true

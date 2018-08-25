@@ -6,12 +6,12 @@
 
 <script>
 export default {
-  name: 'v-stepper-container'
+  name: 'v-steps-container'
 }
 </script>
 
 <style lang="scss" scoped>
-.v-stepper-container {
+.v-steps-container {
   display: flex;
   width: inherit;
   user-select: none;
