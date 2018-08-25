@@ -19,15 +19,6 @@ export class Stepper {
   }
 
   /**
-   * Maps display value to index.
-   * @param {number} display
-   * @returns {number}
-   */
-  toIndex(display = 0) {
-    return display - 1
-  }
-
-  /**
    * Whether step exists in stepper.
    * @returns {boolean}
    */
@@ -36,6 +27,7 @@ export class Stepper {
   }
 
   /**
+   * Current step.
    * @returns {number}
    */
   get step() {
@@ -43,6 +35,7 @@ export class Stepper {
   }
 
   /**
+   * Next step.
    * @returns {number}
    */
   get next() {
@@ -50,6 +43,7 @@ export class Stepper {
   }
 
   /**
+   * Previous step.
    * @returns {number}
    */
   get previous() {

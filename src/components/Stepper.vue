@@ -361,7 +361,7 @@ export default {
      * @param {number} index
      * @returns {number}
      */
-    toDisplay(index = 0) {
+    toDisplay(index) {
       return index + 1
     },
 
@@ -370,13 +370,12 @@ export default {
      * @param {number} display
      * @returns {number}
      */
-    toIndex(display = 0) {
+    toIndex(display) {
       return display - 1
     },
 
     /**
-     * Whether a step
-     * exists or not.
+     * Whether a step exists or not.
      * @param {number} index
      * @returns {boolean}
      */
